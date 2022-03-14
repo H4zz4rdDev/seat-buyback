@@ -1,5 +1,11 @@
-![SeAT](http://i.imgur.com/aPPOxSK.png)
-# package-example
+# seat-buyback
+___
+A module for [SeAT](https://github.com/eveseat/seat) that makes your life with corporation buyback programs easier
 
-## This repository contains an example SeAT package
-Please use the main SeAT repository [here](https://github.com/eveseat/seat) for issues.
+In case of problems please contact us via EVE-Online message:
+- H4zz4rd
+- ...
+
+## Quick Installation Guide:
+___
+coming soon...
