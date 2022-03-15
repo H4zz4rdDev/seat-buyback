@@ -109,7 +109,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
      */
     private function add_translations()
     {
-        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'yourpackage');
+        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'buyback');
     }
 
     /**
@@ -117,7 +117,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
      */
     private function add_views()
     {
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'yourpackage');
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'buyback');
     }
 
     /**
@@ -147,7 +147,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
      */
     public function getName(): string
     {
-        return 'Your Package Friendly Name';
+        return 'SeatCorpBuyback';
     }
 
     /**
@@ -159,7 +159,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
      */
     public function getPackageRepositoryUrl(): string
     {
-        return 'https://example.com';
+        return 'https://github.com/WipeOut-Inc/seat-buyback';
     }
 
     /**
@@ -171,7 +171,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
      */
     public function getPackagistPackageName(): string
     {
-        return 'your-package';
+        return 'wipeoutinc/seat-buyback';
     }
 
     /**
@@ -183,7 +183,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
      */
     public function getPackagistVendorName(): string
     {
-        return 'author';
+        return 'WipeOutInc';
     }
 
     /**

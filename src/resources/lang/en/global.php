@@ -21,7 +21,7 @@
  */
 
 return [
-    'browser_title' => 'Browser Title',
-    'page_title' => 'Page Title',
-    'page_subtitle' => 'Page Sub-title',
+    'browser_title' => 'Corporation Buyback',
+    'page_title' => 'Corporation Buyback',
+    'page_subtitle' => 'BlaBlaBla',
 ];

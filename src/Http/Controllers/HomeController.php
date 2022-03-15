@@ -36,6 +36,6 @@ class HomeController extends Controller
     public function getHome()
     {
 
-        return view('yourpackage::myview');
+        return view('buyback::buyback');
     }
 }
