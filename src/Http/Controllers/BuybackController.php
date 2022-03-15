@@ -3,6 +3,7 @@
 namespace WipeOutInc\Seat\SeatBuyback\Http\Controllers;
 
 use Seat\Web\Http\Controllers\Controller;
+use WipeOutInc\Seat\SeatBuyback\Helpers;
 
 /**
  * Class BuybackController.
@@ -16,7 +17,8 @@ class BuybackController extends Controller
      */
     public function getHome()
     {
-
-        return view('buyback::buyback');
+        return view('buyback::buyback', [
+            'evepraisal' => Helpers\EvePraisalHelper::GetEvePraisalData()
+        ]);
     }
 }
