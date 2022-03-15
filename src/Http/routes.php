@@ -28,7 +28,7 @@ Route::group([
     // Your route definitions go here.
     Route::get('/buyback', [
         'as'   => 'buyback.home',
-        'uses' => 'HomeController@getHome'
+        'uses' => 'BuybackController@getHome'
     ]);
 
 });
