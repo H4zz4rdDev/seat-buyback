@@ -19,16 +19,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+use WipeOutInc\Seat\SeatBuyback\Http\Controllers\BuybackController;
+
 // Namespace all of the routes for this package.
 Route::group([
     'namespace'  => 'WipeOutInc\Seat\SeatBuyback\Http\Controllers',
     'middleware' => ['web', 'auth', 'locale'],
 ], function () {
-
-    // Your route definitions go here.
-    Route::get('/buyback', [
-        'as'   => 'buyback.home',
-        'uses' => 'BuybackController@getHome'
-    ]);
-
+    Route::get('/buyback', [BuybackController::class, 'getHome'])->name("buyback.home");
+    Route::post('/buyback', [BuybackController::class, 'checkItems'])->name("buyback.check");
 });
