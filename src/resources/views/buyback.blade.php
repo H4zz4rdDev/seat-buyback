@@ -6,14 +6,14 @@
 @section('left')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('buyback.check') }}" method="post" id="mumble-register">
+            <form action="{{ route('buyback.check') }}" method="post" id="item-check" name="item-check">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="items">Start a Corp-Buyback Request</label>
                     <p>Copy and paste your Items into the input field and press on the "Send" button</p>
                     <textarea name="items" cols="75" rows="10"></textarea>
                 </div>
-                <button type="submit" class="btn btn-success" form="mumble-register">Send</button>
+                <button type="submit" class="btn btn-success" form="item-check">Send</button>
             </form>
         </div>
     </div>
