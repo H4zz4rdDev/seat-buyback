@@ -17,7 +17,18 @@
             </form>
         </div>
     </div>
+@stop
 
+@section('center')
+    <div class="card">
+        <div class="card-body">
+            @if(!empty($eve_item_data))
+                @foreach($eve_item_data as $item)
+                    <P>{{ $item["name"] }} - {{ $item["quantity"] }}</P>
+                @endforeach
+            @endif
+        </div>
+    </div>
 @stop
 
 @push('javascript')
