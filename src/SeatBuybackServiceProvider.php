@@ -34,8 +34,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
     {
         $this->add_routes();
 
-        // Uncomment this block to add API documentation
-        // $this->add_api_endpoints();
+        $this->add_api_endpoints();
 
         $this->add_publications();
 

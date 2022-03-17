@@ -31,7 +31,7 @@
                     <tbody>
                         @foreach($group["Items"] as $item)
                             <tr>
-                                <td>{{ $item["quantity"] }} x {{ $item["name"] }}</td>
+                                <td><img src="https://images.evetech.net/types/{{ $item["typeID"] }}/icon?size=32"/> {{ $item["quantity"] }} x {{ $item["name"] }}</td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -35,6 +35,7 @@ class EvePraisalHelper {
             $result = DB::table('invTypes as it')
                 ->join('invGroups as ig', 'it.groupID', '=', 'ig.GroupID')
                 ->select(
+                    'it.typeID as typeID',
                     'it.typeName as typeName',
                     'it.description as description',
                     'ig.GroupName as groupName',
@@ -61,6 +62,17 @@ class EvePraisalHelper {
         return $parsedItems;
     }
 
+    public static function getItemTypeId(string $itemName) : ?int {
+
+        $result = DB::table('invTypes')
+                  ->select(
+                    'typeID'
+                  )
+                  ->where('typeName', '=', $itemName)
+                  ->first();
+        return ($result == null) ? null : $result->typeID;
+    }
+
     private static function parseRawData(string $item_string) : ?array {
 
         $sorted_item_data = [];
@@ -72,6 +84,7 @@ class EvePraisalHelper {
 
             if(!array_key_exists($item_name,$sorted_item_data)) {
                 $sorted_item_data[$item_name]["name"] = $item_name;
+                $sorted_item_data[$item_name]["typeID"] = self::getItemTypeId($item_name);
                 $sorted_item_data[$item_name]["quantity"] = 0;
             }
 
