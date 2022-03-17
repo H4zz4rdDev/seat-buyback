@@ -20,6 +20,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 use WipeOutInc\Seat\SeatBuyback\Http\Controllers\BuybackController;
+use WipeOutInc\Seat\SeatBuyback\Http\Controllers\BuybackAdminController;
 
 // Namespace all of the routes for this package.
 Route::group([
@@ -27,5 +28,6 @@ Route::group([
     'middleware' => ['web', 'auth', 'locale'],
 ], function () {
     Route::get('/buyback', [BuybackController::class, 'getHome'])->name("buyback.home");
+    Route::get('/buyback/admin', [BuybackAdminController::class, 'getHome'])->name("buyback.admin");
     Route::post('/buyback', [BuybackController::class, 'checkItems'])->name("buyback.check");
 });

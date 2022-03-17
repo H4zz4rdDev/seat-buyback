@@ -31,10 +31,16 @@ return [
         'route_segment' => 'buyback',
         'entries' => [
             [
-                'name' => 'menu-sub-entry-name',
-                'label' => 'buyback::menu.sub_level',
+                'name' => 'buyback-home-sub-menu',
+                'label' => 'buyback::menu.sub_home_level',
                 'icon' => 'fas fa-th-list',
                 'route' => 'buyback.home',
+            ],
+            [
+                'name' => 'buyback-admin-sub-menu',
+                'label' => 'buyback::menu.sub_admin_level',
+                'icon' => 'fas fa-th-list',
+                'route' => 'buyback.admin',
             ],
         ],
     ],
