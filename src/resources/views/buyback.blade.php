@@ -19,17 +19,28 @@
     </div>
 @stop
 
-@section('center')
-    <div class="card">
-        <div class="card-body">
-            @if(!empty($eve_item_data))
-                @foreach($eve_item_data as $item)
-                    <P>{{ $item["name"] }} - {{ $item["quantity"] }}</P>
+@if(!empty($eve_item_data))
+    @section('center')
+        <div class="card">
+            <div class="card-body">
+                @foreach($eve_item_data as $group)
+                <table class="table">
+                    <thead class="thead-dark">
+                        <th>{{ $group["marketGroupName"] }}</th>
+                    </thead>
+                    <tbody>
+                        @foreach($group["Items"] as $item)
+                            <tr>
+                                <td>{{ $item["quantity"] }} x {{ $item["name"] }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 @endforeach
-            @endif
+            </div>
         </div>
-    </div>
-@stop
+    @stop
+@endif
 
 @push('javascript')
     <script>

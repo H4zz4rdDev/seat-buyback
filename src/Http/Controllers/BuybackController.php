@@ -2,7 +2,6 @@
 
 namespace WipeOutInc\Seat\SeatBuyback\Http\Controllers;
 
-use Couchbase\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Seat\Web\Http\Controllers\Controller;
@@ -34,8 +33,10 @@ class BuybackController extends Controller
             return redirect('buyback')->withErrors(['errors' => trans('buyback::global.itemcheck.error')]);
         }
 
+        $parsedItems = Helpers\EvePraisalHelper::parseEveItemData($request->get('items'));
+
         return view('buyback::buyback', [
-            'eve_item_data' => Helpers\EvePraisalHelper::parseEveItemData($request->get('items'))
+            'eve_item_data' => $parsedItems
         ]);
     }
 }

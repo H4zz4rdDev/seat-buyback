@@ -2,6 +2,8 @@
 
 namespace WipeOutInc\Seat\SeatBuyback\Helpers;
 
+use Illuminate\Support\Facades\DB;
+
 /**
  * Class EvePraisalHelper.
  *
@@ -16,11 +18,50 @@ class EvePraisalHelper {
         return "Coming soon...";
     }
 
-    public static function parseEveItemData(string $item_string) {
+    public static function parseEveItemData(string $item_string) : ?array {
 
         if(empty($item_string)) {
             return null;
         }
+
+        return self::categorizeItems(self::parseRawData($item_string));
+    }
+
+    private static function categorizeItems(array $itemData) : ?array {
+
+        $parsedItems = [];
+        foreach ($itemData as $key => $item) {
+
+            $result = DB::table('invTypes as it')
+                ->join('invGroups as ig', 'it.groupID', '=', 'ig.GroupID')
+                ->select(
+                    'it.typeName as typeName',
+                    'it.description as description',
+                    'ig.GroupName as groupName',
+                    'ig.GroupID as groupID'
+                )
+                ->where('it.typeName', '=', $key)
+                ->first();
+
+            if(empty($result)) {
+                continue;
+            }
+
+            $groupID = $result->groupID;
+            if (!array_key_exists($groupID, $parsedItems)) {
+                $parsedItems[$groupID] = [
+                    'groupID' => $groupID,
+                    'marketGroupName' => $result->groupName,
+                    'Items' => []
+                ];
+            }
+            $parsedItems[$groupID]["Items"][] = $item;
+        }
+
+        return $parsedItems;
+    }
+
+    private static function parseRawData(string $item_string) : ?array {
 
         $sorted_item_data = [];
 
