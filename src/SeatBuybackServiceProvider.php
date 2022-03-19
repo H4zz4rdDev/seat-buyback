@@ -146,7 +146,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
      */
     public function getName(): string
     {
-        return 'SeatCorpBuyback';
+        return 'Seat Corp-Buyback';
     }
 
     /**

@@ -7,6 +7,9 @@
     <div class="card">
         <div class="card-body">
             <p>Adminpanel</p>
+            <div class="container mt-5">
+                <select class="groupsearch form-control" name="groupsearch"></select>
+            </div>
         </div>
     </div>
 @stop
@@ -14,7 +17,25 @@
 @push('javascript')
     <script>
 
-        console.log('Include any JavaScript you may need here!');
+        $('.groupsearch').select2({
+            placeholder: 'Select group',
+            ajax: {
+                url: '/autocomplete',
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
 
     </script>
 @endpush
