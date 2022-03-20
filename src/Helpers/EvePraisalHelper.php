@@ -29,6 +29,7 @@ class EvePraisalHelper {
         foreach ($parsedRawData as $key => $item) {
             $priceData = EveMarketerHelper::getInstance()->getItemPrice($item["typeID"]);
             $parsedRawData[$key]["price"] = $priceData[0]["buy"]["median"];
+            $parsedRawData[$key]["sum"] = $priceData[0]["buy"]["median"] * $parsedRawData[$key]["quantity"];
         }
 
         return self::categorizeItems($parsedRawData);
@@ -94,6 +95,7 @@ class EvePraisalHelper {
                 $sorted_item_data[$item_name]["typeID"] = self::getItemTypeId($item_name);
                 $sorted_item_data[$item_name]["quantity"] = 0;
                 $sorted_item_data[$item_name]["price"] = 0;
+                $sorted_item_data[$item_name]["sum"] = 0;
             }
 
             if($item_data_details[1] <= 0) {

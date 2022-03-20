@@ -38,8 +38,8 @@
                     @foreach($group["Items"] as $item)
                         <tr>
                             <td><img src="https://images.evetech.net/types/{{ $item["typeID"] }}/icon?size=32"/>
-                                <b>{{ $item["quantity"] }} x {{ $item["name"] }}</b>( <span
-                                        class="isk-info">{{ number_format($item["price"],2,',', '.') }}</span> ISK )
+                                <b>{{ $item["quantity"] }} x {{ $item["name"] }}</b> ( <span
+                                        class="isk-info">+{{ number_format($item["sum"],0,',', '.') }}</span> ISK )
                             </td>
                         </tr>
                     @endforeach
