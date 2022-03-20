@@ -192,6 +192,6 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
      */
     public function getVersion(): string
     {
-        return config('yourpackage.config.version');
+        return config('buyback.config.version');
     }
 }
