@@ -50,8 +50,8 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/Config/yourpackage.config.php', 'yourpackage.config');
-        $this->mergeConfigFrom(__DIR__ . '/Config/yourpackage.locale.php', 'yourpackage.locale');
+        $this->mergeConfigFrom(__DIR__ . '/Config/buyback.config.php', 'buyback.config');
+        $this->mergeConfigFrom(__DIR__ . '/Config/buyback.locale.php', 'buyback.locale');
 
         // Overload sidebar with your package menu entries
         $this->mergeConfigFrom(__DIR__ . '/Config/Menu/package.sidebar.php', 'package.sidebar');

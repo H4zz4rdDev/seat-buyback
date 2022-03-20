@@ -24,7 +24,14 @@ class EvePraisalHelper {
             return null;
         }
 
-        return self::categorizeItems(self::parseRawData($item_string));
+        $parsedRawData = self::parseRawData($item_string);
+
+        foreach ($parsedRawData as $key => $item) {
+            $priceData = EveMarketerHelper::getInstance()->getItemPrice($item["typeID"]);
+            $parsedRawData[$key]["price"] = $priceData[0]["buy"]["median"];
+        }
+
+        return self::categorizeItems($parsedRawData);
     }
 
     private static function categorizeItems(array $itemData) : ?array {
@@ -86,6 +93,7 @@ class EvePraisalHelper {
                 $sorted_item_data[$item_name]["name"] = $item_name;
                 $sorted_item_data[$item_name]["typeID"] = self::getItemTypeId($item_name);
                 $sorted_item_data[$item_name]["quantity"] = 0;
+                $sorted_item_data[$item_name]["price"] = 0;
             }
 
             if($item_data_details[1] <= 0) {
