@@ -4,6 +4,7 @@ namespace WipeOutInc\Seat\SeatBuyback\Helpers;
 
 use Illuminate\Support\Facades\Cache;
 use WipeOutInc\Seat\SeatBuyback\Exceptions\EveMarketerException;
+use WipeOutInc\Seat\SeatBuyback\Exceptions\SettingsException;
 
 /**
  * Class EveMarketerHelper.
@@ -14,7 +15,16 @@ class EveMarketerHelper {
 
     const BASE_URI = "https://api.evemarketer.com/ec/marketstat/json";
 
-    const CACHE_TIME = 3600;
+    public $price_cache_time;
+
+    public function __construct()
+    {
+        try {
+            $this->price_cache_time = SettingsHelper::getInstance()->getSetting("admin_price_cache_time");
+        } catch (SettingsException $e) {
+            \Log::error('QueryException: ' . $e->getMessage());
+        }
+    }
 
     /**
      * @var EveMarketerHelper
@@ -74,7 +84,7 @@ class EveMarketerHelper {
         }
 
         $priceData = self::makeMarketerCall($itemTypeId);
-        Cache::put($itemTypeId, $priceData, self::CACHE_TIME);
+        Cache::put($itemTypeId, $priceData, (int)$this->price_cache_time);
 
         return $priceData;
     }

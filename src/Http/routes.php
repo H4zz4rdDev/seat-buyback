@@ -29,7 +29,8 @@ Route::group([
     'middleware' => ['web', 'auth', 'locale'],
 ], function () {
     Route::get('/buyback', [BuybackController::class, 'getHome'])->name("buyback.home");
-    Route::get('/buyback/admin', [BuybackAdminController::class, 'getHome'])->name("buyback.admin");
     Route::post('/buyback', [BuybackController::class, 'checkItems'])->name("buyback.check");
+    Route::get('/buyback/admin', [BuybackAdminController::class, 'getHome'])->name("buyback.admin");
+    Route::post('/buyback/admin', [BuybackAdminController::class, 'updateSettings'])->name("buyback.admin-update");
     Route::get('/autocomplete', [SearchController::class, 'autocomplete'])->name("autocomplete");
 });
