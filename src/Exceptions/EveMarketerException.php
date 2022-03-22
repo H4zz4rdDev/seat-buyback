@@ -1,6 +1,6 @@
 <?php
 
-namespace WipOutInc\Seat\SeatBuyback\Exceptions;
+namespace WipeOutInc\Seat\SeatBuyback\Exceptions;
 
 use Exception;
 

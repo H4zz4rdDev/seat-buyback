@@ -3,7 +3,7 @@
 namespace WipeOutInc\Seat\SeatBuyback\Helpers;
 
 use Illuminate\Support\Facades\Cache;
-use WipOutInc\Seat\SeatBuyback\Exceptions\EveMarketerException;
+use WipeOutInc\Seat\SeatBuyback\Exceptions\EveMarketerException;
 
 /**
  * Class EveMarketerHelper.

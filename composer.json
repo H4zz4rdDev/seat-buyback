@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "WipOutInc\\Seat\\SeatBuyback\\": "src/"
+            "WipeOutInc\\Seat\\SeatBuyback\\": "src/"
         }
     },
     "minimum-stability": "dev",
