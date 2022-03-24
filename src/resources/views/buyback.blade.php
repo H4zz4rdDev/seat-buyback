@@ -21,6 +21,47 @@
             </form>
         </div>
     </div>
+@if(!empty($eve_item_data))
+    <div class="card">
+        <div class="card-header" style="background-color: #da3545">
+            <div class="card-title" style="color: white">
+                <dl>
+                    <dt><i class='fas fa-ban'></i> Ignored Items</dt>
+                    <dd>This items are currently <b>not</b> bought by your corporation</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <ul style="list-style-type: square">
+                    <li>
+                        <img src="https://images.evetech.net/types/21898/icon?size=32">
+                        600 x Republic Fleet EMP S
+                    </li>
+                    <li>
+                        <img src="https://images.evetech.net/types/21898/icon?size=32">
+                        600 x Republic Fleet EMP S
+                    </li>
+                    <li>
+                        <img src="https://images.evetech.net/types/21898/icon?size=32">
+                        600 x Republic Fleet EMP S
+                    </li>
+                    <li>
+                        <img src="https://images.evetech.net/types/21898/icon?size=32">
+                        600 x Republic Fleet EMP S
+                    </li><li>
+                        <img src="https://images.evetech.net/types/21898/icon?size=32">
+                        600 x Republic Fleet EMP S
+                    </li>
+                    <li>
+                        <img src="https://images.evetech.net/types/21898/icon?size=32">
+                        600 x Republic Fleet EMP S
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+@endif
 @stop
 
 @if(!empty($eve_item_data))
