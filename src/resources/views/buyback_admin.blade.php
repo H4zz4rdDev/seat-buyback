@@ -1,7 +1,7 @@
 @extends('web::layouts.grids.6-6')
 
-@section('title', trans('buyback::global.browser_title'))
-@section('page_header', trans('buyback::global.page_title'))
+@section('title', trans('buyback::global.admin_browser_title'))
+@section('page_header', trans('buyback::global.admin_page_title'))
 
 @section('left')
     <div class="card">

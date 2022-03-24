@@ -15,7 +15,6 @@ use WipeOutInc\Seat\SeatBuyback\Exceptions\SettingsException;
  */
 class BuybackAdminController extends Controller
 {
-
     /**
      * @return mixed
      */

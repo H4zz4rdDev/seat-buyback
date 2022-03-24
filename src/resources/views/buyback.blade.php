@@ -32,15 +32,15 @@
             @foreach($eve_item_data as $group)
                 <table class="table">
                     <thead class="thead-dark">
-                    <th>{{ $group["marketGroupName"] }}</th>
+                    <th colspan="2">{{ $group["marketGroupName"] }}</th>
                     </thead>
                     <tbody>
                     @foreach($group["Items"] as $item)
                         <tr>
                             <td><img src="https://images.evetech.net/types/{{ $item["typeID"] }}/icon?size=32"/>
-                                <b>{{ $item["quantity"] }} x {{ $item["name"] }}</b> ( <span
-                                        class="isk-info">+{{ number_format($item["sum"],0,',', '.') }}</span> ISK )
+                                <b>{{ $item["quantity"] }} x {{ $item["name"] }}</b>
                             </td>
+                            <td class="isk-td"><span class="isk-info">+{{ number_format($item["sum"],0,',', '.') }}</span> ISK</td>
                         </tr>
                     @endforeach
                     </tbody>

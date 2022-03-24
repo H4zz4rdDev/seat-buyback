@@ -23,6 +23,8 @@
 return [
     'browser_title' => 'Corporation Buyback',
     'page_title' => 'Corporation Buyback',
+    'admin_browser_title' => 'Corporation Buyback Settings',
+    'admin_page_title' => 'Corporation Buyback Settings',
     'page_subtitle' => 'Corporation Buyback',
     'itemcheck.error' => 'Please don\'t send an empty form field'
 ];
