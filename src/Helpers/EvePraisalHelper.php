@@ -12,19 +12,25 @@ use Illuminate\Support\Facades\DB;
 class EvePraisalHelper {
 
     /**
-     * @return string
+     * @var EvePraisalHelper
      */
-    public static function getEvePraisalData () : string {
-        return "Coming soon...";
+    private static $instance;
+
+    public static function getInstance() : EvePraisalHelper {
+        if(!isset(self::$instance)) {
+            self::$instance = new EvePraisalHelper();
+        }
+
+        return self::$instance;
     }
 
-    public static function parseEveItemData(string $item_string) : ?array {
+    public function parseEveItemData(string $item_string) : ?array {
 
         if(empty($item_string)) {
             return null;
         }
 
-        $parsedRawData = self::parseRawData($item_string);
+        $parsedRawData = $this->parseRawData($item_string);
 
         foreach ($parsedRawData as $key => $item) {
             $priceData = EveMarketerHelper::getInstance()->getItemPrice($item["typeID"]);
@@ -32,10 +38,10 @@ class EvePraisalHelper {
             $parsedRawData[$key]["sum"] = $priceData[0]["buy"]["median"] * $parsedRawData[$key]["quantity"];
         }
 
-        return self::categorizeItems($parsedRawData);
+        return $this->categorizeItems($parsedRawData);
     }
 
-    private static function categorizeItems(array $itemData) : ?array {
+    private function categorizeItems(array $itemData) : ?array {
 
         $parsedItems = [];
         foreach ($itemData as $key => $item) {
@@ -61,7 +67,7 @@ class EvePraisalHelper {
                 $parsedItems[$groupID] = [
                     'groupID' => $groupID,
                     'marketGroupName' => $result->groupName,
-                    'Items' => []
+                    'items' => []
                 ];
             }
             $parsedItems[$groupID]["Items"][] = $item;
@@ -70,7 +76,7 @@ class EvePraisalHelper {
         return $parsedItems;
     }
 
-    public static function getItemTypeId(string $itemName) : ?int {
+    public function getItemTypeId(string $itemName) : ?int {
 
         $result = DB::table('invTypes')
                   ->select(
@@ -81,7 +87,7 @@ class EvePraisalHelper {
         return ($result == null) ? null : $result->typeID;
     }
 
-    private static function parseRawData(string $item_string) : ?array {
+    private function parseRawData(string $item_string) : ?array {
 
         $sorted_item_data = [];
 
@@ -92,7 +98,7 @@ class EvePraisalHelper {
 
             if(!array_key_exists($item_name,$sorted_item_data)) {
                 $sorted_item_data[$item_name]["name"] = $item_name;
-                $sorted_item_data[$item_name]["typeID"] = self::getItemTypeId($item_name);
+                $sorted_item_data[$item_name]["typeID"] = $this->getItemTypeId($item_name);
                 $sorted_item_data[$item_name]["quantity"] = 0;
                 $sorted_item_data[$item_name]["price"] = 0;
                 $sorted_item_data[$item_name]["sum"] = 0;

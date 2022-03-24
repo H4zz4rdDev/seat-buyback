@@ -19,9 +19,7 @@ class BuybackController extends Controller
      */
     public function getHome()
     {
-        return view('buyback::buyback', [
-            'evepraisal' => Helpers\EvePraisalHelper::getEvePraisalData()
-        ]);
+        return view('buyback::buyback');
     }
 
     /**
@@ -33,7 +31,7 @@ class BuybackController extends Controller
             return redirect('buyback')->withErrors(['errors' => trans('buyback::global.itemcheck.error')]);
         }
 
-        $parsedItems = Helpers\EvePraisalHelper::parseEveItemData($request->get('items'));
+        $parsedItems = Helpers\EvePraisalHelper::getInstance()->parseEveItemData($request->get('items'));
 
         return view('buyback::buyback', [
             'eve_item_data' => $parsedItems

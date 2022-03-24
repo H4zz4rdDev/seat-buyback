@@ -56,7 +56,7 @@ class EveMarketerHelper {
         $prices = [];
 
         foreach($itemTypeIds as $itemTypeId) {
-            $prices[$itemTypeId] = self::getItemPrice($itemTypeId);
+            $prices[$itemTypeId] = $this->getItemPrice($itemTypeId);
         }
 
         return $prices;
@@ -83,7 +83,7 @@ class EveMarketerHelper {
             return Cache::get($itemTypeId);
         }
 
-        $priceData = self::makeMarketerCall($itemTypeId);
+        $priceData = $this->makeMarketerCall($itemTypeId);
         Cache::put($itemTypeId, $priceData, (int)$this->price_cache_time);
 
         return $priceData;

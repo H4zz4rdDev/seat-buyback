@@ -35,7 +35,7 @@
                     <th colspan="2">{{ $group["marketGroupName"] }}</th>
                     </thead>
                     <tbody>
-                    @foreach($group["Items"] as $item)
+                    @foreach($group["items"] as $item)
                         <tr>
                             <td><img src="https://images.evetech.net/types/{{ $item["typeID"] }}/icon?size=32"/>
                                 <b>{{ $item["quantity"] }} x {{ $item["name"] }}</b>
