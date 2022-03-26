@@ -70,7 +70,7 @@ class EvePraisalHelper {
                     'items' => []
                 ];
             }
-            $parsedItems[$groupID]["Items"][] = $item;
+            $parsedItems[$groupID]["items"][] = $item;
         }
 
         return $parsedItems;

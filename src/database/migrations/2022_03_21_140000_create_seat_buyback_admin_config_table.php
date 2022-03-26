@@ -19,6 +19,30 @@ class CreateSeatBuybackAdminConfigTable extends Migration {
             $table->string('value');
             $table->timestamps();
         });
+
+        //Init table with default config entries
+        $this->init();
+    }
+
+    /**
+     * @return void
+     */
+    private function init() : void  {
+
+        DB::table('buyback_admin_config')->insert([
+           'name' => 'admin_price_cache_time',
+           'value' => '3600'
+        ]);
+
+        DB::table('buyback_admin_config')->insert([
+            'name' => 'admin_max_allowed_items',
+            'value' => '20'
+        ]);
+
+        DB::table('buyback_admin_config')->insert([
+            'name' => 'admin_contract_contract_to',
+            'value' => 'EVECharacter'
+        ]);
     }
 
     /**
