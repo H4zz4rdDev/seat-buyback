@@ -43,6 +43,11 @@ class CreateSeatBuybackAdminConfigTable extends Migration {
             'name' => 'admin_contract_contract_to',
             'value' => 'EVECharacter'
         ]);
+
+        DB::table('buyback_admin_config')->insert([
+            'name' => 'admin_contract_expiration',
+            'value' => '4 Weeks'
+        ]);
     }
 
     /**
