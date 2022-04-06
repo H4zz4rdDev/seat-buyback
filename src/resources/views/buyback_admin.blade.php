@@ -13,32 +13,33 @@
         <div class="card-header">
             <h3 class="card-title">Add Group Config</h3>
         </div>
-        <form action="{{ route('buyback.admin-update') }}" method="post" id="admin-update" name="admin-update">
+        <form action="{{ route('buyback.admin-market') }}" method="post" id="admin-market-config" name="admin-market-config">
             <div class="card-body">
+                {{ csrf_field() }}
                 <p>Fill out the form below and press the add button to generate a new group config entry</p>
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group pt-1">
-                            <select class="groupsearch form-control input-xs" name="groupsearch"></select>
+                            <select class="groupsearch form-control input-xs" name="admin-market-groupId" id="admin-market-groupId"></select>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group text-center mt-2">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
-                                <label class="form-check-label" for="inlineRadio1"><i class="fas fa-arrow-down"></i></label>
+                                <input class="form-check-input" type="radio" name="admin-market-operation" id="admin-market-operation" value="0" checked>
+                                <label class="form-check-label" for="admin-market-operation"><i class="fas fa-arrow-down"></i></label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                <label class="form-check-label" for="inlineRadio2"><i class="fas fa-arrow-up"></i></label>
+                                <input class="form-check-input" type="radio" name="admin-market-operation" id="admin-market-operation-2" value="1">
+                                <label class="form-check-label" for="admin-market-operation-2"><i class="fas fa-arrow-up"></i></label>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <input id="admin_price_cache_time" name="admin_price_cache_time" type="text" class=" form-control" placeholder="%" maxlength="3">
+                        <input name="admin-market-percentage" id="admin-market-percentage" type="text" class=" form-control" placeholder="%" maxlength="3">
                     </div>
                     <div class="col">
-                        <button id="submit" type="submit" class="btn btn-info ml-2 form-control input-sm">
+                        <button id="submit" type="submit" class="btn btn-outline-success ml-2 form-control input-sm">
                             <i class="fas fa-check"></i>
                             Add
                         </button>
@@ -52,58 +53,33 @@
             <h3 class="card-title">Group Overview</h3>
         </div>
         <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="border rounded-left shadow-sm p-2 mb-2 bg-white">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <div class="row pl-3">
-                                <div class="col-md-* bg-info rounded-circle p-3 mr-3 align-middle text-center text-bold percentage-info">22%</div>
-                                <div class="col-md-* text-center my-auto mr-3"><i class="fas fa-arrow-down"></i></div>
-                                <div class="col-md-8 my-auto"><b>Asteroid Blood Raiders BattleCruiser</b></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="border rounded-left shadow-sm p-2 mb-2 bg-white">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <div class="row pl-3">
-                                <div class="col-md-* bg-info rounded-circle p-3 mr-3 align-middle text-center text-bold percentage-info">5%</div>
-                                <div class="col-md-* text-center my-auto mr-3"><i class="fas fa-arrow-down"></i></div>
-                                <div class="col-md-8 my-auto"><b>Rare Moon Asteroids</b></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="border rounded-left shadow-sm p-2 mb-2 bg-white">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <div class="row pl-3">
-                                <div class="col-md-* bg-info rounded-circle p-3 mr-3 align-middle text-center text-bold percentage-info">9%</div>
-                                <div class="col-md-* text-center my-auto mr-3"><i class="fas fa-arrow-down"></i></div>
-                                <div class="col-md-8 my-auto"><b>Shield Resistance Shift Hardener Blueprint</b></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="border rounded-left shadow-sm p-2 mb-2 bg-white">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <div class="row pl-3">
-                                <div class="col-md-* bg-info rounded-circle p-3 mr-3 align-middle text-center text-bold percentage-info">7%</div>
-                                <div class="col-md-* text-center my-auto mr-3"><i class="fas fa-arrow-down"></i></div>
-                                <div class="col-md-8 my-auto"><b>Exceptional Moon Asteroids</b></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <table class="table .table-sm">
+                <thead>
+                    <th colspan="5"></th>
+                </thead>
+                <thead>
+                <th class="text-center">GroupID</th>
+                <th class="text-center">GroupName</th>
+                <th class="text-center"><i class="fas fa-arrow-up"></i>/<i class="fas fa-arrow-down"></i> Jita</th>
+                <th class="text-center">Percentage</th>
+                <th class="text-center">Actions</th>
+                </thead>
+                <tbody>
+                @foreach($marketConfigs as $key => $config)
+                    <form action="{{ route('buyback.admin-market-remove', ['groupId' => $config->groupId]) }}" method="get" id="admin-market-config-remove" name="admin-market-config-remove">
+                        {{ csrf_field() }}
+                        <tr>
+                            <td class="text-center align-middle">{{ $config->groupId }}</td>
+                            <td class="align-middle">{{ \WipeOutInc\Seat\SeatBuyback\Models\BuybackMarketConfig::getGroupDetails($config->groupId)->groupName }}</td>
+                            <td class="text-center align-middle">{!! $config->marketGroupType == 0 ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>' !!}</td>
+                            <td class="text-center align-middle">{{ $config->percentage }}%</td>
+                            <td class="text-center mb-4 mt-4 align-middle"><button class="btn btn-outline-danger btn-sm form-control" id="submit" type="submit">Remove</button></td>
+                        </tr>
+                    </form>
+                @endforeach
+                </tbody>
+            </table>
+            <br/>
         </div>
     </div>
 
@@ -164,7 +140,7 @@
                 <div class="form-group row">
                     <label class="col-md-4 col-form-label" for="submit"></label>
                     <div class="col-md-4">
-                        <button id="submit" type="submit" class="btn btn-success">
+                        <button id="submit" type="submit" class="btn btn-outline-success">
                             <i class="fas fa-check"></i>
                             Update
                         </button>

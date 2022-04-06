@@ -101,7 +101,6 @@ class SettingsHelper
      */
     private function loadSettings(): void
     {
-
         try {
             $settingData = DB::table('buyback_admin_config')
                 ->get();
