@@ -18,51 +18,10 @@
                     <textarea name="items" cols="75" rows="10"></textarea>
                     <p><b>Max allowed Items: </b>{{ $maxAllowedItems }}</p>
                 </div>
-                <button type="submit" class="btn btn-success" form="item-check">Send</button>
+                <button type="submit" class="btn btn-outline-success" form="item-check">Send</button>
             </form>
         </div>
     </div>
-@if(!empty($eve_item_data))
-    <div class="card">
-        <div class="card-header" style="background-color: #da3545">
-            <div class="card-title" style="color: white">
-                <dl>
-                    <dt><i class='fas fa-ban'></i> Ignored Items</dt>
-                    <dd>This items are currently <b>not</b> bought by your corporation</dd>
-                </dl>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="form-group">
-                <ul style="list-style-type: square">
-                    <li>
-                        <img src="https://images.evetech.net/types/21898/icon?size=32">
-                        600 x Republic Fleet EMP S
-                    </li>
-                    <li>
-                        <img src="https://images.evetech.net/types/21898/icon?size=32">
-                        600 x Republic Fleet EMP S
-                    </li>
-                    <li>
-                        <img src="https://images.evetech.net/types/21898/icon?size=32">
-                        600 x Republic Fleet EMP S
-                    </li>
-                    <li>
-                        <img src="https://images.evetech.net/types/21898/icon?size=32">
-                        600 x Republic Fleet EMP S
-                    </li><li>
-                        <img src="https://images.evetech.net/types/21898/icon?size=32">
-                        600 x Republic Fleet EMP S
-                    </li>
-                    <li>
-                        <img src="https://images.evetech.net/types/21898/icon?size=32">
-                        600 x Republic Fleet EMP S
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-@endif
 @stop
 
 @if(!empty($eve_item_data))
@@ -71,7 +30,7 @@
         <div class="card-body">
             <label for="items">2. Contract Item Overview</label>
             <p>Please check the items and prices before you create the contract</p>
-            @foreach($eve_item_data as $group)
+            @foreach($eve_item_data["parsed"] as $group)
                 <table class="table">
                     <thead class="thead-dark">
                     <th class="align-centered" colspan="2">{{ $group["marketGroupName"] }}
@@ -91,6 +50,26 @@
                     </tbody>
                 </table>
             @endforeach
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" style="background-color: #da3545">
+            <div class="card-title" style="color: white">
+                <i class='fas fa-ban'></i> Ignored Items ( Not bought )
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <table class="table table-borderless">
+                    @foreach($eve_item_data["ignored"] as $item)
+                        <tr>
+                            <td><img src="https://images.evetech.net/types/{{ $item["ItemId"] }}/icon?size=32">
+                                {{ $item["ItemQuantity"] }} x {{ $item["ItemName"] }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
         </div>
     </div>
 @stop

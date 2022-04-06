@@ -42,44 +42,50 @@ class EvePraisalHelper {
         return $this->categorizeItems($parsedRawData);
     }
 
-    private function categorizeItems(array $itemData) : ?array {
-
+    private function categorizeItems(array $itemData) : ?array
+    {
         $parsedItems = [];
         foreach ($itemData as $key => $item) {
 
             $result = DB::table('invTypes as it')
                 ->join('invGroups as ig', 'it.groupID', '=', 'ig.GroupID')
+                ->rightJoin('buyback_market_config as bmc', 'it.groupID', '=', 'bmc.groupID')
                 ->select(
                     'it.typeID as typeID',
                     'it.typeName as typeName',
                     'it.description as description',
                     'ig.GroupName as groupName',
-                    'ig.GroupID as groupID'
+                    'ig.GroupID as groupID',
+                    'bmc.percentage',
+                    'bmc.marketOperationType'
                 )
                 ->where('it.typeName', '=', $key)
                 ->first();
 
             if(empty($result)) {
+
+                $parsedItems["ignored"][] = [
+                    'ItemId' => $item["typeID"],
+                    'ItemName' => $item["name"],
+                    'ItemQuantity' => $item["quantity"]
+                ];
+
                 continue;
             }
 
-            $groupID = $result->groupID;
-            if (!array_key_exists($groupID, $parsedItems)) {
+            if (!array_key_exists($result->groupID, $parsedItems)) {
 
-                $groupDetails = BuybackMarketConfig::where('groupId', $groupID)->first();
-
-                $parsedItems[$groupID] = [
-                    'groupID' => $groupID,
+                $parsedItems["parsed"][$result->groupID] = [
+                    'groupID' => $result->groupID,
                     'marketGroupName' => $result->groupName,
                     'marketConfig' => [
-                      'percentage' => $groupDetails->percentage != null ? $groupDetails->percentage : 0,
-                      'marketOperationType' =>
-                          $groupDetails->marketOperationType != null ? $groupDetails->marketOperationType : 0
+                      'percentage' => $result->percentage != null ?  $result->percentage : 0,
+                      'marketOperationType' => $result->marketOperationType != null ?  $result->marketOperationType : 0
                     ],
                     'items' => []
                 ];
             }
-            $parsedItems[$groupID]["items"][] = $item;
+            $parsedItems["parsed"][$result->groupID]["items"][] = $item;
         }
 
         return $parsedItems;
