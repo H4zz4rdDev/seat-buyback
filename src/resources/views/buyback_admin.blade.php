@@ -58,10 +58,10 @@
                     <th colspan="5"></th>
                 </thead>
                 <thead>
-                <th class="text-center">GroupID</th>
                 <th class="text-center">GroupName</th>
                 <th class="text-center"><i class="fas fa-arrow-up"></i>/<i class="fas fa-arrow-down"></i> Jita</th>
                 <th class="text-center">Percentage</th>
+                <th class="text-center">GroupID</th>
                 <th class="text-center">Actions</th>
                 </thead>
                 <tbody>
@@ -69,10 +69,10 @@
                     <form action="{{ route('buyback.admin-market-remove', ['groupId' => $config->groupId]) }}" method="get" id="admin-market-config-remove" name="admin-market-config-remove">
                         {{ csrf_field() }}
                         <tr>
-                            <td class="text-center align-middle">{{ $config->groupId }}</td>
                             <td class="align-middle">{{ \WipeOutInc\Seat\SeatBuyback\Models\BuybackMarketConfig::getGroupDetails($config->groupId)->groupName }}</td>
                             <td class="text-center align-middle">{!! $config->marketGroupType == 0 ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>' !!}</td>
                             <td class="text-center align-middle">{{ $config->percentage }}%</td>
+                            <td class="text-center align-middle">{{ $config->groupId }}</td>
                             <td class="text-center mb-4 mt-4 align-middle"><button class="btn btn-outline-danger btn-sm form-control" id="submit" type="submit">Remove</button></td>
                         </tr>
                     </form>
