@@ -15,26 +15,48 @@ use WipeOutInc\Seat\SeatBuyback\Helpers;
 class BuybackController extends Controller
 {
     /**
-     * @return \Illuminate\View\View
+     * @var int
      */
-    public function getHome()
+    private $_maxAllowedItems;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
     {
-        return view('buyback::buyback');
+        $this->_maxAllowedItems = Helpers\SettingsHelper::getInstance()->getMaxAllowedItems();
     }
 
     /**
      * @return \Illuminate\View\View
      */
-    public function checkItems(Request $request) {
+    public function getHome()
+    {
+        return view('buyback::buyback', [
+            'maxAllowedItems' => $this->_maxAllowedItems
+        ]);
+    }
 
-        if(empty($request->get('items'))) {
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function checkItems(Request $request)
+    {
+        if (empty($request->get('items'))) {
             return redirect('buyback')->withErrors(['errors' => trans('buyback::global.itemcheck.error')]);
         }
 
         $parsedItems = Helpers\EvePraisalHelper::getInstance()->parseEveItemData($request->get('items'));
+        $maxAllowedItems = Helpers\SettingsHelper::getInstance()->getMaxAllowedItems();
+
+        if (count($parsedItems) > $maxAllowedItems) {
+            return redirect('buyback')->withErrors(
+                ['errors' => 'Too much items posted. Max allowed items: ' . $maxAllowedItems]);
+        }
 
         return view('buyback::buyback', [
-            'eve_item_data' => $parsedItems
+            'eve_item_data' => $parsedItems,
+            'maxAllowedItems' => $this->_maxAllowedItems
         ]);
     }
 }

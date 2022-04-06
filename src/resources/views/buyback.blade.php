@@ -16,6 +16,7 @@
                     <label for="items">1. Start a Corp-Buyback Request</label>
                     <p>Copy and paste your Items into the input field and press on the "Send" button</p>
                     <textarea name="items" cols="75" rows="10"></textarea>
+                    <p><b>Max allowed Items: </b>{{ $maxAllowedItems }}</p>
                 </div>
                 <button type="submit" class="btn btn-success" form="item-check">Send</button>
             </form>

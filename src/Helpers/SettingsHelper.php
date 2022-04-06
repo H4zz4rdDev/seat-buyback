@@ -97,6 +97,14 @@ class SettingsHelper
     }
 
     /**
+     * @return int
+     */
+    public function getMaxAllowedItems () : int
+    {
+        return $this->_settings["admin_max_allowed_items"];
+    }
+
+    /**
      * @return void
      */
     private function loadSettings(): void
