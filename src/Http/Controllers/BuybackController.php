@@ -47,6 +47,11 @@ class BuybackController extends Controller
         }
 
         $parsedItems = Helpers\EvePraisalHelper::getInstance()->parseEveItemData($request->get('items'));
+
+        if(!array_key_exists("parsed", $parsedItems)) {
+            return redirect('buyback')->withErrors(['errors' => 'No items that could be used found! Please check you item list!']);
+        }
+
         $maxAllowedItems = Helpers\SettingsHelper::getInstance()->getMaxAllowedItems();
 
         if (count($parsedItems) > $maxAllowedItems) {

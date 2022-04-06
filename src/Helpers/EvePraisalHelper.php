@@ -107,11 +107,16 @@ class EvePraisalHelper {
         $sorted_item_data = [];
 
         foreach (preg_split('/\r\n|\r|\n/', $item_string) as $item) {
+
+            if(!preg_match('/\t\d/', $item)) {
+                continue;
+            }
+
             $item_data_details = explode("\t", $item);
             $item_name = $item_data_details[0];
             $item_quantity = $item_data_details[1];
 
-            if(!array_key_exists($item_name,$sorted_item_data)) {
+            if (!array_key_exists($item_name, $sorted_item_data)) {
                 $sorted_item_data[$item_name]["name"] = $item_name;
                 $sorted_item_data[$item_name]["typeID"] = $this->getItemTypeId($item_name);
                 $sorted_item_data[$item_name]["quantity"] = 0;
@@ -119,11 +124,12 @@ class EvePraisalHelper {
                 $sorted_item_data[$item_name]["sum"] = 0;
             }
 
-            if($item_data_details[1] <= 0) {
+            if ($item_data_details[1] <= 0) {
                 $sorted_item_data[$item_name]["quantity"] += 1;
             } else {
                 $sorted_item_data[$item_name]["quantity"] += $item_quantity;
             }
+
         }
 
         return $sorted_item_data;
