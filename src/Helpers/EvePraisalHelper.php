@@ -3,6 +3,7 @@
 namespace WipeOutInc\Seat\SeatBuyback\Helpers;
 
 use Illuminate\Support\Facades\DB;
+use WipeOutInc\Seat\SeatBuyback\Models\BuybackMarketConfig;
 
 /**
  * Class EvePraisalHelper.
@@ -64,9 +65,17 @@ class EvePraisalHelper {
 
             $groupID = $result->groupID;
             if (!array_key_exists($groupID, $parsedItems)) {
+
+                $groupDetails = BuybackMarketConfig::where('groupId', $groupID)->first();
+
                 $parsedItems[$groupID] = [
                     'groupID' => $groupID,
                     'marketGroupName' => $result->groupName,
+                    'marketConfig' => [
+                      'percentage' => $groupDetails->percentage != null ? $groupDetails->percentage : 0,
+                      'marketOperationType' =>
+                          $groupDetails->marketOperationType != null ? $groupDetails->marketOperationType : 0
+                    ],
                     'items' => []
                 ];
             }

@@ -74,7 +74,10 @@
             @foreach($eve_item_data as $group)
                 <table class="table">
                     <thead class="thead-dark">
-                    <th colspan="2">{{ $group["marketGroupName"] }}</th>
+                    <th class="align-centered" colspan="2">{{ $group["marketGroupName"] }}
+                        <span class="ml-2">( {!! $group["marketConfig"]["marketOperationType"] == 0 ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>' !!}</span>
+                        {{ $group["marketConfig"]["percentage"] }}% )
+                    </th>
                     </thead>
                     <tbody>
                     @foreach($group["items"] as $item)
