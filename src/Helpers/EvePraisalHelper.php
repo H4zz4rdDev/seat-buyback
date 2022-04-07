@@ -17,6 +17,9 @@ class EvePraisalHelper {
      */
     private static $instance;
 
+    /**
+     * @return EvePraisalHelper
+     */
     public static function getInstance() : EvePraisalHelper {
         if(!isset(self::$instance)) {
             self::$instance = new EvePraisalHelper();
@@ -25,6 +28,10 @@ class EvePraisalHelper {
         return self::$instance;
     }
 
+    /**
+     * @param string $item_string
+     * @return array|null
+     */
     public function parseEveItemData(string $item_string) : ?array {
 
         if(empty($item_string)) {
@@ -42,6 +49,10 @@ class EvePraisalHelper {
         return $this->categorizeItems($parsedRawData);
     }
 
+    /**
+     * @param array $itemData
+     * @return array|null
+     */
     private function categorizeItems(array $itemData) : ?array
     {
         $parsedItems = [];
@@ -91,6 +102,10 @@ class EvePraisalHelper {
         return $parsedItems;
     }
 
+    /**
+     * @param string $itemName
+     * @return int|null
+     */
     public function getItemTypeId(string $itemName) : ?int {
 
         $result = DB::table('invTypes')
@@ -102,6 +117,10 @@ class EvePraisalHelper {
         return ($result == null) ? null : $result->typeID;
     }
 
+    /**
+     * @param string $item_string
+     * @return array|null
+     */
     private function parseRawData(string $item_string) : ?array {
 
         $sorted_item_data = [];
