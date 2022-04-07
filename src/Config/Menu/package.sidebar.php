@@ -29,18 +29,21 @@ return [
         'plural' => true,
         'icon' => 'fas fa-certificate',
         'route_segment' => 'buyback',
+        'permission' => 'buyback.view',
         'entries' => [
             [
                 'name' => 'buyback-home-sub-menu',
                 'label' => 'buyback::menu.sub_home_level',
                 'icon' => 'fas fa-th-list',
                 'route' => 'buyback.home',
+                'permission' => 'buyback.view'
             ],
             [
                 'name' => 'buyback-admin-sub-menu',
                 'label' => 'buyback::menu.sub_admin_level',
                 'icon' => 'fas fa-th-list',
                 'route' => 'buyback.admin',
+                'permission' => 'buyback.admin'
             ],
         ],
     ],

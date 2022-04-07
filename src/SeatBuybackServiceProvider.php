@@ -63,7 +63,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
         // $this->mergeConfigFrom(__DIR__ . '/Config/Menu/package.corporation.php', 'package.corporation.menu');
 
         // Register generic permissions
-        $this->registerPermissions(__DIR__ . '/Config/Permissions/other.php', 'other');
+        $this->registerPermissions(__DIR__ . '/Config/Permissions/buyback.php', 'buyback');
 
         // Uncomment this block to register character permissions
         // $this->registerPermissions(__DIR__ . '/Config/Permissions/character.php', 'character');

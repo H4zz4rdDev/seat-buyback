@@ -21,11 +21,14 @@
  */
 
 return [
-    // Describing character permissions is done here.
+    // Describing generic permissions is done here.
     // Refer to the web package for a structure reference.
-    'character_permission_name' => [
-        'label' => 'yourpackage::permissions.character_permission_name_label',
-        'description' => 'yourpackage::permissions.character_permission_name_description',
-        // 'division' => 'industrial', // can be one of this list [military, assets, financial, industrial]
+    'view' => [
+        'label' => 'Grants access to the Buyback Plugin',
+        'description' => 'Grants permission view and use the buyback plugin.',
+    ],
+    'admin' => [
+        'label' => 'Grants access to the Buyback AdminPanel',
+        'description' => 'Grants permission to administrate buyback market configs and general plugin settings.',
     ]
 ];

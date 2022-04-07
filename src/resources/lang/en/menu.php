@@ -21,7 +21,7 @@
  */
 
 return [
-    'main_level' => 'WipeOut Inc.',
-    'sub_home_level' => 'Corp Buyback',
-    'sub_admin_level' => 'Admin Buyback',
+    'main_level' => 'Buyback',
+    'sub_home_level' => 'Request',
+    'sub_admin_level' => 'Admin',
 ];

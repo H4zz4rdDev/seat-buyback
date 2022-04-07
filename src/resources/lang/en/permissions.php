@@ -21,12 +21,6 @@
  */
 
 return [
-    'character_permission_name_label' => 'Your Plugin Character Permission',
-    'character_permission_name_description' => 'This is an end user help-block',
-
-    'corporation_permission_name_label' => 'Your Plugin Corporation Permission',
-    'corporation_permission_name_description' => 'This is an end user help-block',
-
-    'other_permission_name_label' => 'Your Plugin Other Permission',
-    'other_permission_name_description' => 'This is an end user help-block',
+    'buyback_admin_permission_label' => 'Grants access to the Buyback AdminPanel',
+    'buyback_admin_permission_description' => 'Grants permission to administrate buyback market configs and general plugin settings.',
 ];
