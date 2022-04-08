@@ -1,6 +1,6 @@
 {
     "name": "wipeoutinc/seat-buyback",
-    "description": "A module for SeAT that makes corp buyback programs easier",
+    "description": "Buyback plugin for SeAT",
     "license": "GPL-3.0",
     "authors": [
         {

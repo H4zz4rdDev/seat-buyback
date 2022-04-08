@@ -15,14 +15,15 @@ class SearchController extends Controller {
 
     public function autocomplete(Request $request) {
         if($request->has('q')) {
-            $data = DB::table('invGroups')
+            $data = DB::table('invTypes as t')
+                ->join('invGroups as g', 't.groupID', '=', 'g.groupID')
                 ->select(
-                    'groupID AS id',
-                    'groupName AS name'
+                    'g.groupID AS id',
+                    DB::raw("CONCAT(t.typeName,' (',g.groupName, ')') as name"),
                 )
-                ->where('groupName', 'LIKE', "%" . $request->get('q') . "%")
+                ->where('typeName', 'LIKE', "%" . $request->get('q') . "%")
+                ->whereNotNull('marketGroupID')
                 ->get();
-
         }
         return response()->json($data);
     }
