@@ -16,11 +16,11 @@
         <form action="{{ route('buyback.admin-market') }}" method="post" id="admin-market-config" name="admin-market-config">
             <div class="card-body">
                 {{ csrf_field() }}
-                <p>Fill out the form below and press the add button to generate a new group config entry</p>
+                <p>Fill out the form below and press the add button to generate a new item config entry</p>
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group pt-1">
-                            <select class="groupsearch form-control input-xs" name="admin-market-groupId" id="admin-market-groupId"></select>
+                            <select class="groupsearch form-control input-xs" name="admin-market-typeId" id="admin-market-typeId"></select>
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -58,25 +58,27 @@
                     <th colspan="5"></th>
                 </thead>
                 <thead>
-                <th class="text-center">GroupName</th>
+                <th class="text-center">ItemName</th>
                 <th class="text-center"><i class="fas fa-arrow-up"></i>/<i class="fas fa-arrow-down"></i> Jita</th>
                 <th class="text-center">Percentage</th>
-                <th class="text-center">GroupID</th>
+                <th class="text-center">Market Group Name</th>
                 <th class="text-center">Actions</th>
                 </thead>
                 <tbody>
-                @foreach($marketConfigs as $key => $config)
-                    <form action="{{ route('buyback.admin-market-remove', ['groupId' => $config->groupId]) }}" method="get" id="admin-market-config-remove" name="admin-market-config-remove">
-                        {{ csrf_field() }}
-                        <tr>
-                            <td class="align-middle">{{ \WipeOutInc\Seat\SeatBuyback\Models\BuybackMarketConfig::getGroupDetails($config->groupId)->groupName }}</td>
-                            <td class="text-center align-middle">{!! $config->marketGroupType == 0 ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>' !!}</td>
-                            <td class="text-center align-middle">{{ $config->percentage }}%</td>
-                            <td class="text-center align-middle">{{ $config->groupId }}</td>
-                            <td class="text-center mb-4 mt-4 align-middle"><button class="btn btn-outline-danger btn-sm form-control" id="submit" type="submit">Remove</button></td>
-                        </tr>
-                    </form>
-                @endforeach
+                @if (count($marketConfigs) > 0)
+                    @foreach($marketConfigs as $key => $config)
+                        <form action="{{ route('buyback.admin-market-remove', ['typeId' => $config["marketConfig"]->typeId]) }}" method="get" id="admin-market-config-remove" name="admin-market-config-remove">
+                            {{ csrf_field() }}
+                            <tr>
+                                <td class="align-middle">{{ $config["itemData"]->typeName}}</td>
+                                <td class="text-center align-middle">{!! $config["marketConfig"]->marketGroupType == 0 ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>' !!}</td>
+                                <td class="text-center align-middle">{{ $config["marketConfig"]->percentage }}%</td>
+                                <td class="align-middle">{{ $config["itemData"]->groupName }}</td>
+                                <td class="text-center mb-4 mt-4 align-middle"><button class="btn btn-outline-danger btn-sm form-control" id="submit" type="submit">Remove</button></td>
+                            </tr>
+                        </form>
+                    @endforeach
+                @endif
                 </tbody>
             </table>
             <br/>

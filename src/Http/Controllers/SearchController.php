@@ -18,7 +18,7 @@ class SearchController extends Controller {
             $data = DB::table('invTypes as t')
                 ->join('invGroups as g', 't.groupID', '=', 'g.groupID')
                 ->select(
-                    'g.groupID AS id',
+                    't.typeID AS id',
                     DB::raw("CONCAT(t.typeName,' (',g.groupName, ')') as name"),
                 )
                 ->where('typeName', 'LIKE', "%" . $request->get('q') . "%")
