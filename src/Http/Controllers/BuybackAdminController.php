@@ -27,9 +27,20 @@ class BuybackAdminController extends Controller
             return redirect('home')->withErrors(['errors' => $e->getMessage()]);
         }
 
+        $marketConfigs = [];
+
+        foreach (BuybackMarketConfig::all() as $marketConfig) {
+            $marketConfigsData = [
+                'marketConfig' => $marketConfig,
+                'itemData' => Helpers\ItemHelper::getItemDetails($marketConfig->typeId)
+            ];
+
+            $marketConfigs[] = $marketConfigsData;
+        }
+
         return view('buyback::buyback_admin', [
             'settings' => $settings,
-            'marketConfigs' => BuybackMarketConfig::all()
+            'marketConfigs' => $marketConfigs
 
         ]);
     }
@@ -53,15 +64,15 @@ class BuybackAdminController extends Controller
                 ->with(['error' => "An error occurred!"]);
         }
 
-        $user = BuybackMarketConfig::where('groupId', $request->get('admin-market-groupId'))->first();
+        $item = BuybackMarketConfig::where('typeId', $request->get('admin-market-typeId'))->first();
 
-        if($user != null) {
+        if($item != null) {
             return redirect()->route('buyback.admin')
-                ->with(['error' => "There is already a config for Id: " . $user->groupId]);
+                ->with(['error' => "There is already a config for Id: " . $item->typeId]);
         }
 
         BuybackMarketConfig::insert([
-            'groupId' => $request->get('admin-market-groupId'),
+            'typeId' => $request->get('admin-market-typeId'),
             'marketOperationType' => $request->get('admin-market-operation'),
             'percentage' => $request->get('admin-market-percentage')
         ]);
@@ -70,15 +81,15 @@ class BuybackAdminController extends Controller
             ->with('success', 'Market config successfully added.');
     }
 
-    public function deleteMarketConfig(Request $request, int $groupId) {
+    public function deleteMarketConfig(Request $request, int $typeId) {
 
-            if(!$request->isMethod('get') || empty($groupId))
+            if(!$request->isMethod('get') || empty($typeId))
             {
                 return redirect()->back()
                     ->with(['error' => "An error occurred!"]);
             }
 
-            BuybackMarketConfig::destroy($groupId);
+            BuybackMarketConfig::destroy($typeId);
 
             return redirect()->back()
                 ->with('success', 'Market config successfully deleted.');

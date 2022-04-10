@@ -33,6 +33,6 @@ Route::group([
     Route::get('/buyback/admin', [BuybackAdminController::class, 'getHome'])->name("buyback.admin");
     Route::post('/buyback/admin', [BuybackAdminController::class, 'updateSettings'])->name("buyback.admin-update");
     Route::post('/buyback/admin/add-market-config', [BuybackAdminController::class, 'addMarketConfig'])->name("buyback.admin-market");
-    Route::get('/buyback/admin/remove-market-config/{groupId}', [BuybackAdminController::class, 'deleteMarketConfig'])->name("buyback.admin-market-remove");
+    Route::get('/buyback/admin/remove-market-config/{typeId}', [BuybackAdminController::class, 'deleteMarketConfig'])->name("buyback.admin-market-remove");
     Route::get('/autocomplete', [SearchController::class, 'autocomplete'])->name("autocomplete");
 });

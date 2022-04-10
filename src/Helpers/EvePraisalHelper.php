@@ -60,7 +60,7 @@ class EvePraisalHelper {
 
             $result = DB::table('invTypes as it')
                 ->join('invGroups as ig', 'it.groupID', '=', 'ig.GroupID')
-                ->rightJoin('buyback_market_config as bmc', 'it.groupID', '=', 'bmc.groupID')
+                ->rightJoin('buyback_market_config as bmc', 'it.typeID', '=', 'bmc.typeId')
                 ->select(
                     'it.typeID as typeID',
                     'it.typeName as typeName',

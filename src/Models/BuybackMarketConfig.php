@@ -26,7 +26,7 @@ class BuybackMarketConfig extends Model {
      *
      * @var string
      */
-    protected $primaryKey = 'groupId';
+    protected $primaryKey = 'typeId';
 
     /**
      * The attributes that aren't mass assignable.
@@ -34,26 +34,4 @@ class BuybackMarketConfig extends Model {
      * @var array
      */
     protected $guarded = [];
-
-    public static function getGroupDetails (int $groupId) : ?object {
-
-        return DB::table('invGroups')
-            ->select(
-                'groupID',
-                'categoryID',
-                'groupName'
-            )
-            ->where('groupID', $groupId)
-            ->first();
-    }
-
-    /**
-     * @param $data
-     * @return void
-     */
-    public function set($data) {
-        foreach ($data as $key => $value) {
-            $this->{$key} = $value;
-        }
-    }
 }
