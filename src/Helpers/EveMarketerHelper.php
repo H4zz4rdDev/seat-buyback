@@ -43,26 +43,6 @@ class EveMarketerHelper {
     }
 
     /**
-     * @param array $itemTypeIds
-     * @return array|null
-     * @throws EveMarketerException
-     */
-    public function getMarketPriceList (array $itemTypeIds) : ?array  {
-
-        if(empty($itemTypeIds)) {
-            throw new EveMarketerException("ItemsTypeID not found!");
-        }
-
-        $prices = [];
-
-        foreach($itemTypeIds as $itemTypeId) {
-            $prices[$itemTypeId] = $this->getItemPrice($itemTypeId);
-        }
-
-        return $prices;
-    }
-
-    /**
      * @param string $data
      * @return mixed
      */
