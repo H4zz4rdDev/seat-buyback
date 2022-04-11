@@ -59,9 +59,12 @@ class BuybackController extends Controller
                 ['errors' => 'Too much items posted. Max allowed items: ' . $maxAllowedItems]);
         }
 
+        $finalPrice = Helpers\PriceCalculationHelper::calculateFinalPrice($parsedItems["parsed"]);
+
         return view('buyback::buyback', [
             'eve_item_data' => $parsedItems,
-            'maxAllowedItems' => $this->_maxAllowedItems
+            'maxAllowedItems' => $this->_maxAllowedItems,
+            'finalPrice' => $finalPrice
         ]);
     }
 }

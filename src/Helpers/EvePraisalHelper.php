@@ -10,7 +10,8 @@ use WipeOutInc\Seat\SeatBuyback\Models\BuybackMarketConfig;
  *
  * @package WipeOutInc\Seat\SeatBuyback\Helpers
  */
-class EvePraisalHelper {
+class EvePraisalHelper
+{
 
     /**
      * @var EvePraisalHelper
@@ -20,8 +21,9 @@ class EvePraisalHelper {
     /**
      * @return EvePraisalHelper
      */
-    public static function getInstance() : EvePraisalHelper {
-        if(!isset(self::$instance)) {
+    public static function getInstance(): EvePraisalHelper
+    {
+        if (!isset(self::$instance)) {
             self::$instance = new EvePraisalHelper();
         }
 
@@ -32,9 +34,10 @@ class EvePraisalHelper {
      * @param string $item_string
      * @return array|null
      */
-    public function parseEveItemData(string $item_string) : ?array {
+    public function parseEveItemData(string $item_string): ?array
+    {
 
-        if(empty($item_string)) {
+        if (empty($item_string)) {
             return null;
         }
 
@@ -42,8 +45,10 @@ class EvePraisalHelper {
 
         foreach ($parsedRawData as $key => $item) {
             $priceData = EveMarketerHelper::getInstance()->getItemPrice($item["typeID"]);
+
             $parsedRawData[$key]["price"] = $priceData[0]["buy"]["median"];
-            $parsedRawData[$key]["sum"] = $priceData[0]["buy"]["median"] * $parsedRawData[$key]["quantity"];
+            $parsedRawData[$key]["sum"] = PriceCalculationHelper::calculateItemPrice($item["typeID"],
+                $parsedRawData[$key]["quantity"], $priceData);
         }
 
         return $this->categorizeItems($parsedRawData);
@@ -53,7 +58,7 @@ class EvePraisalHelper {
      * @param array $itemData
      * @return array|null
      */
-    private function categorizeItems(array $itemData) : ?array
+    private function categorizeItems(array $itemData): ?array
     {
         $parsedItems = [];
         foreach ($itemData as $key => $item) {
@@ -73,7 +78,7 @@ class EvePraisalHelper {
                 ->where('it.typeName', '=', $key)
                 ->first();
 
-            if(empty($result)) {
+            if (empty($result)) {
 
                 $parsedItems["ignored"][] = [
                     'ItemId' => $item["typeID"],
@@ -86,17 +91,18 @@ class EvePraisalHelper {
 
             if (!array_key_exists($result->groupID, $parsedItems)) {
 
-                $parsedItems["parsed"][$result->groupID] = [
-                    'groupID' => $result->groupID,
-                    'marketGroupName' => $result->groupName,
-                    'marketConfig' => [
-                      'percentage' => $result->percentage != null ?  $result->percentage : 0,
-                      'marketOperationType' => $result->marketOperationType != null ?  $result->marketOperationType : 0
-                    ],
-                    'items' => []
+                $parsedItems["parsed"][$key]["typeId"] = $item["typeID"];
+                $parsedItems["parsed"][$key]["typeName"] = $item["name"];
+                $parsedItems["parsed"][$key]["typeQuantity"] = $item["quantity"];
+                $parsedItems["parsed"][$key]["typeSum"] = $item["sum"];
+                $parsedItems["parsed"][$key]["groupId"] = $result->groupID;
+                $parsedItems["parsed"][$key]["marketGroupName"] = $result->groupName;
+
+                $parsedItems["parsed"][$key]["marketConfig"] = [
+                    'percentage' => $result->percentage != null ? $result->percentage : 0,
+                    'marketOperationType' => $result->marketOperationType != null ? $result->marketOperationType : 0
                 ];
             }
-            $parsedItems["parsed"][$result->groupID]["items"][] = $item;
         }
 
         return $parsedItems;
@@ -106,14 +112,15 @@ class EvePraisalHelper {
      * @param string $itemName
      * @return int|null
      */
-    public function getItemTypeId(string $itemName) : ?int {
+    public function getItemTypeId(string $itemName): ?int
+    {
 
         $result = DB::table('invTypes')
-                  ->select(
-                    'typeID'
-                  )
-                  ->where('typeName', '=', $itemName)
-                  ->first();
+            ->select(
+                'typeID'
+            )
+            ->where('typeName', '=', $itemName)
+            ->first();
         return ($result == null) ? null : $result->typeID;
     }
 
@@ -121,13 +128,14 @@ class EvePraisalHelper {
      * @param string $item_string
      * @return array|null
      */
-    private function parseRawData(string $item_string) : ?array {
+    private function parseRawData(string $item_string): ?array
+    {
 
         $sorted_item_data = [];
 
         foreach (preg_split('/\r\n|\r|\n/', $item_string) as $item) {
 
-            if(!preg_match('/\t\d/', $item)) {
+            if (!preg_match('/\t\d/', $item)) {
                 continue;
             }
 

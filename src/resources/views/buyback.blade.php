@@ -30,50 +30,52 @@
         <div class="card-body">
             <label for="items">2. Contract Item Overview</label>
             <p>Please check the items and prices before you create the contract</p>
-            @foreach($eve_item_data["parsed"] as $group)
-                <table class="table">
-                    <thead class="thead-dark">
-                    <th class="align-centered" colspan="2">{{ $group["marketGroupName"] }}
-                        <span class="ml-2">( {!! $group["marketConfig"]["marketOperationType"] == 0 ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>' !!}</span>
-                        {{ $group["marketConfig"]["percentage"] }}% )
-                    </th>
-                    </thead>
-                    <tbody>
-                    @foreach($group["items"] as $item)
-                        <tr>
-                            <td><img src="https://images.evetech.net/types/{{ $item["typeID"] }}/icon?size=32"/>
-                                <b>{{ $item["quantity"] }} x {{ $item["name"] }}</b>
-                            </td>
-                            <td class="isk-td"><span class="isk-info">+{{ number_format($item["sum"],0,',', '.') }}</span> ISK</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+            <table class="table">
+                <thead class="thead-dark">
+                    <th scope="col" class="align-centered" colspan="2">Itemlist</th>
+                </thead>
+                <tbody>
+            @foreach($eve_item_data["parsed"] as $item)
+                <tr>
+                    <td><img src="https://images.evetech.net/types/{{ $item["typeId"] }}/icon?size=32"/>
+                        <b>{{ $item["typeQuantity"] }} x {{ $item["typeName"] }}</b>
+                        ( {!! $item["marketConfig"]["marketOperationType"] == 0 ? '-' : '+' !!}{{$item["marketConfig"]["percentage"] }}% )
+                    </td>
+                    <td class="isk-td"><span class="isk-info">+{{ number_format($item["typeSum"],0,',', '.') }}</span> ISK</td>
+                </tr>
             @endforeach
+                <tr>
+                    <td class="align-centered"><b>Summary</b></td>
+                    <td class="align-centered isk-td"><b><span class="isk-info">+{{ number_format($finalPrice,0,',', '.') }}</span> ISK</b></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class="card">
-        <div class="card-body">
-            <div class="form-group">
-                <table class="table table-borderless">
-                    <thead class="thead">
-                    <th class="align-centered bg-red">
-                        <span class="ml-2"><i class='fas fa-ban'></i> Ignored Items ( Not bought )</span>
-                    </th>
-                    </thead>
-                    <tbody>
-                        @foreach($eve_item_data["ignored"] as $item)
-                        <tr>
-                            <td><img src="https://images.evetech.net/types/{{ $item["ItemId"] }}/icon?size=32">
-                                {{ $item["ItemQuantity"] }} x {{ $item["ItemName"] }}
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+     @if(count($eve_item_data["ignored"]) > 0)
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <table class="table table-borderless">
+                        <thead class="thead">
+                        <th class="align-centered bg-red">
+                            <span class="ml-2"><i class='fas fa-ban'></i> Ignored Items ( Not bought )</span>
+                        </th>
+                        </thead>
+                        <tbody>
+                            @foreach($eve_item_data["ignored"] as $item)
+                            <tr>
+                                <td><img src="https://images.evetech.net/types/{{ $item["ItemId"] }}/icon?size=32">
+                                    {{ $item["ItemQuantity"] }} x {{ $item["ItemName"] }}
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
+     @endif
 @stop
 @section('right')
     <div class="card">
@@ -92,7 +94,7 @@
                 </tr>
                 <tr>
                     <td>I will receive</td>
-                    <td><b><span class="isk-info">999.000.000</span> ISK</b></td>
+                    <td><b><span class="isk-info">{{ number_format($finalPrice,0,',', '.') }}</span> ISK</b></td>
                 </tr>
                 <tr>
                     <td>Expiration</td>
