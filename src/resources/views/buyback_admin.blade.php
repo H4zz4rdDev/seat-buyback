@@ -39,7 +39,7 @@
                         <input name="admin-market-percentage" id="admin-market-percentage" type="text" class=" form-control" placeholder="%" maxlength="3">
                     </div>
                     <div class="col">
-                        <button id="submit" type="submit" class="btn btn-outline-success ml-2 form-control input-sm">
+                        <button id="submit" type="submit" class="btn btn-success ml-2 form-control input-sm">
                             <i class="fas fa-check"></i>
                             Add
                         </button>
@@ -74,7 +74,7 @@
                                 <td class="text-center align-middle">{!! $config->marketGroupType == 0 ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>' !!}</td>
                                 <td class="text-center align-middle">{{ $config->percentage }}%</td>
                                 <td class="align-middle">{{ $config->groupName }}</td>
-                                <td class="text-center mb-4 mt-4 align-middle"><button class="btn btn-outline-danger btn-sm form-control" id="submit" type="submit">Remove</button></td>
+                                <td class="text-center mb-4 mt-4 align-middle"><button class="btn btn-danger btn-sm form-control" id="submit" type="submit">Remove</button></td>
                             </tr>
                         </form>
                     @endforeach
@@ -142,7 +142,7 @@
                 <div class="form-group row">
                     <label class="col-md-4 col-form-label" for="submit"></label>
                     <div class="col-md-4">
-                        <button id="submit" type="submit" class="btn btn-outline-success">
+                        <button id="submit" type="submit" class="btn btn-success">
                             <i class="fas fa-check"></i>
                             Update
                         </button>

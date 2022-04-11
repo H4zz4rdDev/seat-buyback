@@ -18,7 +18,7 @@
                     <textarea name="items" cols="75" rows="10"></textarea>
                     <p><b>Max allowed Items: </b>{{ $maxAllowedItems }}</p>
                 </div>
-                <button type="submit" class="btn btn-outline-success" form="item-check">Send</button>
+                <button type="submit" class="btn btn-success" form="item-check">Send</button>
             </form>
         </div>
     </div>
