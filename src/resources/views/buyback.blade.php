@@ -53,21 +53,23 @@
         </div>
     </div>
     <div class="card">
-        <div class="card-header" style="background-color: #da3545">
-            <div class="card-title" style="color: white">
-                <i class='fas fa-ban'></i> Ignored Items ( Not bought )
-            </div>
-        </div>
         <div class="card-body">
             <div class="form-group">
                 <table class="table table-borderless">
-                    @foreach($eve_item_data["ignored"] as $item)
+                    <thead class="thead">
+                    <th class="align-centered bg-red">
+                        <span class="ml-2"><i class='fas fa-ban'></i> Ignored Items ( Not bought )</span>
+                    </th>
+                    </thead>
+                    <tbody>
+                        @foreach($eve_item_data["ignored"] as $item)
                         <tr>
                             <td><img src="https://images.evetech.net/types/{{ $item["ItemId"] }}/icon?size=32">
                                 {{ $item["ItemQuantity"] }} x {{ $item["ItemName"] }}
                             </td>
                         </tr>
-                    @endforeach
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>
