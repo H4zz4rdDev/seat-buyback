@@ -27,20 +27,9 @@ class BuybackAdminController extends Controller
             return redirect('home')->withErrors(['errors' => $e->getMessage()]);
         }
 
-        $marketConfigs = [];
-
-        foreach (BuybackMarketConfig::all() as $marketConfig) {
-            $marketConfigsData = [
-                'marketConfig' => $marketConfig,
-                'itemData' => Helpers\ItemHelper::getItemDetails($marketConfig->typeId)
-            ];
-
-            $marketConfigs[] = $marketConfigsData;
-        }
-
         return view('buyback::buyback_admin', [
             'settings' => $settings,
-            'marketConfigs' => $marketConfigs
+            'marketConfigs' => BuybackMarketConfig::orderBy('typeName', 'asc')->get()
 
         ]);
     }
@@ -71,9 +60,14 @@ class BuybackAdminController extends Controller
                 ->with(['error' => "There is already a config for Id: " . $item->typeId]);
         }
 
+        $itemDetails = Helpers\ItemHelper::getItemDetails($request->get('admin-market-typeId'));
+
         BuybackMarketConfig::insert([
             'typeId' => $request->get('admin-market-typeId'),
+            'typeName' => $itemDetails->typeName,
             'marketOperationType' => $request->get('admin-market-operation'),
+            'groupId' => $itemDetails->groupID,
+            'groupName' => $itemDetails->groupName,
             'percentage' => $request->get('admin-market-percentage')
         ]);
 

@@ -14,7 +14,10 @@ class CreateSeatBuybackMarketConfigTable extends Migration {
     {
         Schema::create('buyback_market_config', function (Blueprint $table) {
             $table->integer('typeId')->primary();
+            $table->string('typeName');
             $table->tinyInteger('marketOperationType');
+            $table->integer('groupId');
+            $table->string('groupName');
             $table->integer('percentage');
             $table->timestamps();
         });
