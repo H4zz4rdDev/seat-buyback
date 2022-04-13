@@ -36,6 +36,13 @@ class BuybackAdminController extends Controller
 
     public function updateSettings(Request $request) {
 
+        $request->validate([
+            'admin_price_cache_time' => 'required|numeric|between:300,3600',
+            'admin_max_allowed_items' => 'required|numeric|between:1,50',
+            'admin_contract_contract_to' => 'required|max:128',
+            'admin_contract_expiration' => 'required|max:32'
+        ]);
+
         if($request->all() == null) {
             return redirect()->back()
                 ->with(['error' => "An error occurred!"]);
@@ -48,10 +55,11 @@ class BuybackAdminController extends Controller
 
     public function addMarketConfig(Request $request) {
 
-        if($request->all() == null) {
-            return redirect()->route('buyback.admin')
-                ->with(['error' => "An error occurred!"]);
-        }
+        $request->validate([
+            'admin-market-typeId' => 'required|max:255',
+            'admin-market-operation' => 'required',
+            'admin-market-percentage' => 'required|numeric|between:0,99.99'
+        ]);
 
         $item = BuybackMarketConfig::where('typeId', $request->get('admin-market-typeId'))->first();
 
@@ -77,15 +85,15 @@ class BuybackAdminController extends Controller
 
     public function deleteMarketConfig(Request $request, int $typeId) {
 
-            if(!$request->isMethod('get') || empty($typeId))
-            {
-                return redirect()->back()
-                    ->with(['error' => "An error occurred!"]);
-            }
-
-            BuybackMarketConfig::destroy($typeId);
-
+        if(!$request->isMethod('get') || empty($typeId) || !is_numeric($typeId))
+        {
             return redirect()->back()
-                ->with('success', 'Market config successfully deleted.');
+                ->with(['error' => "An error occurred!"]);
+        }
+
+        BuybackMarketConfig::destroy($typeId);
+
+        return redirect()->back()
+            ->with('success', 'Market config successfully deleted.');
     }
 }

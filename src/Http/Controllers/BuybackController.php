@@ -42,9 +42,9 @@ class BuybackController extends Controller
      */
     public function checkItems(Request $request)
     {
-        if (empty($request->get('items'))) {
-            return redirect('buyback')->withErrors(['errors' => trans('buyback::global.itemcheck.error')]);
-        }
+        $request->validate([
+            'items' => 'required',
+        ]);
 
         $parsedItems = Helpers\EvePraisalHelper::getInstance()->parseEveItemData($request->get('items'));
 
