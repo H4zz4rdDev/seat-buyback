@@ -21,7 +21,7 @@ class PriceCalculationHelper {
             return null;
         }
 
-        $priceSum = $quantity * $priceData[0]["sell"]["median"];
+        $priceSum = $quantity * $priceData[0]["buy"]["fivePercent"];
 
         $pricePercentage = $priceSum * $marketConfig->percentage / 100;
 

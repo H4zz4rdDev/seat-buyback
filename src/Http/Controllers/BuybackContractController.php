@@ -15,7 +15,7 @@ class BuybackContractController extends Controller {
     public function getHome()
     {
         return view('buyback::buyback_contract', [
-            'contracts' => BuybackContract::all()
+            'contracts' => BuybackContract::where('contractStatus', '=', 0)->get()
         ]);
     }
 
@@ -36,4 +36,39 @@ class BuybackContractController extends Controller {
             ->with('success', 'Contract with ID: ' . $request->get('contractId') . ' successfully submitted.');
     }
 
+    public function deleteContract (Request $request, string $contractId)
+    {
+        if(!$request->isMethod('get') || empty($contractId))
+        {
+            return redirect()->back()
+                ->with(['error' => "An error occurred!"]);
+        }
+
+        BuybackContract::destroy($contractId);
+
+        return redirect()->back()
+            ->with('success', 'Contract with ID: ' . $contractId . ' successfully deleted.');
+    }
+
+    public function succeedContract (Request $request, string $contractId)
+    {
+        if(!$request->isMethod('get') || empty($contractId))
+        {
+            return redirect()->back()
+                ->with(['error' => "An error occurred!"]);
+        }
+
+        $contract = BuybackContract::where('contractId', '=', $contractId)->first();
+        if(!$contract->contractStatus) {
+
+            $contract->contractStatus = 1;
+            $contract->save();
+
+            return redirect()->back()
+                ->with('success', 'Contract with ID: ' . $contractId . ' successfully marked as succeeded.');
+        }
+
+        return redirect()->back()
+            ->with(['error' => "An error occurred!"]);
+    }
 }

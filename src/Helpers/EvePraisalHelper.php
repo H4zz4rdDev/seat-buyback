@@ -46,7 +46,7 @@ class EvePraisalHelper
         foreach ($parsedRawData as $key => $item) {
             $priceData = EveMarketerHelper::getInstance()->getItemPrice($item["typeID"]);
 
-            $parsedRawData[$key]["price"] = $priceData[0]["sell"]["median"];
+            $parsedRawData[$key]["price"] = $priceData[0]["buy"]["fivePercent"];
             $parsedRawData[$key]["sum"] = PriceCalculationHelper::calculateItemPrice($item["typeID"],
                 $parsedRawData[$key]["quantity"], $priceData);
         }

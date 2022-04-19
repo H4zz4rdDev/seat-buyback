@@ -32,6 +32,8 @@ Route::group([
     Route::post('/buyback', [BuybackController::class, 'checkItems'])->name("buyback.check");
     Route::get('/buyback/contracts', [BuybackContractController::class, 'getHome'])->name("buyback.contract");
     Route::post('/buyback/contracts/insert', [BuybackContractController::class, 'insetContract'])->name("buyback.contract-insert");
+    Route::get('/buyback/contracts/delete/{contractId}', [BuybackContractController::class, 'deleteContract'])->name("buyback.contract-delete");
+    Route::get('/buyback/contracts/succeed/{contractId}', [BuybackContractController::class , 'succeedContract'])->name("buyback.contract-succeed");
     Route::get('/buyback/admin', [BuybackAdminController::class, 'getHome'])->name("buyback.admin");
     Route::post('/buyback/admin', [BuybackAdminController::class, 'updateSettings'])->name("buyback.admin-update");
     Route::post('/buyback/admin/add-market-config', [BuybackAdminController::class, 'addMarketConfig'])->name("buyback.admin-market");

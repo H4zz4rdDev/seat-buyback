@@ -31,7 +31,7 @@
             <label for="items">2. Contract Item Overview</label>
             <p>Please check the items and prices before you create the contract</p>
             <table class="table">
-                <thead class="thead-dark">
+                <thead class="thead bg-primary">
                     <th scope="col" class="align-centered" colspan="2">Itemlist</th>
                 </thead>
                 <tbody>
@@ -66,7 +66,7 @@
                             @foreach($eve_item_data["ignored"] as $item)
                             <tr>
                                 <td><img src="https://images.evetech.net/types/{{ $item["ItemId"] }}/icon?size=32">
-                                    {{ $item["ItemQuantity"] }} x {{ $item["ItemName"] }}
+                                    {{ number_format($item["ItemQuantity"],0,',', '.') }} x {{ $item["ItemName"] }}
                                 </td>
                             </tr>
                             @endforeach
@@ -92,7 +92,7 @@
                     </tr>
                     <tr>
                         <td>Contract to</td>
-                        <td><b>Awesome ISK Dude</b></td>
+                        <td><b>{{ WipeOutInc\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_contract_to') }}</b></td>
                     </tr>
                     <tr>
                         <td>I will receive</td>
@@ -100,7 +100,7 @@
                     </tr>
                     <tr>
                         <td>Expiration</td>
-                        <td><b>4 Weeks</b></td>
+                        <td><b>{{ WipeOutInc\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_expiration') }}</b></td>
                     </tr>
                     <tr>
                         <td>Description</td>

@@ -17,12 +17,21 @@
                         <div class="col-md-10 align-left">
                             <img class="img" src="https://images.evetech.net/types/25235/icon?size=32"/>
                             <button class="btn" data-toggle="collapse" data-target="#collapse_{{ $contract->contractId }}" aria-expanded="true" aria-controls="collapse_{{ $contract->contractId }}">
-                                <h3 class="card-title"><b>{{ $contract->contractId }}</b> | {{ date("d.m.Y", $contract->created_at->timestamp) }} | <b>{{ $contract->contractIssuer }}</b> ( 19 Items )</h3>
+                                <h3 class="card-title"><b>{{ $contract->contractId }}</b>
+                                    | {{ date("d.m.Y", $contract->created_at->timestamp) }}
+                                    | <b>{{ $contract->contractIssuer }}</b>
+                                    ( {{ count(json_decode($contract->contractData, true)["parsed"]) }} Items )</h3>
                             </button>
                         </div>
                         <div class="col-md-2 align-right text-center align-centered">
-                            <button class="btn btn-success">Finish</button>
-                            <button class="btn btn-danger">Delete</button>
+                            <div class="row">
+                                <form action="{{ route('buyback.contract-succeed', ['contractId' => $contract->contractId]) }}" method="get" id="contract-success" name="contract-success">
+                                    <button class="btn btn-success">Finish</button>
+                                </form>
+                                <form class="ml-2" action="{{ route('buyback.contract-delete', ['contractId' => $contract->contractId]) }}" method="get" id="contract-remove" name="contract-remove">
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </h5>
