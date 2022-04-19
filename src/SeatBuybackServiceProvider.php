@@ -170,7 +170,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
      */
     public function getPackagistPackageName(): string
     {
-        return 'wipeoutinc/seat-buyback';
+        return 'seat-buyback';
     }
 
     /**
