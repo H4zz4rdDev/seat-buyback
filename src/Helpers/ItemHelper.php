@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\DB;
 
 class ItemHelper {
 
+    /**
+     * @param int $typeId
+     * @return object|null
+     */
     public static function getItemDetails (int $typeId) : ?object {
 
         return DB::table('invTypes AS t')

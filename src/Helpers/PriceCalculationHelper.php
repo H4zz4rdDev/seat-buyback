@@ -21,7 +21,8 @@ class PriceCalculationHelper {
             return null;
         }
 
-        $priceSum = $quantity * $priceData[0]["buy"]["median"];
+        $priceSum = $quantity * $priceData[0]["sell"]["median"];
+
         $pricePercentage = $priceSum * $marketConfig->percentage / 100;
 
         if(!$marketConfig->marketOperationType) {
@@ -33,6 +34,10 @@ class PriceCalculationHelper {
         return $price;
     }
 
+    /**
+     * @param array $itemData
+     * @return float|null
+     */
     public static function calculateFinalPrice(array $itemData) : ?float {
 
         $finalPrice = 0;

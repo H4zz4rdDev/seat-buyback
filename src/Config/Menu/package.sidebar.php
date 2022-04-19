@@ -39,6 +39,13 @@ return [
                 'permission' => 'buyback.view'
             ],
             [
+                'name' => 'buyback-contract-sub-menu',
+                'label' => 'buyback::menu.sub_contract_level',
+                'icon' => 'fas fa-th-list',
+                'route' => 'buyback.contract',
+                'permission' => 'buyback.contract'
+            ],
+            [
                 'name' => 'buyback-admin-sub-menu',
                 'label' => 'buyback::menu.sub_admin_level',
                 'icon' => 'fas fa-th-list',

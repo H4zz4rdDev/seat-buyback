@@ -4,6 +4,7 @@ namespace WipeOutInc\Seat\SeatBuyback\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Seat\Web\Http\Controllers\Controller;
 use WipeOutInc\Seat\SeatBuyback\Helpers;
 
@@ -14,6 +15,8 @@ use WipeOutInc\Seat\SeatBuyback\Helpers;
  */
 class BuybackController extends Controller
 {
+    private const MaxContractIdLength = 6;
+
     /**
      * @var int
      */
@@ -28,9 +31,9 @@ class BuybackController extends Controller
     }
 
     /**
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function getHome()
+    public function getHome() : View
     {
         return view('buyback::buyback', [
             'maxAllowedItems' => $this->_maxAllowedItems
@@ -38,7 +41,7 @@ class BuybackController extends Controller
     }
 
     /**
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function checkItems(Request $request)
     {
@@ -64,7 +67,8 @@ class BuybackController extends Controller
         return view('buyback::buyback', [
             'eve_item_data' => $parsedItems,
             'maxAllowedItems' => $this->_maxAllowedItems,
-            'finalPrice' => $finalPrice
+            'finalPrice' => $finalPrice,
+            'contractId' => Helpers\MiscHelper::generateRandomString(self::MaxContractIdLength)
         ]);
     }
 }

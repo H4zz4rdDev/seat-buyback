@@ -21,15 +21,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 use WipeOutInc\Seat\SeatBuyback\Http\Controllers\BuybackController;
 use WipeOutInc\Seat\SeatBuyback\Http\Controllers\BuybackAdminController;
+use WipeOutInc\Seat\SeatBuyback\Http\Controllers\BuybackContractController;
 use WipeOutInc\Seat\SeatBuyback\Http\Controllers\SearchController;
 
-// Namespace all of the routes for this package.
 Route::group([
     'namespace' => 'WipeOutInc\Seat\SeatBuyback\Http\Controllers',
     'middleware' => ['web', 'auth', 'locale'],
 ], function () {
     Route::get('/buyback', [BuybackController::class, 'getHome'])->name("buyback.home");
     Route::post('/buyback', [BuybackController::class, 'checkItems'])->name("buyback.check");
+    Route::get('/buyback/contracts', [BuybackContractController::class, 'getHome'])->name("buyback.contract");
+    Route::post('/buyback/contracts/insert', [BuybackContractController::class, 'insetContract'])->name("buyback.contract-insert");
     Route::get('/buyback/admin', [BuybackAdminController::class, 'getHome'])->name("buyback.admin");
     Route::post('/buyback/admin', [BuybackAdminController::class, 'updateSettings'])->name("buyback.admin-update");
     Route::post('/buyback/admin/add-market-config', [BuybackAdminController::class, 'addMarketConfig'])->name("buyback.admin-market");

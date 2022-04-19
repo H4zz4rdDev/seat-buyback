@@ -21,14 +21,16 @@
  */
 
 return [
-    // Describing generic permissions is done here.
-    // Refer to the web package for a structure reference.
     'view' => [
-        'label' => 'Grants access to the Buyback Plugin',
-        'description' => 'Grants permission view and use the buyback plugin.',
+        'label' => 'Grants access to the Buyback Request Panel',
+        'description' => 'This permission is needed if you wanna create buyback requests',
+    ],
+    'contract' => [
+        'label' => 'Grants access to the Buyback Contract Panel',
+        'description' => 'Displays all current requested buybacks and let you manage them',
     ],
     'admin' => [
-        'label' => 'Grants access to the Buyback AdminPanel',
-        'description' => 'Grants permission to administrate buyback market configs and general plugin settings.',
+        'label' => 'Grants access to the Buyback Admin Panel',
+        'description' => 'Administrate buyback market configs and general plugin settings.',
     ]
 ];

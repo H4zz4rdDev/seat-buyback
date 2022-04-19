@@ -18,7 +18,7 @@
                     <textarea name="items" cols="75" rows="10"></textarea>
                     <p><b>Max allowed Items: </b>{{ $maxAllowedItems }}</p>
                 </div>
-                <button type="submit" class="btn btn-success" form="item-check">Send</button>
+                <button type="submit" class="btn btn-primary" form="item-check">Send</button>
             </form>
         </div>
     </div>
@@ -38,7 +38,7 @@
             @foreach($eve_item_data["parsed"] as $item)
                 <tr>
                     <td><img src="https://images.evetech.net/types/{{ $item["typeId"] }}/icon?size=32"/>
-                        <b>{{ $item["typeQuantity"] }} x {{ $item["typeName"] }}</b>
+                        <b>{{ number_format($item["typeQuantity"],0,',', '.') }} x {{ $item["typeName"] }}</b>
                         ( {!! $item["marketConfig"]["marketOperationType"] == 0 ? '-' : '+' !!}{{$item["marketConfig"]["percentage"] }}% )
                     </td>
                     <td class="isk-td"><span class="isk-info">+{{ number_format($item["typeSum"],0,',', '.') }}</span> ISK</td>
@@ -52,7 +52,7 @@
             </table>
         </div>
     </div>
-     @if(count($eve_item_data["ignored"]) > 0)
+     @if(array_key_exists("ignored", $eve_item_data) && count($eve_item_data["ignored"]) > 0)
         <div class="card">
             <div class="card-body">
                 <div class="form-group">
@@ -82,30 +82,36 @@
         <div class="card-body">
             <label for="items">3. Your contract</label>
             <p>Please create a contract with the data shown below</p>
-            <table class="table">
-                <tbody>
-                <tr>
-                    <td>Contract type</td>
-                    <td><b>Item Exchange</b></td>
-                </tr>
-                <tr>
-                    <td>Contract to</td>
-                    <td><b>Awesome ISK Dude</b></td>
-                </tr>
-                <tr>
-                    <td>I will receive</td>
-                    <td><b><span class="isk-info">{{ number_format($finalPrice,0,',', '.') }}</span> ISK</b></td>
-                </tr>
-                <tr>
-                    <td>Expiration</td>
-                    <td><b>4 Weeks</b></td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td><b>G5K9L3</b></td>
-                </tr>
-                </tbody>
-            </table>
+            <form action="{{ route('buyback.contract-insert') }}" method="post" id="contract-insert" name="contract-insert">
+                {{ csrf_field() }}
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>Contract type</td>
+                        <td><b>Item Exchange</b></td>
+                    </tr>
+                    <tr>
+                        <td>Contract to</td>
+                        <td><b>Awesome ISK Dude</b></td>
+                    </tr>
+                    <tr>
+                        <td>I will receive</td>
+                        <td><b><span class="isk-info">{{ number_format($finalPrice,0,',', '.') }}</span> ISK</b></td>
+                    </tr>
+                    <tr>
+                        <td>Expiration</td>
+                        <td><b>4 Weeks</b></td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td><b>{{ $contractId }}</b></td>
+                        <input type="hidden" value="{{ $contractId }}" name="contractId" id="contractId">
+                    </tr>
+                    <input type="hidden" value="{{ json_encode($eve_item_data) }}" name="contractData" id="contractId">
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary mb-2">Confirm</button>
+            </form>
         </div>
     </div>
 @stop

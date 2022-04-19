@@ -25,6 +25,8 @@ return [
     'page_title' => 'Corporation Buyback',
     'admin_browser_title' => 'Corporation Buyback Settings',
     'admin_page_title' => 'Corporation Buyback Settings',
+    'contract_browser_title' => 'Corporation Buyback Contracts',
+    'contract_page_title' => 'Corporation Buyback Contracts',
     'page_subtitle' => 'Corporation Buyback',
     'itemcheck.error' => 'Please don\'t send an empty form field'
 ];

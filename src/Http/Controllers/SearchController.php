@@ -23,6 +23,7 @@ class SearchController extends Controller {
                 )
                 ->where('typeName', 'LIKE', "%" . $request->get('q') . "%")
                 ->whereNotNull('marketGroupID')
+                ->orderBy('typeName', 'asc')
                 ->get();
         }
         return response()->json($data);

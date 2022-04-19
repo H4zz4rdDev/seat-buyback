@@ -24,4 +24,5 @@ return [
     'main_level' => 'Buyback',
     'sub_home_level' => 'Request',
     'sub_admin_level' => 'Admin',
+    'sub_contract_level' => 'Contracts'
 ];
