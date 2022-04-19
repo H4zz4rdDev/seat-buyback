@@ -4,6 +4,7 @@ namespace WipeOutInc\Seat\SeatBuyback\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Seat\Web\Http\Controllers\Controller;
 use WipeOutInc\Seat\SeatBuyback\Models\BuybackContract;
 
@@ -14,8 +15,12 @@ class BuybackContractController extends Controller {
      */
     public function getHome()
     {
+        $contracts = BuybackContract::where('contractStatus', '=', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('buyback::buyback_contract', [
-            'contracts' => BuybackContract::where('contractStatus', '=', 0)->get()
+            'contracts' => $contracts
         ]);
     }
 
@@ -28,7 +33,7 @@ class BuybackContractController extends Controller {
 
         $contract = new BuybackContract();
         $contract->contractId = $request->get('contractId');
-        $contract->contractIssuer = "H4zz4rd";
+        $contract->contractIssuer = Auth::user()->name;
         $contract->contractData = $request->get('contractData');
         $contract->save();
 

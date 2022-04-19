@@ -8,6 +8,9 @@
 @endpush
 
 @section('left')
+    @if($contracts->isEmpty())
+        <h5>No contracts found yet!</h5>
+    @else
     <div id="accordion">
         @foreach($contracts as $contract)
         <div class="card">
@@ -62,11 +65,5 @@
         </div>
         @endforeach
     </div>
-
+    @endif
 @stop
-
-@push('javascript')
-    <script>
-        console.log("JS...");
-    </script>
-@endpush
