@@ -24,6 +24,23 @@ class BuybackContractController extends Controller {
         ]);
     }
 
+    public function getCharacterContracts () {
+
+        //Todo Refactor contractIssuer to userID
+        $openContracts = BuybackContract::where('contractStatus', '=', 0)
+            ->where('contractIssuer', '=', Auth::user()->name)
+            ->get();
+
+        $closedContracts = BuybackContract::where('contractStatus', '=', 1)
+            ->where('contractIssuer', '=', Auth::user()->name)
+            ->get();
+
+        return view('buyback::buyback_my_contracts',  [
+            'openContracts' => $openContracts,
+            'closedContracts' => $closedContracts
+        ]);
+    }
+
     public function insetContract(Request $request) {
 
         $request->validate([

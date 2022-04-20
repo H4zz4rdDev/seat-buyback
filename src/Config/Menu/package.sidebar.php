@@ -20,9 +20,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 return [
-
-    // Integrating with the SeAT menu is defined here.
-    // Refer to the web package for a structure reference.
     'buyback' => [
         'name' => 'menu-entry-name',
         'label' => 'buyback::menu.main_level',
@@ -33,25 +30,32 @@ return [
         'entries' => [
             [
                 'name' => 'buyback-home-sub-menu',
-                'label' => 'buyback::menu.sub_home_level',
-                'icon' => 'fas fa-th-list',
+                'label' => 'buyback::menu.sub-home-level',
+                'icon' => 'fas fa-pen',
                 'route' => 'buyback.home',
                 'permission' => 'buyback.view'
             ],
             [
+                'name' => 'buyback-character-contracts-sub-menu',
+                'label' => 'buyback::menu.sub-character-contracts-level',
+                'icon' => 'fas fa-book-open',
+                'route' => 'buyback.character-contracts',
+                'permission' => 'buyback.view'
+            ],
+            [
                 'name' => 'buyback-contract-sub-menu',
-                'label' => 'buyback::menu.sub_contract_level',
+                'label' => 'buyback::menu.sub-contract-level',
                 'icon' => 'fas fa-th-list',
                 'route' => 'buyback.contract',
                 'permission' => 'buyback.contract'
             ],
             [
                 'name' => 'buyback-admin-sub-menu',
-                'label' => 'buyback::menu.sub_admin_level',
-                'icon' => 'fas fa-th-list',
+                'label' => 'buyback::menu.sub-admin-level',
+                'icon' => 'fas fa-cogs',
                 'route' => 'buyback.admin',
                 'permission' => 'buyback.admin'
-            ],
+            ]
         ],
     ],
 ];

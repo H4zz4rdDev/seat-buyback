@@ -14,19 +14,19 @@
     <div id="accordion">
         @foreach($contracts as $contract)
         <div class="card">
-            <div class="card-header border-secondary" id="heading_{{ $contract->contractId }}">
+            <div class="card-header border-secondary" data-toggle="collapse" data-target="#collapse_{{ $contract->contractId }}"
+                 aria-expanded="true" aria-controls="collapse_{{ $contract->contractId }} id="heading_{{ $contract->contractId }}">
                 <h5 class="mb-0">
                     <div class="row">
-                        <div class="col-md-10 align-left">
-                            <img class="img" src="https://images.evetech.net/types/25235/icon?size=32"/>
-                            <button class="btn" data-toggle="collapse" data-target="#collapse_{{ $contract->contractId }}" aria-expanded="true" aria-controls="collapse_{{ $contract->contractId }}">
+                        <div class="col-md-8 align-left">
+                            <button class="btn">
                                 <h3 class="card-title"><b>{{ $contract->contractId }}</b>
                                     | {{ date("d.m.Y", $contract->created_at->timestamp) }}
                                     | <b>{{ $contract->contractIssuer }}</b>
                                     ( {{ count(json_decode($contract->contractData, true)["parsed"]) }} Items )</h3>
                             </button>
                         </div>
-                        <div class="col-md-2 align-right text-center align-centered">
+                        <div class="ml-auto align-right text-center align-centered">
                             <div class="row">
                                 <form action="{{ route('buyback.contract-succeed', ['contractId' => $contract->contractId]) }}" method="get" id="contract-success" name="contract-success">
                                     <button class="btn btn-success">Finish</button>
@@ -35,6 +35,9 @@
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
+                        </div>
+                        <div class="ml-auto align-centered mt-2">
+                            <i class="nav-icon fas fa-plus-square"></i>
                         </div>
                     </div>
                 </h5>
