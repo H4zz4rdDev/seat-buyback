@@ -1,18 +1,18 @@
 <?php
 
-namespace WipeOutInc\Seat\SeatBuyback\Http\Controllers;
+namespace H4zz4rdDev\Seat\SeatBuyback\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Seat\Web\Http\Controllers\Controller;
-use WipeOutInc\Seat\SeatBuyback\Helpers;
-use WipeOutInc\Seat\SeatBuyback\Exceptions\SettingsException;
-use WipeOutInc\Seat\SeatBuyback\Models\BuybackMarketConfig;
+use H4zz4rdDev\Seat\SeatBuyback\Helpers;
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsException;
+use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackMarketConfig;
 
 /**
  * Class BuybackAdminController.
  *
- * @package WipeOutInc\Seat\SeatBuyback\Http\Controllers
+ * @package H4zz4rdDev\Seat\SeatBuyback\Http\Controllers
  */
 class BuybackAdminController extends Controller
 {

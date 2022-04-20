@@ -1,6 +1,6 @@
 <?php
 
-namespace WipeOutInc\Seat\SeatBuyback\Helpers;
+namespace H4zz4rdDev\Seat\SeatBuyback\Helpers;
 
 class MiscHelper
 {

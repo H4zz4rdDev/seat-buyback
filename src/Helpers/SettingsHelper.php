@@ -1,10 +1,10 @@
 <?php
 
-namespace WipeOutInc\Seat\SeatBuyback\Helpers;
+namespace H4zz4rdDev\Seat\SeatBuyback\Helpers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
-use WipeOutInc\Seat\SeatBuyback\Exceptions\SettingsException;
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsException;
 
 class SettingsHelper
 {

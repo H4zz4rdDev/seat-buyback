@@ -1,6 +1,6 @@
 <?php
 
-namespace WipeOutInc\Seat\SeatBuyback\Models;
+namespace H4zz4rdDev\Seat\SeatBuyback\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;

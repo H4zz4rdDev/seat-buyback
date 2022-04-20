@@ -1,6 +1,6 @@
 <?php
 
-namespace WipeOutInc\Seat\SeatBuyback\Http\Controllers;
+namespace H4zz4rdDev\Seat\SeatBuyback\Http\Controllers;
 
 use Seat\Web\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 /**
  * Class SearchController.
  *
- * @package WipeOutInc\Seat\SeatBuyback\Http\Controllers
+ * @package H4zz4rdDev\Seat\SeatBuyback\Http\Controllers
  */
 class SearchController extends Controller {
 

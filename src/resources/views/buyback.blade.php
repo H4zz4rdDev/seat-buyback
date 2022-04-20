@@ -92,7 +92,7 @@
                     </tr>
                     <tr>
                         <td>Contract to</td>
-                        <td><b>{{ WipeOutInc\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_contract_to') }}</b></td>
+                        <td><b>{{ H4zz4rdDev\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_contract_to') }}</b></td>
                     </tr>
                     <tr>
                         <td>I will receive</td>
@@ -100,7 +100,7 @@
                     </tr>
                     <tr>
                         <td>Expiration</td>
-                        <td><b>{{ WipeOutInc\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_expiration') }}</b></td>
+                        <td><b>{{ H4zz4rdDev\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_expiration') }}</b></td>
                     </tr>
                     <tr>
                         <td>Description</td>

@@ -1,14 +1,14 @@
 <?php
 
-namespace WipeOutInc\Seat\SeatBuyback\Helpers;
+namespace H4zz4rdDev\Seat\SeatBuyback\Helpers;
 
 use Illuminate\Support\Facades\DB;
-use WipeOutInc\Seat\SeatBuyback\Models\BuybackMarketConfig;
+use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackMarketConfig;
 
 /**
  * Class EvePraisalHelper.
  *
- * @package WipeOutInc\Seat\SeatBuyback\Helpers
+ * @package H4zz4rdDev\Seat\SeatBuyback\Helpers
  */
 class EvePraisalHelper
 {

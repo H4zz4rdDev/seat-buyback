@@ -19,7 +19,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-namespace WipeOutInc\Seat\SeatBuyback;
+namespace H4zz4rdDev\Seat\SeatBuyback;
 
 use Seat\Services\AbstractSeatPlugin;
 
@@ -158,7 +158,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
      */
     public function getPackageRepositoryUrl(): string
     {
-        return 'https://github.com/WipeOut-Inc/seat-buyback';
+        return 'https://github.com/H4zz4rdDev/seat-buyback';
     }
 
     /**
@@ -182,7 +182,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
      */
     public function getPackagistVendorName(): string
     {
-        return 'WipeOutInc';
+        return 'H4zz4rdDev';
     }
 
     /**

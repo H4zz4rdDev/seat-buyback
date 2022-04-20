@@ -1,5 +1,5 @@
 {
-    "name": "wipeoutinc/seat-buyback",
+    "name": "h4zz4rddev/seat-buyback",
     "description": "Buyback plugin for SeAT",
     "license": "GPL-3.0",
     "authors": [
@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "WipeOutInc\\Seat\\SeatBuyback\\": "src/"
+            "H4zz4rdDev\\Seat\\SeatBuyback\\": "src/"
         }
     },
     "minimum-stability": "dev",
@@ -28,7 +28,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "WipeOutInc\\Seat\\SeatBuyback\\SeatBuybackServiceProvider"
+                "H4zz4rdDev\\Seat\\SeatBuyback\\SeatBuybackServiceProvider"
             ]
         }
     }

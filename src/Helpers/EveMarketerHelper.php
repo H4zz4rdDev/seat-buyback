@@ -1,15 +1,15 @@
 <?php
 
-namespace WipeOutInc\Seat\SeatBuyback\Helpers;
+namespace H4zz4rdDev\Seat\SeatBuyback\Helpers;
 
 use Illuminate\Support\Facades\Cache;
-use WipeOutInc\Seat\SeatBuyback\Exceptions\EveMarketerException;
-use WipeOutInc\Seat\SeatBuyback\Exceptions\SettingsException;
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\EveMarketerException;
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsException;
 
 /**
  * Class EveMarketerHelper.
  *
- * @package WipeOutInc\Seat\SeatBuyback\Helpers
+ * @package H4zz4rdDev\Seat\SeatBuyback\Helpers
  */
 class EveMarketerHelper {
 

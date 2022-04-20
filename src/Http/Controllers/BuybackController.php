@@ -1,17 +1,17 @@
 <?php
 
-namespace WipeOutInc\Seat\SeatBuyback\Http\Controllers;
+namespace H4zz4rdDev\Seat\SeatBuyback\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Seat\Web\Http\Controllers\Controller;
-use WipeOutInc\Seat\SeatBuyback\Helpers;
+use H4zz4rdDev\Seat\SeatBuyback\Helpers;
 
 /**
  * Class BuybackController.
  *
- * @package WipeOutInc\Seat\SeatBuyback\Http\Controllers
+ * @package H4zz4rdDev\Seat\SeatBuyback\Http\Controllers
  */
 class BuybackController extends Controller
 {
