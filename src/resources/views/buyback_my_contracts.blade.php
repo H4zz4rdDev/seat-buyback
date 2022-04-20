@@ -1,7 +1,7 @@
 @extends('web::layouts.grids.8-4')
 
-@section('title', trans('buyback::global.contract_browser_title'))
-@section('page_header', trans('buyback::global.contract_page_title'))
+@section('title', trans('buyback::global.character_contract_browser_title'))
+@section('page_header', trans('buyback::global.character_contract_page_title'))
 
 @push('head')
     <link rel="stylesheet" type="text/css" href="{{ asset('web/css/buyback.css') }}"/>
@@ -9,6 +9,9 @@
 
 @section('left')
     <h5>Open Contracts</h5>
+    @if($openContracts->isEmpty())
+        <p>No open contracts found</p>
+    @endif
     <div id="accordion-open">
         @foreach($openContracts as $contract)
             <div class="card">
@@ -56,6 +59,9 @@
         @endforeach
     </div>
     <h5>Closed Contracts</h5>
+    @if($closedContracts->isEmpty())
+        <p>No closed contracts found</p>
+    @endif
     <div id="accordion-closed">
         @foreach($closedContracts as $contract)
             <div class="card">
