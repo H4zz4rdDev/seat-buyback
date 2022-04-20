@@ -3,7 +3,6 @@
 ![](https://img.shields.io/badge/SeAT-4.0.x-blueviolet?style=flat-square)
 ![](https://img.shields.io/github/license/WipeOut-Inc/seat-buyback?style=flat-square)
 
-___
 A module for [SeAT](https://github.com/eveseat/seat) that makes your life with corporation buyback programs a lot easier.
 
 In case of problems please contact me via EVE-Online message or over the seat discord: `H4zz4rd`
@@ -17,7 +16,6 @@ In case of problems please contact me via EVE-Online message or over the seat di
 
 
 ## Permissions
-___
 There are three different types of permissions you can give to your members:
 
 #### Request
@@ -37,7 +35,6 @@ ___
 > :warning: Each item price is cached and only refreshed by default every hour. You can change the cache time over the admin section. Please **do not** set this value too low because this would spam the evemarketer api and your server could get banned for a while. 
 
 ## Quick Installation Guide:
-___
 I can also recommend reading through the [official seat documentation](https://eveseat.github.io/docs/community_packages/).
 ### Install
 Switch to your seat installation directory ( default : /var/www/seat)
@@ -65,7 +62,6 @@ docker-compose up
 ```
 The plugin should be installed after docker has finished booting.
 ## Donations
-___
 Donations are always welcome, although not required. If you end up using this module a lot, I'd appreciate a donation.
 You can give ISK or contract PLEX and Ships to `H4zz4rd`.
 
