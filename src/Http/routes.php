@@ -19,25 +19,80 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-use WipeOutInc\Seat\SeatBuyback\Http\Controllers\BuybackController;
-use WipeOutInc\Seat\SeatBuyback\Http\Controllers\BuybackAdminController;
-use WipeOutInc\Seat\SeatBuyback\Http\Controllers\BuybackContractController;
-use WipeOutInc\Seat\SeatBuyback\Http\Controllers\SearchController;
-
 Route::group([
     'namespace' => 'WipeOutInc\Seat\SeatBuyback\Http\Controllers',
     'middleware' => ['web', 'auth', 'locale'],
 ], function () {
-    Route::get('/buyback', [BuybackController::class, 'getHome'])->name("buyback.home");
-    Route::post('/buyback', [BuybackController::class, 'checkItems'])->name("buyback.check");
-    Route::get('/buyback/contracts', [BuybackContractController::class, 'getHome'])->name("buyback.contract");
-    Route::get('/buyback/my-contracts', [BuybackContractController::class, 'getCharacterContracts'])->name("buyback.character-contracts");
-    Route::post('/buyback/contracts/insert', [BuybackContractController::class, 'insetContract'])->name("buyback.contract-insert");
-    Route::get('/buyback/contracts/delete/{contractId}', [BuybackContractController::class, 'deleteContract'])->name("buyback.contract-delete");
-    Route::get('/buyback/contracts/succeed/{contractId}', [BuybackContractController::class , 'succeedContract'])->name("buyback.contract-succeed");
-    Route::get('/buyback/admin', [BuybackAdminController::class, 'getHome'])->name("buyback.admin");
-    Route::post('/buyback/admin', [BuybackAdminController::class, 'updateSettings'])->name("buyback.admin-update");
-    Route::post('/buyback/admin/add-market-config', [BuybackAdminController::class, 'addMarketConfig'])->name("buyback.admin-market");
-    Route::get('/buyback/admin/remove-market-config/{typeId}', [BuybackAdminController::class, 'deleteMarketConfig'])->name("buyback.admin-market-remove");
-    Route::get('/autocomplete', [SearchController::class, 'autocomplete'])->name("autocomplete");
+
+    Route::prefix('/buyback')
+        ->group(function () {
+
+            //Show buyback request form
+            Route::get('/')
+                ->name('buyback.home')
+                ->uses('BuybackController@getHome');
+
+            // Show buyback calculation results
+            Route::post('/')
+                ->name ('buyback.check')
+                ->uses('BuybackController@checkItems');
+
+            // Show characters contracts
+            Route::get('myContracts')
+                ->name('buyback.character.contracts')
+                ->uses('BuyBackContractController@getCharacterContracts');
+
+            Route::prefix('/contracts')
+                ->group(function () {
+
+                // Show all open contracts
+                Route::get('/')
+                    ->name('buyback.contract')
+                    ->uses('BuybackContractController@getHome');
+
+                // Insert new contract
+                Route::post('/insert')
+                    ->name('buyback.contracts.insert')
+                    ->uses('BuybackContractController@insertContract');
+
+                // Delete contract
+                Route::get('/delete/{contractId}')
+                    ->name('buyback.contracts.delete')
+                    ->uses('BuybackContractController@deleteContract');
+
+                // Succeed contract
+                Route::get('/succeed/{contractId}')
+                    ->name('buyback.contracts.succeed')
+                    ->uses('BuybackContractController@succeedContract');
+                });
+
+            Route::prefix('/admin')
+                ->group(function () {
+
+                    // Show admin view
+                    Route::get('/')
+                        ->name('buyback.admin')
+                        ->uses('BuybackAdminController@getHome');
+
+                    // Update plugin settings
+                    Route::post('/')
+                        ->name('buyback.admin.update')
+                        ->uses('BuybackAdminController@updateSettings');
+
+                    // Add market config
+                    Route::post('/addMarketConfig')
+                        ->name('buyback.admin.market.add')
+                        ->uses('BuybackAdminController@addMarketConfig');
+
+                    // Remove market config
+                    Route::get('/removeMarketConfig/{typeId}')
+                        ->name('buyback.admin.market.remove')
+                        ->uses('BuybackAdminController@removeMarketConfig');
+                });
+        });
+
+    // Select2 autocomplete
+    Route::get('/autocomplete')
+        ->name('autocompelte')
+        ->uses('SearchController@autocomplete');
 });

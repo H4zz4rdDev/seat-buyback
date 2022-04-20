@@ -41,7 +41,7 @@ class BuybackContractController extends Controller {
         ]);
     }
 
-    public function insetContract(Request $request) {
+    public function insertContract(Request $request) {
 
         $request->validate([
             'contractId' => 'required',

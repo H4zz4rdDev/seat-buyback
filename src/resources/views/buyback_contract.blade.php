@@ -28,10 +28,10 @@
                         </div>
                         <div class="ml-auto align-right text-center align-centered">
                             <div class="row">
-                                <form action="{{ route('buyback.contract-succeed', ['contractId' => $contract->contractId]) }}" method="get" id="contract-success" name="contract-success">
+                                <form action="{{ route('buyback.contracts.succeed', ['contractId' => $contract->contractId]) }}" method="get" id="contract-success" name="contract-success">
                                     <button class="btn btn-success">Finish</button>
                                 </form>
-                                <form class="ml-2" action="{{ route('buyback.contract-delete', ['contractId' => $contract->contractId]) }}" method="get" id="contract-remove" name="contract-remove">
+                                <form class="ml-2" action="{{ route('buyback.contracts.delete', ['contractId' => $contract->contractId]) }}" method="get" id="contract-remove" name="contract-remove">
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
                             </div>

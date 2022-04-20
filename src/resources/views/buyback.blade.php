@@ -82,7 +82,7 @@
         <div class="card-body">
             <label for="items">3. Your contract</label>
             <p>Please create a contract with the data shown below</p>
-            <form action="{{ route('buyback.contract-insert') }}" method="post" id="contract-insert" name="contract-insert">
+            <form action="{{ route('buyback.contracts.insert') }}" method="post" id="contract-insert" name="contract-insert">
                 {{ csrf_field() }}
                 <table class="table">
                     <tbody>

@@ -83,7 +83,7 @@ class BuybackAdminController extends Controller
             ->with('success', 'Market config successfully added.');
     }
 
-    public function deleteMarketConfig(Request $request, int $typeId) {
+    public function removeMarketConfig(Request $request, int $typeId) {
 
         if(!$request->isMethod('get') || empty($typeId) || !is_numeric($typeId))
         {

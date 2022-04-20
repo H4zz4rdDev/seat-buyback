@@ -39,7 +39,7 @@ return [
                 'name' => 'buyback-character-contracts-sub-menu',
                 'label' => 'buyback::menu.sub-character-contracts-level',
                 'icon' => 'fas fa-book-open',
-                'route' => 'buyback.character-contracts',
+                'route' => 'buyback.character.contracts',
                 'permission' => 'buyback.view'
             ],
             [

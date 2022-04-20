@@ -13,7 +13,7 @@
         <div class="card-header">
             <h3 class="card-title">Add Group Config</h3>
         </div>
-        <form action="{{ route('buyback.admin-market') }}" method="post" id="admin-market-config" name="admin-market-config">
+        <form action="{{ route('buyback.admin.market.add') }}" method="post" id="admin-market-config" name="admin-market-config">
             <div class="card-body">
                 {{ csrf_field() }}
                 <p>Fill out the form below and press the add button to generate a new item config entry</p>
@@ -67,7 +67,7 @@
                 <tbody>
                 @if (count($marketConfigs) > 0)
                     @foreach($marketConfigs as $key => $config)
-                        <form action="{{ route('buyback.admin-market-remove', ['typeId' => $config->typeId]) }}" method="get" id="admin-market-config-remove" name="admin-market-config-remove">
+                        <form action="{{ route('buyback.admin.market.remove', ['typeId' => $config->typeId]) }}" method="get" id="admin-market-config-remove" name="admin-market-config-remove">
                             {{ csrf_field() }}
                             <tr>
                                 <td class="align-middle">{{ $config->typeName}}</td>
@@ -92,7 +92,7 @@
         <div class="card-header">
             <h3 class="card-title">Buyback Plugin Settings</h3>
         </div>
-        <form action="{{ route('buyback.admin-update') }}" method="post" id="admin-update" name="admin-update">
+        <form action="{{ route('buyback.admin.update') }}" method="post" id="admin-update" name="admin-update">
             <div class="card-body">
                 {{ csrf_field() }}
                 <div class="box-body">

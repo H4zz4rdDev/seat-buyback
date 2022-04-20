@@ -19,14 +19,13 @@ In case of problems please contact me via EVE-Online message or over the seat di
 There are three different types of permissions you can give to your members:
 
 #### Request
-This is the default right a corp mate needs to access buyback module. This permission includes the "Request" and "My Contracts" section.
+This is the default right a corp mate needs to access the buyback module. This permission includes the "Request" and "My Contracts" section.
 #### Contract
 This permission is for all corp mates that are allowed to manage the corp buyback requests / contracts. 
 #### Admin
 This permission gives access to the admin section. Here you can adjust some general plugin settings and configure the buyback item settings.
 
 ## Usage
-___
 * First you need to set up some items over the admin section you want to buy with your corporation. Items that are not added over the admin section are automatically ignored.
 * A player can now copy the items with ( CTRL + A ) out of the EVE inventory and paste them with ( CTRL + V ) into the request form field. After pressing on "Send" the plugin will get the current prices from Jita to calculate the ISK the player gets for each item. A list of all items will be shown under step 2.
 * If everything is fine and correct he can create a contract with the data shown under step 3 in EVE and confirm this with a final click on the "Confirm" button.
@@ -49,7 +48,7 @@ sudo -H -u www-data bash -c 'php artisan config:cache'
 sudo -H -u www-data bash -c 'php artisan route:cache'
 sudo -H -u www-data bash -c 'php artisan up'
 ```
-*Note that`www-data`is the default ubuntu webserver user. If you are running on a different distribution please adjust the user.
+*Note that `www-data` is the default ubuntu webserver user. If you are running on a different distribution please adjust the user.
 ### Docker Install
 Open your .env file and edit the SEAT_PLUGINS variable to include the package.
 ```
