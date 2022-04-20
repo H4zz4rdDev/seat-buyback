@@ -58,7 +58,7 @@ SEAT_PLUGINS=wipeoutinc/seat-buyback
 ```
 After adding the plugin to your .env file run:
 ```
-docker-compose up
+docker-compose up -d
 ```
 The plugin should be installed after docker has finished booting.
 ## Donations
