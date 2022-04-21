@@ -8,6 +8,11 @@
 @endpush
 
 @section('left')
+    <div class="card">
+        <div class="card-body">
+            <span>{{ trans('buyback::global.contract_introduction') }}</span>
+        </div>
+    </div>
     @if($contracts->isEmpty())
         <h5>{{ trans('buyback::global.contract_error_no_items') }}</h5>
     @else
@@ -27,7 +32,7 @@
                             </button>
                         </div>
                         <div class="ml-auto align-right text-center align-centered">
-                            <div class="row">
+                            <div class="row ">
                                 <form action="{{ route('buyback.contracts.succeed', ['contractId' => $contract->contractId]) }}" method="get" id="contract-success" name="contract-success">
                                     <button class="btn btn-success">Finish</button>
                                 </form>

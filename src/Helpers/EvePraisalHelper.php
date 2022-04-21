@@ -23,7 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 namespace H4zz4rdDev\Seat\SeatBuyback\Helpers;
 
 use Illuminate\Support\Facades\DB;
-use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackMarketConfig;
+use Seat\Eveapi\Models\Sde\InvType;
 
 /**
  * Class EvePraisalHelper
@@ -127,23 +127,7 @@ class EvePraisalHelper
 
         return $parsedItems;
     }
-
-    /**
-     * @param string $itemName
-     * @return int|null
-     */
-    public function getItemTypeId(string $itemName): ?int
-    {
-
-        $result = DB::table('invTypes')
-            ->select(
-                'typeID'
-            )
-            ->where('typeName', '=', $itemName)
-            ->first();
-        return ($result == null) ? null : $result->typeID;
-    }
-
+    
     /**
      * @param string $item_string
      * @return array|null
@@ -180,9 +164,11 @@ class EvePraisalHelper
                 continue;
             }
 
+            $inv_type = InvType::where('typeName', '=', $item_name)->first();
+
             if (!array_key_exists($item_name, $sorted_item_data)) {
                 $sorted_item_data[$item_name]["name"] = $item_name;
-                $sorted_item_data[$item_name]["typeID"] = $this->getItemTypeId($item_name);
+                $sorted_item_data[$item_name]["typeID"] = $inv_type->typeID;
                 $sorted_item_data[$item_name]["quantity"] = 0;
                 $sorted_item_data[$item_name]["price"] = 0;
                 $sorted_item_data[$item_name]["sum"] = 0;

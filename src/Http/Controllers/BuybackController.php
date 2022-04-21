@@ -72,19 +72,19 @@ class BuybackController extends Controller
         $parsedItems = Helpers\EvePraisalHelper::getInstance()->parseEveItemData($request->get('items'));
 
         if(!array_key_exists("parsed", $parsedItems)) {
-            return redirect('buyback')->withErrors(['errors' => trans('buyback::global.empty_item_field')]);
+            return redirect('buyback')->withErrors(['errors' => trans('buyback::global.error_empty_item_field')]);
         }
 
         $maxAllowedItems = Helpers\SettingsHelper::getInstance()->getMaxAllowedItems();
 
-        if (count($parsedItems) > $maxAllowedItems) {
+        if (count($parsedItems["parsed"]) > $maxAllowedItems) {
             return redirect('buyback')->withErrors(
-                ['errors' => 'Too much items posted. Max allowed items: ' . $maxAllowedItems]);
+                ['errors' => trans('buyback::global.error_too_much_items', ['count' => $maxAllowedItems])]);
         }
 
         $finalPrice = Helpers\PriceCalculationHelper::calculateFinalPrice($parsedItems["parsed"]);
 
-        return view('buyback::buyback', [
+        return view('buyback::buyback_check', [
             'eve_item_data' => $parsedItems,
             'maxAllowedItems' => $this->_maxAllowedItems,
             'finalPrice' => $finalPrice,

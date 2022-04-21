@@ -8,6 +8,11 @@
 @endpush
 
 @section('left')
+    <div class="card">
+        <div class="card-body">
+            <span>{{ trans('buyback::global.my_contract_introduction') }}</span>
+        </div>
+    </div>
     <h5>{{ trans('buyback::global.my_contracts_open_title') }}</h5>
     @if($openContracts->isEmpty())
         <p>{{ trans('buyback::global.my_contracts_open_error') }}</p>

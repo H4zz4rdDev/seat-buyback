@@ -17,14 +17,28 @@
             <div class="card-body">
                 {{ csrf_field() }}
                 <p>{{ trans('buyback::global.admin_description') }}</p>
-                <div class="form-row">
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="admin_price_cache_time">{{ trans('buyback::global.admin_item_select_label') }}</label>
                     <div class="col-md-6">
-                        <div class="form-group pt-1">
-                            <select class="groupsearch form-control input-xs" name="admin-market-typeId" id="admin-market-typeId"></select>
-                        </div>
+                        <select class="groupsearch form-control input-xs" name="admin-market-typeId" id="admin-market-typeId"></select>
+                        <p class="form-text text-muted mb-0">
+                            {{ trans('buyback::global.admin_item_select_description') }}
+                        </p>
                     </div>
-                    <div class="col-md-2">
-                        <div class="form-group text-center mt-2">
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="admin-market-percentage">{{ trans('buyback::global.admin_item_percentage_label') }}</label>
+                    <div class="col-md-6">
+                        <input name="admin-market-percentage" id="admin-market-percentage" type="text" class="form-control w-25" min="1" max="100" placeholder="%" maxlength="2">
+                        <p class="form-text text-muted mb-0">
+                            {{ trans('buyback::global.admin_item_percentage_description') }}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="admin-market-operation"><i class="fas fa-arrow-down"></i>/<i class="fas fa-arrow-up"></i>{{ trans('buyback::global.admin_item_jita_label') }}</label>
+                    <div class="col-md-6">
+                        <div class="form-group mt-2">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="admin-market-operation" id="admin-market-operation" value="0" checked>
                                 <label class="form-check-label" for="admin-market-operation"><i class="fas fa-arrow-down"></i></label>
@@ -34,20 +48,27 @@
                                 <label class="form-check-label" for="admin-market-operation-2"><i class="fas fa-arrow-up"></i></label>
                             </div>
                         </div>
+                        <p class="form-text text-muted mb-0">
+                            {{ trans('buyback::global.admin_item_jita_description') }}
+                        </p>
                     </div>
-                    <div class="col-md-1">
-                        <input name="admin-market-percentage" id="admin-market-percentage" type="text" class=" form-control" placeholder="%" maxlength="3">
-                    </div>
-                    <div class="col">
-                        <button id="submit" type="submit" class="btn btn-success ml-2 form-control input-sm">
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="submit"></label>
+                    <div class="col-md-4">
+                        <button id="submit" type="submit" class="btn btn-success">
                             <i class="fas fa-check"></i>
-                            Add
+                            Add Item
                         </button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
+
+
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">{{ trans('buyback::global.admin_group_title') }}</h3>
@@ -59,7 +80,7 @@
                 </thead>
                 <thead>
                 <th>{{ trans('buyback::global.admin_group_table_item_name') }}</th>
-                <th class="text-center"><i class="fas fa-arrow-up"></i>/<i class="fas fa-arrow-down"></i>{{ trans('buyback::global.admin_group_table_jita') }}</th>
+                <th class="text-center"><i class="fas fa-arrow-down"></i>/<i class="fas fa-arrow-up">{{ trans('buyback::global.admin_group_table_jita') }}</th>
                 <th class="text-center">{{ trans('buyback::global.admin_group_table_percentage') }}</th>
                 <th>{{ trans('buyback::global.admin_group_table_market_name') }}</th>
                 <th class="text-center">{{ trans('buyback::global.admin_group_table_actions') }}</th>
@@ -110,7 +131,7 @@
                 <div class="form-group row">
                     <label class="col-md-4 col-form-label" for="admin_max_allowed_items">{{ trans('buyback::global.admin_setting_allowed_items_label') }}</label>
                     <div class="col-md-6">
-                        <input id="admin_max_allowed_items" name="admin_max_allowed_items" type="number" class="form-control input-md" value="{{ $settings["admin_max_allowed_items"] }}">
+                        <input id="admin_max_allowed_items" name="admin_max_allowed_items" type="number" class="form-control input-md w-25" value="{{ $settings["admin_max_allowed_items"] }}">
                         <p class="form-text text-muted mb-0">
                             {{ trans('buyback::global.admin_setting_allowed_items_description') }}
                         </p>

@@ -86,7 +86,7 @@ class BuybackContractController extends Controller {
         $contract->contractData = $request->get('contractData');
         $contract->save();
 
-        return redirect()->back()
+        return redirect()->route('buyback.character.contracts')
             ->with('success', trans('buyback::global.contract_success_submit', ['id' => $request->get('contractId')]));
     }
 
