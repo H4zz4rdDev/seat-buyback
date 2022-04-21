@@ -25,14 +25,17 @@
                     <h5 class="mb-0">
                         <div class="row">
                             <div class="col-md-10 align-left">
+                                <i class="nav-icon fas fa-eye align-middle"></i>
                                 <button class="btn">
                                     <h3 class="card-title"><b>{{ $contract->contractId }}</b>
                                         | {{ date("d.m.Y", $contract->created_at->timestamp) }}
                                         ( {{ count(json_decode($contract->contractData, true)["parsed"]) }} Items )</h3>
                                 </button>
                             </div>
-                            <div class="ml-auto align-centered mt-1">
-                                <i class="nav-icon fas fa-plus-square"></i>
+                            <div class="ml-auto align-centered">
+                                <form class="ml-2" action="{{ route('buyback.contracts.delete', ['contractId' => $contract->contractId]) }}" method="get" id="contract-remove" name="contract-remove">
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
                             </div>
                         </div>
                     </h5>
@@ -75,15 +78,13 @@
                     <h5 class="mb-0">
                         <div class="row">
                             <div class="col-md-10 align-left">
+                                <i class="nav-icon fas fa-eye align-middle mt-2"></i>
                                 <button class="btn">
                                     <h3 class="card-title"><del><b>{{ $contract->contractId }}</b>
                                         | {{ date("d.m.Y", $contract->created_at->timestamp) }}
                                             ( {{ count(json_decode($contract->contractData, true)["parsed"]) }} Items )</del>
                                         - <b> Finished: {{ date("d.m.Y", $contract->updated_at->timestamp) }}</b></h3>
                                 </button>
-                            </div>
-                            <div class="ml-auto align-centered mt-1">
-                                <i class="nav-icon fas fa-plus-square"></i>
                             </div>
                         </div>
                     </h5>

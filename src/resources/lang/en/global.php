@@ -51,6 +51,8 @@ return [
     'step_three_contract_receive' => 'I will receive',
     'step_three_contract_expiration' => 'Expiration',
     'step_three_contract_description' => 'Description',
+    'step_three_contract_tip' => 'You can click on the results marked with a * to copy them directly to your clipboard.',
+    'step_three_contract_tip_title' => 'Tip:',
     'max_allowed_items' => 'Max allowed Items per Buyback:',
     'admin_title' => 'Add Item Config',
     'admin_description' => 'Fill out the form below and press the add button to generate a new item config entry',

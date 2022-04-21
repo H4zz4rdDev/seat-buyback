@@ -41,11 +41,11 @@
                         <div class="form-group mt-2">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="admin-market-operation" id="admin-market-operation" value="0" checked>
-                                <label class="form-check-label" for="admin-market-operation"><i class="fas fa-arrow-down"></i></label>
+                                <label class="form-check-label" for="admin-market-operation"><i class="fas fa-arrow-down"></i>{{ trans('buyback::global.admin_group_table_jita') }}</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="admin-market-operation" id="admin-market-operation-2" value="1">
-                                <label class="form-check-label" for="admin-market-operation-2"><i class="fas fa-arrow-up"></i></label>
+                                <label class="form-check-label" for="admin-market-operation-2"><i class="fas fa-arrow-up"></i>{{ trans('buyback::global.admin_group_table_jita') }}</label>
                             </div>
                         </div>
                         <p class="form-text text-muted mb-0">

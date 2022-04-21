@@ -23,6 +23,7 @@
                  aria-expanded="true" aria-controls="collapse_{{ $contract->contractId }} id="heading_{{ $contract->contractId }}">
                 <h5 class="mb-0">
                     <div class="row">
+                        <i class="nav-icon fas fa-eye align-middle mt-2"></i>
                         <div class="col-md-8 align-left">
                             <button class="btn">
                                 <h3 class="card-title"><b>{{ $contract->contractId }}</b>
@@ -31,8 +32,8 @@
                                     ( {{ count(json_decode($contract->contractData, true)["parsed"]) }} Items )</h3>
                             </button>
                         </div>
-                        <div class="ml-auto align-right text-center align-centered">
-                            <div class="row ">
+                        <div class="ml-auto mr-2 align-right text-center align-centered">
+                            <div class="row">
                                 <form action="{{ route('buyback.contracts.succeed', ['contractId' => $contract->contractId]) }}" method="get" id="contract-success" name="contract-success">
                                     <button class="btn btn-success">Finish</button>
                                 </form>
@@ -40,9 +41,6 @@
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
-                        </div>
-                        <div class="ml-auto align-centered mt-2">
-                            <i class="nav-icon fas fa-plus-square"></i>
                         </div>
                     </div>
                 </h5>

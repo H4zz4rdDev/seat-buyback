@@ -74,25 +74,29 @@
                             <td><b>Item Exchange</b></td>
                         </tr>
                         <tr>
-                            <td>{{ trans('buyback::global.step_three_contract_to') }}</td>
-                            <td><b>{{ H4zz4rdDev\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_contract_to') }}</b></td>
+                            <td>{{ trans('buyback::global.step_three_contract_to') }}*</td>
+                            <td><b onClick="SelfCopy(this)" data-container="body" data-toggle="popover" data-placement="top" data-content="Copied!">{{ H4zz4rdDev\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_contract_to') }}</b></td>
                         </tr>
                         <tr>
-                            <td>{{ trans('buyback::global.step_three_contract_receive') }}</td>
-                            <td><b><span class="isk-info">{{ number_format($finalPrice,0,',', '.') }}</span> {{ trans('buyback::global.currency') }}</b></td>
+                            <td>{{ trans('buyback::global.step_three_contract_receive') }}*</td>
+                            <td><b onClick="SelfCopy(this)" data-container="body" data-toggle="popover" data-placement="top" data-content="Copied!"><span class="isk-info">{{ number_format($finalPrice,0,',', '.') }}</span></b> <b>{{ trans('buyback::global.currency') }}</b></td>
                         </tr>
                         <tr>
                             <td>{{ trans('buyback::global.step_three_contract_expiration') }}</td>
                             <td><b>{{ H4zz4rdDev\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_expiration') }}</b></td>
                         </tr>
                         <tr>
-                            <td>{{ trans('buyback::global.step_three_contract_description') }}</td>
-                            <td><b>{{ $contractId }}</b></td>
+                            <td>{{ trans('buyback::global.step_three_contract_description') }}*</td>
+                            <td><b onClick="SelfCopy(this)" data-container="body" data-toggle="popover" data-placement="top" data-content="Copied!">{{ $contractId }}</b></td>
                             <input type="hidden" value="{{ $contractId }}" name="contractId" id="contractId">
                         </tr>
                         <input type="hidden" value="{{ json_encode($eve_item_data) }}" name="contractData" id="contractId">
                         </tbody>
                     </table>
+                    <div>
+                        <span><b>{{ trans('buyback::global.step_three_contract_tip_title') }}</b></span>
+                        <p>{{ trans('buyback::global.step_three_contract_tip') }}</p>
+                    </div>
                     <button type="submit" class="btn btn-primary mb-2">{{ trans('buyback::global.step_three_button') }}</button>
                 </form>
             </div>
@@ -100,3 +104,17 @@
     @stop
 @endif
 
+@push('javascript')
+    <script>
+        function SelfCopy(object)
+        {
+            navigator.clipboard.writeText(object.innerText);
+
+            $(object).popover().click(function () {
+                setTimeout(function () {
+                    $(object).popover('hide');
+                }, 1000);
+            });
+        }
+    </script>
+@endpush
