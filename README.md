@@ -7,8 +7,6 @@ A module for [SeAT](https://github.com/eveseat/seat) that makes your life with c
 
 In case of problems please contact me via EVE-Online message or over the seat discord: `H4zz4rd`
 
-## Development state is at 95%
-> :warning: Please **DO NOT** install this plugin until it has reached 100%!
 ## Screenshots
 ![adminpanel](https://i.imgur.com/3u1bkLv.png)
 
@@ -27,7 +25,7 @@ This permission gives access to the admin section. Here you can adjust some gene
 
 ## Usage
 * First you need to set up some items over the admin section you want to buy with your corporation. Items that are not added over the admin section are automatically ignored.
-* A player can now copy the items with ( CTRL + A ) out of the EVE inventory and paste them with ( CTRL + V ) into the request form field. After pressing on "Send" the plugin will get the current prices from Jita to calculate the ISK the player gets for each item. A list of all items will be shown under step 2.
+* A player can now copy the items with ( CTRL + A & CTRL + C ) out of the EVE inventory and paste them with ( CTRL + V ) into the request form field. After pressing on "Send" the plugin will get the current prices from Jita to calculate the ISK the player gets for each item. A list of all items will be shown under step 2.
 * If everything is fine and correct he can create a contract with the data shown under step 3 in EVE and confirm this with a final click on the "Confirm" button.
 > :warning: The buyback will only be saved with the click on "Confirm". Created contracts in EVE can not be seen by the plugin.
 
