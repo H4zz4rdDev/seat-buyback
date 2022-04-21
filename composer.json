@@ -19,7 +19,6 @@
         "php": "^7.3",
         "laravel/framework": "^6.2",
         "eveseat/web": "^4.0",
-        "eveseat/eveapi": "4.0",
         "ext-json": "*"
     },
     "require-dev": {
