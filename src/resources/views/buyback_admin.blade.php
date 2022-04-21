@@ -11,12 +11,12 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Add Group Config</h3>
+            <h3 class="card-title">{{ trans('buyback::global.admin_title') }}</h3>
         </div>
         <form action="{{ route('buyback.admin.market.add') }}" method="post" id="admin-market-config" name="admin-market-config">
             <div class="card-body">
                 {{ csrf_field() }}
-                <p>Fill out the form below and press the add button to generate a new item config entry</p>
+                <p>{{ trans('buyback::global.admin_description') }}</p>
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group pt-1">
@@ -50,7 +50,7 @@
     </div>
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Group Overview</h3>
+            <h3 class="card-title">{{ trans('buyback::global.admin_group_title') }}</h3>
         </div>
         <div class="card-body">
             <table class="table .table-sm">
@@ -58,11 +58,11 @@
                     <th colspan="5"></th>
                 </thead>
                 <thead>
-                <th>ItemName</th>
-                <th class="text-center"><i class="fas fa-arrow-up"></i>/<i class="fas fa-arrow-down"></i> Jita</th>
-                <th class="text-center">Percentage</th>
-                <th>Market Group Name</th>
-                <th class="text-center">Actions</th>
+                <th>{{ trans('buyback::global.admin_group_table_item_name') }}</th>
+                <th class="text-center"><i class="fas fa-arrow-up"></i>/<i class="fas fa-arrow-down"></i>{{ trans('buyback::global.admin_group_table_jita') }}</th>
+                <th class="text-center">{{ trans('buyback::global.admin_group_table_percentage') }}</th>
+                <th>{{ trans('buyback::global.admin_group_table_market_name') }}</th>
+                <th class="text-center">{{ trans('buyback::global.admin_group_table_actions') }}</th>
                 </thead>
                 <tbody>
                 @if (count($marketConfigs) > 0)
@@ -74,7 +74,7 @@
                                 <td class="text-center align-middle">{!! $config->marketOperationType == 0 ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>' !!}</td>
                                 <td class="text-center align-middle">{{ $config->percentage }}%</td>
                                 <td class="align-middle">{{ $config->groupName }}</td>
-                                <td class="text-center mb-4 mt-4 align-middle"><button class="btn btn-danger btn-xs form-control" id="submit" type="submit"><i class="fas fa-trash-alt"></i> Remove</button></td>
+                                <td class="text-center mb-4 mt-4 align-middle"><button class="btn btn-danger btn-xs form-control" id="submit" type="submit"><i class="fas fa-trash-alt"></i>{{ trans('buyback::global.admin_group_table_button') }}</button></td>
                             </tr>
                         </form>
                     @endforeach
@@ -90,50 +90,50 @@
 @section('right')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Buyback Plugin Settings</h3>
+            <h3 class="card-title">{{ trans('buyback::global.admin_setting_title') }}</h3>
         </div>
         <form action="{{ route('buyback.admin.update') }}" method="post" id="admin-update" name="admin-update">
             <div class="card-body">
                 {{ csrf_field() }}
                 <div class="box-body">
-                    <legend>General</legend>
+                    <legend>{{ trans('buyback::global.admin_setting_first_title') }}</legend>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-4 col-form-label" for="admin_price_cache_time">Price Cache Time</label>
+                    <label class="col-md-4 col-form-label" for="admin_price_cache_time">{{ trans('buyback::global.admin_setting_cache_label') }}</label>
                     <div class="col-md-6">
                         <input id="admin_price_cache_time" name="admin_price_cache_time" type="number" class="form-control input-md" placeholder="In seconds" value="{{ $settings["admin_price_cache_time"] }}">
                         <p class="form-text text-muted mb-0">
-                            Please enter the time in seconds that items prices should be cached.
+                            {{ trans('buyback::global.admin_setting_cache_description') }}
                         </p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-4 col-form-label" for="admin_max_allowed_items">Max Items Allowed</label>
+                    <label class="col-md-4 col-form-label" for="admin_max_allowed_items">{{ trans('buyback::global.admin_setting_allowed_items_label') }}</label>
                     <div class="col-md-6">
                         <input id="admin_max_allowed_items" name="admin_max_allowed_items" type="number" class="form-control input-md" value="{{ $settings["admin_max_allowed_items"] }}">
                         <p class="form-text text-muted mb-0">
-                            Please enter the maximum number of items that are allowed per request
+                            {{ trans('buyback::global.admin_setting_allowed_items_description') }}
                         </p>
                     </div>
                 </div>
                 <div class="box-body">
-                    <legend>Contract</legend>
+                    <legend>{{ trans('buyback::global.admin_setting_second_title') }}</legend>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-4 col-form-label" for="admin_contract_contract_to">Contract to</label>
+                    <label class="col-md-4 col-form-label" for="admin_contract_contract_to">{{ trans('buyback::global.admin_setting_contract_to_label') }}</label>
                     <div class="col-md-6">
                         <input id="admin_contract_contract_to" name="admin_contract_contract_to" type="text" class="form-control input-md" value="{{ $settings["admin_contract_contract_to"] }}">
                         <p class="form-text text-muted mb-0">
-                            Enter the name of the character that should be in the "Contract to" field
+                            {{ trans('buyback::global.admin_setting_contract_to_description') }}
                         </p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-4 col-form-label" for="admin_contract_expiration">Expiration</label>
+                    <label class="col-md-4 col-form-label" for="admin_contract_expiration">{{ trans('buyback::global.admin_setting_expiration_label') }}</label>
                     <div class="col-md-6">
                         <input id="admin_contract_expiration" name="admin_contract_expiration" type="text" class="form-control input-md" value="{{ $settings["admin_contract_expiration"] }}">
                         <p class="form-text text-muted mb-0">
-                            Choose a contract expiration option
+                            {{ trans('buyback::global.admin_setting_expiration_description') }}
                         </p>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
                     <div class="col-md-4">
                         <button id="submit" type="submit" class="btn btn-success">
                             <i class="fas fa-check"></i>
-                            Update
+                            {{ trans('buyback::global.admin_setting_button') }}
                         </button>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
     <script>
 
         $('.groupsearch').select2({
-            placeholder: 'Select item',
+            placeholder: '{{ trans('buyback::global.admin_select_placeholder') }}',
             ajax: {
                 url: '/autocomplete',
                 dataType: 'json',

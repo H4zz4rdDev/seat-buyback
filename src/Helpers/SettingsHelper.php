@@ -26,9 +26,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsException;
 
+/**
+ * Class SettingsHelper
+ *
+ * @package H4zz4rdDev\Seat\SeatBuyback\Helpers
+ */
 class SettingsHelper
 {
-
     /**
      * @var SettingsHelper
      */
@@ -54,9 +58,8 @@ class SettingsHelper
      */
     public function getSetting(string $setting): string
     {
-
         if (!array_key_exists($setting, $this->_settings)) {
-            throw new SettingsException("Admin setting: \"" . $setting . "\" could not be found! Please check your database records!");
+            throw new SettingsException(trans('buyback::global.admin_setting_error', [ 'message' => $setting]));
         }
         return $this->_settings[$setting];
     }
@@ -69,9 +72,8 @@ class SettingsHelper
      */
     public function setSetting(string $key, string $value): void
     {
-
         if (!array_key_exists($key, $this->_settings)) {
-            throw new SettingsException("Admin setting key: \"" . $key . "\" could not be found! Please check your database records!");
+            throw new SettingsException(trans('buyback::global.admin_setting_error', [ 'message' => $key]));
         }
 
         try {

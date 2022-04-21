@@ -25,6 +25,11 @@ namespace H4zz4rdDev\Seat\SeatBuyback\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class BuybackContract
+ *
+ * @package H4zz4rdDev\Seat\SeatBuyback\Models
+ */
 class BuybackContract extends Model
 {
     /**

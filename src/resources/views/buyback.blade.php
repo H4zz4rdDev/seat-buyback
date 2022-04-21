@@ -13,12 +13,12 @@
             <form action="{{ route('buyback.check') }}" method="post" id="item-check" name="item-check">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="items">1. Start a Corp-Buyback Request</label>
-                    <p>Copy and paste your Items into the input field and press on the "Send" button</p>
-                    <textarea name="items" cols="75" rows="10"></textarea>
-                    <p><b>Max allowed Items: </b>{{ $maxAllowedItems }}</p>
+                    <label for="items">{{ trans('buyback::global.step_one_label') }}</label>
+                    <p>{{ trans('buyback::global.step_one_introduction') }}</p>
+                    <textarea class="w-100" name="items" rows="10"></textarea>
+                    <p><b>{{ trans('buyback::global.max_allowed_items') }} </b>{{ $maxAllowedItems }}</p>
                 </div>
-                <button type="submit" class="btn btn-primary" form="item-check">Send</button>
+                <button type="submit" class="btn btn-primary" form="item-check">{{ trans('buyback::global.step_one_button') }}</button>
             </form>
         </div>
     </div>
@@ -28,11 +28,11 @@
 @section('center')
     <div class="card">
         <div class="card-body">
-            <label for="items">2. Contract Item Overview</label>
-            <p>Please check the items and prices before you create the contract</p>
+            <label for="items">{{ trans('buyback::global.step_two_label') }}</label>
+            <p>{{ trans('buyback::global.step_two_introduction') }}</p>
             <table class="table">
                 <thead class="thead bg-primary">
-                    <th scope="col" class="align-centered" colspan="2">Itemlist</th>
+                    <th scope="col" class="align-centered" colspan="2">{{ trans('buyback::global.step_two_item_table_title') }}</th>
                 </thead>
                 <tbody>
             @foreach($eve_item_data["parsed"] as $item)
@@ -41,12 +41,12 @@
                         <b>{{ number_format($item["typeQuantity"],0,',', '.') }} x {{ $item["typeName"] }}</b>
                         ( {!! $item["marketConfig"]["marketOperationType"] == 0 ? '-' : '+' !!}{{$item["marketConfig"]["percentage"] }}% )
                     </td>
-                    <td class="isk-td"><span class="isk-info">+{{ number_format($item["typeSum"],0,',', '.') }}</span> ISK</td>
+                    <td class="isk-td"><span class="isk-info">+{{ number_format($item["typeSum"],0,',', '.') }}</span> {{ trans('buyback::global.currency') }}</td>
                 </tr>
             @endforeach
                 <tr>
-                    <td class="align-centered"><b>Summary</b></td>
-                    <td class="align-centered isk-td"><b><span class="isk-info">+{{ number_format($finalPrice,0,',', '.') }}</span> ISK</b></td>
+                    <td class="align-centered"><b>{{ trans('buyback::global.step_two_summary') }}</b></td>
+                    <td class="align-centered isk-td"><b><span class="isk-info">+{{ number_format($finalPrice,0,',', '.') }}</span> {{ trans('buyback::global.currency') }}</b></td>
                 </tr>
                 </tbody>
             </table>
@@ -59,7 +59,7 @@
                     <table class="table table-borderless">
                         <thead class="thead">
                         <th class="align-centered bg-red">
-                            <span class="ml-2"><i class='fas fa-ban'></i> Ignored Items ( Not bought )</span>
+                            <span class="ml-2"><i class='fas fa-ban'></i>{{ trans('buyback::global.step_two_ignored_table_title') }}</span>
                         </th>
                         </thead>
                         <tbody>
@@ -80,47 +80,39 @@
 @section('right')
     <div class="card">
         <div class="card-body">
-            <label for="items">3. Your contract</label>
-            <p>Please create a contract with the data shown below</p>
+            <label for="items">{{ trans('buyback::global.step_three_label') }}</label>
+            <p>{{ trans('buyback::global.step_three_introduction') }}</p>
             <form action="{{ route('buyback.contracts.insert') }}" method="post" id="contract-insert" name="contract-insert">
                 {{ csrf_field() }}
                 <table class="table">
                     <tbody>
                     <tr>
-                        <td>Contract type</td>
+                        <td>{{ trans('buyback::global.step_three_contract_type') }}</td>
                         <td><b>Item Exchange</b></td>
                     </tr>
                     <tr>
-                        <td>Contract to</td>
+                        <td>{{ trans('buyback::global.step_three_contract_to') }}</td>
                         <td><b>{{ H4zz4rdDev\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_contract_to') }}</b></td>
                     </tr>
                     <tr>
-                        <td>I will receive</td>
-                        <td><b><span class="isk-info">{{ number_format($finalPrice,0,',', '.') }}</span> ISK</b></td>
+                        <td>{{ trans('buyback::global.step_three_contract_receive') }}</td>
+                        <td><b><span class="isk-info">{{ number_format($finalPrice,0,',', '.') }}</span> {{ trans('buyback::global.currency') }}</b></td>
                     </tr>
                     <tr>
-                        <td>Expiration</td>
+                        <td>{{ trans('buyback::global.step_three_contract_expiration') }}</td>
                         <td><b>{{ H4zz4rdDev\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_expiration') }}</b></td>
                     </tr>
                     <tr>
-                        <td>Description</td>
+                        <td>{{ trans('buyback::global.step_three_contract_description') }}</td>
                         <td><b>{{ $contractId }}</b></td>
                         <input type="hidden" value="{{ $contractId }}" name="contractId" id="contractId">
                     </tr>
                     <input type="hidden" value="{{ json_encode($eve_item_data) }}" name="contractData" id="contractId">
                     </tbody>
                 </table>
-                <button type="submit" class="btn btn-primary mb-2">Confirm</button>
+                <button type="submit" class="btn btn-primary mb-2">{{ trans('buyback::global.step_three_button') }}</button>
             </form>
         </div>
     </div>
 @stop
 @endif
-
-@push('javascript')
-    <script>
-
-        console.log('Include any JavaScript you may need here!');
-
-    </script>
-@endpush

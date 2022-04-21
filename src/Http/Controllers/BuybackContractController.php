@@ -28,6 +28,11 @@ use Illuminate\Support\Facades\Auth;
 use Seat\Web\Http\Controllers\Controller;
 use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackContract;
 
+/**
+ * Class BuybackContractController
+ *
+ * @package H4zz4rdDev\Seat\SeatBuyback\Http\Controllers
+ */
 class BuybackContractController extends Controller {
 
     /**
@@ -44,6 +49,9 @@ class BuybackContractController extends Controller {
         ]);
     }
 
+    /**
+     * @return mixed
+     */
     public function getCharacterContracts () {
 
         //Todo Refactor contractIssuer to userID
@@ -61,6 +69,10 @@ class BuybackContractController extends Controller {
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function insertContract(Request $request) {
 
         $request->validate([
@@ -75,29 +87,39 @@ class BuybackContractController extends Controller {
         $contract->save();
 
         return redirect()->back()
-            ->with('success', 'Contract with ID: ' . $request->get('contractId') . ' successfully submitted.');
+            ->with('success', trans('buyback::global.contract_success_submit', ['id' => $request->get('contractId')]));
     }
 
+    /**
+     * @param Request $request
+     * @param string $contractId
+     * @return mixed
+     */
     public function deleteContract (Request $request, string $contractId)
     {
         if(!$request->isMethod('get') || empty($contractId))
         {
             return redirect()->back()
-                ->with(['error' => "An error occurred!"]);
+                ->with(['error' => trans('buyback::global.error')]);
         }
 
         BuybackContract::destroy($contractId);
 
         return redirect()->back()
-            ->with('success', 'Contract with ID: ' . $contractId . ' successfully deleted.');
+            ->with('success', trans('buyback::global.contract_success_deleted', ['id' => $contractId]));
     }
 
+    /**
+     * @param Request $request
+     * @param string $contractId
+     * @return mixed
+     */
     public function succeedContract (Request $request, string $contractId)
     {
         if(!$request->isMethod('get') || empty($contractId))
         {
             return redirect()->back()
-                ->with(['error' => "An error occurred!"]);
+                ->with(['error' => trans('buyback::global.error')]);
         }
 
         $contract = BuybackContract::where('contractId', '=', $contractId)->first();
@@ -107,10 +129,10 @@ class BuybackContractController extends Controller {
             $contract->save();
 
             return redirect()->back()
-                ->with('success', 'Contract with ID: ' . $contractId . ' successfully marked as succeeded.');
+                ->with('success', trans('buyback::global.contract_success_succeeded', ['id' => $contractId]));
         }
 
         return redirect()->back()
-            ->with(['error' => "An error occurred!"]);
+            ->with(['error' => trans('buyback::global.error')]);
     }
 }

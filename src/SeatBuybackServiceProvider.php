@@ -26,7 +26,7 @@ use Seat\Services\AbstractSeatPlugin;
 /**
  * Class SeatBuybackServiceProvider.
  *
- * @package Author\Seat\YourPackage
+ * @package H4zz4rdDev\Seat\SeatBuyback
  */
 class SeatBuybackServiceProvider extends AbstractSeatPlugin
 {

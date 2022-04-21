@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\DB;
 use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackMarketConfig;
 
 /**
- * Class EvePraisalHelper.
+ * Class EvePraisalHelper
  *
  * @package H4zz4rdDev\Seat\SeatBuyback\Helpers
  */

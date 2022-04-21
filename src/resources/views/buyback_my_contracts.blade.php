@@ -8,9 +8,9 @@
 @endpush
 
 @section('left')
-    <h5>Open Contracts</h5>
+    <h5>{{ trans('buyback::global.my_contracts_open_title') }}</h5>
     @if($openContracts->isEmpty())
-        <p>No open contracts found</p>
+        <p>{{ trans('buyback::global.my_contracts_open_error') }}</p>
     @endif
     <div id="accordion-open">
         @foreach($openContracts as $contract)
@@ -58,9 +58,9 @@
             </div>
         @endforeach
     </div>
-    <h5>Closed Contracts</h5>
+    <h5>{{ trans('buyback::global.my_contracts_closed_title') }}</h5>
     @if($closedContracts->isEmpty())
-        <p>No closed contracts found</p>
+        <p>{{ trans('buyback::global.my_contracts_closed_error') }}</p>
     @endif
     <div id="accordion-closed">
         @foreach($closedContracts as $contract)
@@ -93,14 +93,14 @@
                                         <b>{{ number_format($item->typeQuantity,0,',', '.') }} x {{ $item->typeName }}</b>
                                         ( {!! $item->marketConfig->marketOperationType == 0 ? '-' : '+' !!}{{$item->marketConfig->percentage }}% )
                                     </td>
-                                    <td class="isk-td"><span class="isk-info">{{ number_format($item->typeSum,0,',', '.') }}</span> ISK</td>
+                                    <td class="isk-td"><span class="isk-info">{{ number_format($item->typeSum,0,',', '.') }}</span> {{ trans('buyback::global.currency') }}</td>
                                 </tr>
                             @endforeach
                             <tr>
                                 <td class="align-centered"><b>Summary</b></td>
                                 <td class="align-centered isk-td"><b><span class="isk-info">+
                                             {{ number_format(H4zz4rdDev\Seat\SeatBuyback\Helpers\PriceCalculationHelper::calculateFinalPrice(
-                                                json_decode($contract->contractData, true)["parsed"]),0,',', '.') }}</span> ISK</b></td>
+                                                json_decode($contract->contractData, true)["parsed"]),0,',', '.') }}</span> {{ trans('buyback::global.currency') }}</b></td>
                             </tr>
                             </tbody>
                         </table>

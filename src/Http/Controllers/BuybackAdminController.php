@@ -55,6 +55,10 @@ class BuybackAdminController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function updateSettings(Request $request) {
 
         $request->validate([
@@ -66,14 +70,18 @@ class BuybackAdminController extends Controller
 
         if($request->all() == null) {
             return redirect()->back()
-                ->with(['error' => "An error occurred!"]);
+                ->with(['error' => trans('buyback::global.error')]);
         }
         Helpers\SettingsHelper::getInstance()->setAllSettings($request->all());
 
         return redirect()->back()
-            ->with('success', 'Admin config successfully updated.');
+            ->with('success', trans('buyback::global.admin_success_config'));
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function addMarketConfig(Request $request) {
 
         $request->validate([
@@ -86,7 +94,7 @@ class BuybackAdminController extends Controller
 
         if($item != null) {
             return redirect()->route('buyback.admin')
-                ->with(['error' => "There is already a config for Id: " . $item->typeId]);
+                ->with(['error' => trans('buyback::global.admin_error_config') . $item->typeId]);
         }
 
         $invType = InvType::where('typeID', $request->get('admin-market-typeId'))->first();
@@ -101,20 +109,25 @@ class BuybackAdminController extends Controller
         ]);
 
         return  redirect()->route('buyback.admin')
-            ->with('success', 'Market config successfully added.');
+            ->with('success', trans('buyback::global.admin_success_market_add'));
     }
 
+    /**
+     * @param Request $request
+     * @param int $typeId
+     * @return mixed
+     */
     public function removeMarketConfig(Request $request, int $typeId) {
 
         if(!$request->isMethod('get') || empty($typeId) || !is_numeric($typeId))
         {
             return redirect()->back()
-                ->with(['error' => "An error occurred!"]);
+                ->with(['error' => trans('buyback::global.error')]);
         }
 
         BuybackMarketConfig::destroy($typeId);
 
         return redirect()->back()
-            ->with('success', 'Market config successfully deleted.');
+            ->with('success', trans('buyback::global.admin_success_market_remove'));
     }
 }

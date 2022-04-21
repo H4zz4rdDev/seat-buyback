@@ -22,6 +22,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback\Helpers;
 
+
+/**
+ * Class MiscHelper
+ *
+ * @package H4zz4rdDev\Seat\SeatBuyback\Helpers
+ */
 class MiscHelper
 {
     /**

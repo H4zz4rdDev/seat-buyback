@@ -27,7 +27,7 @@ use H4zz4rdDev\Seat\SeatBuyback\Exceptions\EveMarketerException;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsException;
 
 /**
- * Class EveMarketerHelper.
+ * Class EveMarketerHelper
  *
  * @package H4zz4rdDev\Seat\SeatBuyback\Helpers
  */

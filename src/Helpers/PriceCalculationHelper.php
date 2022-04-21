@@ -25,6 +25,11 @@ namespace H4zz4rdDev\Seat\SeatBuyback\Helpers;
 use Illuminate\Support\Facades\DB;
 use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackMarketConfig;
 
+/**
+ * Class PriceCalculationHelper
+ *
+ * @package H4zz4rdDev\Seat\SeatBuyback\Helpers
+ */
 class PriceCalculationHelper {
 
     /**
