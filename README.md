@@ -1,7 +1,7 @@
 # seat-buyback
-[![Latest Stable Version](http://img.shields.io/packagist/v/wipeoutinc/seat-buyback.svg?style=flat-square)]()
+[![Latest Stable Version](http://img.shields.io/packagist/v/h4zz4rddev/seat-buyback.svg?style=flat-square)]()
 ![](https://img.shields.io/badge/SeAT-4.0.x-blueviolet?style=flat-square)
-![](https://img.shields.io/github/license/WipeOut-Inc/seat-buyback?style=flat-square)
+![](https://img.shields.io/github/license/H4zz4rdDev/seat-buyback?style=flat-square)
 
 A module for [SeAT](https://github.com/eveseat/seat) that makes your life with corporation buyback programs a lot easier.
 
@@ -40,7 +40,7 @@ Switch to your seat installation directory ( default : /var/www/seat)
 
 ```shell
 sudo -H -u www-data bash -c 'php artisan down'
-sudo -H -u www-data bash -c 'composer require wipeoutinc/seat-buyback'
+sudo -H -u www-data bash -c 'composer require h4zz4rddev/seat-buyback'
 sudo -H -u www-data bash -c 'php artisan vendor:publish --force --all'
 sudo -H -u www-data bash -c 'php artisan migrate'
 sudo -H -u www-data bash -c 'php artisan seat:cache:clear'
@@ -53,7 +53,7 @@ sudo -H -u www-data bash -c 'php artisan up'
 Open your .env file and edit the SEAT_PLUGINS variable to include the package.
 ```
 # SeAT Plugins
-SEAT_PLUGINS=wipeoutinc/seat-buyback
+SEAT_PLUGINS=h4zz4rddev/seat-buyback
 ```
 After adding the plugin to your .env file run:
 ```
