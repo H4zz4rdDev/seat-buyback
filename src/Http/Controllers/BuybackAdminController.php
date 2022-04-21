@@ -24,6 +24,7 @@ namespace H4zz4rdDev\Seat\SeatBuyback\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Seat\Eveapi\Models\Sde\InvType;
 use Seat\Web\Http\Controllers\Controller;
 use H4zz4rdDev\Seat\SeatBuyback\Helpers;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsException;
@@ -88,14 +89,14 @@ class BuybackAdminController extends Controller
                 ->with(['error' => "There is already a config for Id: " . $item->typeId]);
         }
 
-        $itemDetails = Helpers\ItemHelper::getItemDetails($request->get('admin-market-typeId'));
+        $invType = InvType::where('typeID', $request->get('admin-market-typeId'))->first();
 
         BuybackMarketConfig::insert([
             'typeId' => $request->get('admin-market-typeId'),
-            'typeName' => $itemDetails->typeName,
+            'typeName' => $invType->typeName,
             'marketOperationType' => $request->get('admin-market-operation'),
-            'groupId' => $itemDetails->groupID,
-            'groupName' => $itemDetails->groupName,
+            'groupId' => $invType->groupID,
+            'groupName' => $invType->group->groupName,
             'percentage' => $request->get('admin-market-percentage')
         ]);
 
