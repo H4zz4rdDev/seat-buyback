@@ -40,7 +40,7 @@ Route::group([
             // Show characters contracts
             Route::get('/myContracts')
                 ->name('buyback.character.contracts')
-                ->uses('BuyBackContractController@getCharacterContracts');
+                ->uses('BuybackContractController@getCharacterContracts');
 
             Route::prefix('/contracts')
                 ->group(function () {
