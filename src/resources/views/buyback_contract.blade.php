@@ -52,7 +52,7 @@
                             @foreach(json_decode($contract->contractData)->parsed as $item )
                                 <tr>
                                     <td><img src="https://images.evetech.net/types/{{ $item->typeId }}/icon?size=32"/>
-                                        <b>{{ number_format($item->typeQuantity,0,',', '.') }} x {{ $item->typeName }}</b>
+                                        <b>{{ $item->typeQuantity }} x {{ $item->typeName }}</b>
                                         ( {!! $item->marketConfig->marketOperationType == 0 ? '-' : '+' !!}{{$item->marketConfig->percentage }}% )
                                     </td>
                                     <td class="isk-td"><span class="isk-info">{{ number_format($item->typeSum,0,',', '.') }}</span> {{ trans('buyback::global.currency') }}</td>
