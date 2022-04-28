@@ -1,4 +1,5 @@
 <?php
+
 /*
 This file is part of SeAT
 
@@ -19,6 +20,34 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-return [
-    'version' => '1.1.6'
-];
+namespace H4zz4rdDev\Seat\SeatBuyback\Provider;
+
+use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
+
+/**
+ * Class EvePraisalPriceProvider
+ */
+class EvePraisalPriceProvider implements IPriceProvider
+{
+    /**
+     * @var SettingsService
+     */
+    private $settingsService;
+
+
+    /**
+     * @param SettingsService $settingsService
+     */
+    public function __construct(SettingsService $settingsService)
+    {
+        $this->settingsService = $settingsService;
+    }
+
+    /**
+     * @param int $itemTypeId
+     * @return mixed|void
+     */
+    public function getItemPrice(int $itemTypeId) {
+        return null;
+    }
+}

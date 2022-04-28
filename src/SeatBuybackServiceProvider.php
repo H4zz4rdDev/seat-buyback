@@ -21,6 +21,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback;
 
+use H4zz4rdDev\Seat\SeatBuyback\Factories\PriceProviderFactory;
+use H4zz4rdDev\Seat\SeatBuyback\Services\ItemService;
+use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
 use Seat\Services\AbstractSeatPlugin;
 
 /**
@@ -34,8 +37,6 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
     {
         $this->add_routes();
 
-        //$this->add_api_endpoints();
-
         $this->add_publications();
 
         $this->add_views();
@@ -44,8 +45,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
 
         $this->add_migrations();
 
-        // Uncomment this block to extend imported SDE tables
-        // $this->add_sde_tables();
+        $this->registerDependencyInjectionClasses();
     }
 
     public function register()
@@ -56,20 +56,32 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
         // Overload sidebar with your package menu entries
         $this->mergeConfigFrom(__DIR__ . '/Config/Menu/package.sidebar.php', 'package.sidebar');
 
-        // Uncomment this block to overload character menu
-        // $this->mergeConfigFrom(__DIR__ . '/Config/Menu/package.character.php', 'package.character.menu');
-
-        // Uncomment this block to overload corporation menu
-        // $this->mergeConfigFrom(__DIR__ . '/Config/Menu/package.corporation.php', 'package.corporation.menu');
+        // Merge PriceProvider config
+        $this->mergeConfigFrom(__DIR__ . '/Config/PriceProvider/buyback.priceProvider.php', 'buyback.priceProvider');
 
         // Register generic permissions
         $this->registerPermissions(__DIR__ . '/Config/Permissions/buyback.php', 'buyback');
+    }
 
-        // Uncomment this block to register character permissions
-        // $this->registerPermissions(__DIR__ . '/Config/Permissions/character.php', 'character');
+    /**
+     * Register dependency injection classes
+     */
+    private function registerDependencyInjectionClasses()
+    {
+        // Settings Service
+        $this->app->singleton(SettingsService::class, function () {
+            return new SettingsService();
+        });
 
-        // Uncomment this block to register corporation permissions
-        // $this->registerPermissions(__DIR__ . '/Config/Permissions/corporation.php', 'corporation');
+        // Price Provider Factory
+        $this->app->singleton(PriceProviderFactory::class, function ($app) {
+            return new PriceProviderFactory($app->make(SettingsService::class));
+        });
+
+        // Settings Service
+        $this->app->singleton(ItemService::class, function ($app) {
+            return new ItemService($app->make(PriceProviderFactory::class));
+        });
     }
 
     /**

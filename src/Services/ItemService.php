@@ -20,34 +20,32 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-namespace H4zz4rdDev\Seat\SeatBuyback\Helpers;
+namespace H4zz4rdDev\Seat\SeatBuyback\Services;
 
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
+use H4zz4rdDev\Seat\SeatBuyback\Factories\PriceProviderFactory;
+use H4zz4rdDev\Seat\SeatBuyback\Helpers\PriceCalculationHelper;
+use H4zz4rdDev\Seat\SeatBuyback\Provider\IPriceProvider;
 use Illuminate\Support\Facades\DB;
 use Seat\Eveapi\Models\Sde\InvType;
 
 /**
- * Class EvePraisalHelper
- *
- * @package H4zz4rdDev\Seat\SeatBuyback\Helpers
+ * Class ItemService
  */
-class EvePraisalHelper
+class ItemService
 {
+    /**
+     * @var IPriceProvider
+     */
+    private $priceProvider;
 
     /**
-     * @var EvePraisalHelper
+     * @param PriceProviderFactory $priceProviderFactory
+     * @throws SettingsServiceException
      */
-    private static $instance;
-
-    /**
-     * @return EvePraisalHelper
-     */
-    public static function getInstance(): EvePraisalHelper
+    public function __construct(PriceProviderFactory $priceProviderFactory)
     {
-        if (!isset(self::$instance)) {
-            self::$instance = new EvePraisalHelper();
-        }
-
-        return self::$instance;
+        $this->priceProvider = $priceProviderFactory->getPriceProvider();
     }
 
     /**
@@ -56,7 +54,6 @@ class EvePraisalHelper
      */
     public function parseEveItemData(string $item_string): ?array
     {
-
         if (empty($item_string)) {
             return null;
         }
@@ -64,7 +61,11 @@ class EvePraisalHelper
         $parsedRawData = $this->parseRawData($item_string);
 
         foreach ($parsedRawData as $key => $item) {
-            $priceData = EveMarketerHelper::getInstance()->getItemPrice($item["typeID"]);
+            $priceData = $this->priceProvider->getItemPrice($item["typeID"]);
+
+            if($priceData == null) {
+                return null;
+            }
 
             $parsedRawData[$key]["price"] = $priceData[0]["buy"]["fivePercent"];
             $parsedRawData[$key]["sum"] = PriceCalculationHelper::calculateItemPrice($item["typeID"],
@@ -127,7 +128,7 @@ class EvePraisalHelper
 
         return $parsedItems;
     }
-    
+
     /**
      * @param string $item_string
      * @return array|null

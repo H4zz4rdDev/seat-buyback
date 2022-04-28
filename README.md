@@ -7,6 +7,9 @@ A module for [SeAT](https://github.com/eveseat/seat) that makes your life with c
 
 In case of problems please contact me via EVE-Online message or over the seat discord: `H4zz4rd`
 
+### Plugin is not ready yet
+This plugin is in development and has not reached final state
+
 ## Screenshots
 ![adminpanel](https://i.imgur.com/3u1bkLv.png)
 

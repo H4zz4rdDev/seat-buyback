@@ -22,8 +22,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback\Http\Controllers;
 
+use H4zz4rdDev\Seat\SeatBuyback\Services\ItemService;
+use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Config;
 use Illuminate\View\View;
 use Seat\Web\Http\Controllers\Controller;
 use H4zz4rdDev\Seat\SeatBuyback\Helpers;
@@ -38,16 +41,30 @@ class BuybackController extends Controller
     private const MaxContractIdLength = 6;
 
     /**
+     * @var ItemService
+     */
+    public $itemService;
+
+    /**
+     * @var SettingsService
+     */
+    public $settingsService;
+
+    /**
      * @var int
      */
     private $_maxAllowedItems;
 
     /**
      * Constructor
+     *
+     * @param ItemService $itemService
      */
-    public function __construct()
+    public function __construct(ItemService $itemService, SettingsService $settingsService)
     {
-        $this->_maxAllowedItems = Helpers\SettingsHelper::getInstance()->getMaxAllowedItems();
+        $this->itemService = $itemService;
+        $this->settingsService = $settingsService;
+        $this->_maxAllowedItems = $settingsService->getMaxAllowedItems();
     }
 
     /**
@@ -69,13 +86,18 @@ class BuybackController extends Controller
             'items' => 'required',
         ]);
 
-        $parsedItems = Helpers\EvePraisalHelper::getInstance()->parseEveItemData($request->get('items'));
+        $parsedItems= $this->itemService->parseEveItemData($request->get('items'));
+
+        if($parsedItems == null) {
+            return redirect('buyback')->withErrors(
+                ['errors' => trans('buyback::global.error_price_provider_down')]);
+        }
 
         if(!array_key_exists("parsed", $parsedItems)) {
             return redirect('buyback')->withErrors(['errors' => trans('buyback::global.error_empty_item_field')]);
         }
 
-        $maxAllowedItems = Helpers\SettingsHelper::getInstance()->getMaxAllowedItems();
+        $maxAllowedItems = $this->settingsService->getMaxAllowedItems();
 
         if (count($parsedItems["parsed"]) > $maxAllowedItems) {
             return redirect('buyback')->withErrors(

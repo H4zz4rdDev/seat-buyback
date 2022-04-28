@@ -137,6 +137,19 @@
                         </p>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="admin_price_provider">{{ trans('buyback::global.admin_setting_price_provider_label') }}</label>
+                    <div class="col-md-6">
+                        <select id="admin_price_provider" name="admin_price_provider" class="form-control w-100">
+                            @foreach($priceProvider as $priceProvider)
+                                <option value="{{ $priceProvider->id }}" {{ ($priceProvider->id == (int)$settings["admin_price_provider"]) ? "selected" : "" }} >{{ $priceProvider->name }}</option>
+                            @endforeach
+                        </select>
+                        <p class="form-text text-muted mb-0">
+                            {{ trans('buyback::global.admin_setting_price_provider_description') }}
+                        </p>
+                    </div>
+                </div>
                 <div class="box-body">
                     <legend>{{ trans('buyback::global.admin_setting_second_title') }}</legend>
                 </div>

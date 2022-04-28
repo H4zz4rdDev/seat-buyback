@@ -20,46 +20,35 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-namespace H4zz4rdDev\Seat\SeatBuyback\Helpers;
+namespace H4zz4rdDev\Seat\SeatBuyback\Services;
 
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\QueryException;
-use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsException;
 
 /**
- * Class SettingsHelper
- *
- * @package H4zz4rdDev\Seat\SeatBuyback\Helpers
+ * Class SettingsService
  */
-class SettingsHelper
-{
-    /**
-     * @var SettingsHelper
-     */
-    private static $instance;
+class SettingsService {
 
     /**
      * @var array
      */
     private $_settings;
 
-    /**
-     * Constructor
-     */
-    private function __construct()
+    public function __construct()
     {
-        $this->loadSettings();
+        $this->loadAll();
     }
 
     /**
      * @param string $setting
      * @return string
-     * @throws SettingsException
+     * @throws SettingsServiceException
      */
-    public function getSetting(string $setting): string
+    public function get(string $setting): string
     {
         if (!array_key_exists($setting, $this->_settings)) {
-            throw new SettingsException(trans('buyback::global.admin_setting_error', [ 'message' => $setting]));
+            throw new SettingsServiceException(trans('buyback::global.admin_setting_error', [ 'message' => $setting]));
         }
         return $this->_settings[$setting];
     }
@@ -68,12 +57,12 @@ class SettingsHelper
      * @param string $key
      * @param string $value
      * @return void
-     * @throws SettingsException
+     * @throws SettingsServiceException
      */
-    public function setSetting(string $key, string $value): void
+    public function set(string $key, string $value): void
     {
         if (!array_key_exists($key, $this->_settings)) {
-            throw new SettingsException(trans('buyback::global.admin_setting_error', [ 'message' => $key]));
+            throw new SettingsServiceException(trans('buyback::global.admin_setting_error', [ 'message' => $key]));
         }
 
         try {
@@ -89,7 +78,7 @@ class SettingsHelper
      * @param array $newSettings
      * @return void
      */
-    public function setAllSettings(array $newSettings): void
+    public function setAll(array $newSettings): void
     {
 
         if (count($newSettings) <= 0) {
@@ -101,9 +90,9 @@ class SettingsHelper
             if ($key != "_token") {
                 try {
                     if ($this->_settings[$key] != $value) {
-                        $this->setSetting($key, $value);
+                        $this->set($key, $value);
                     }
-                } catch (SettingsException $e) {
+                } catch (SettingsServiceException $e) {
                     \Log::error('SettingException: ' . $e->getMessage());
                 }
             }
@@ -113,7 +102,7 @@ class SettingsHelper
     /**
      * @return array
      */
-    public function getAllSettings(): array
+    public function getAll(): array
     {
         return $this->_settings;
     }
@@ -129,7 +118,7 @@ class SettingsHelper
     /**
      * @return void
      */
-    private function loadSettings(): void
+    private function loadAll(): void
     {
         try {
             $settingData = DB::table('buyback_admin_config')
@@ -141,17 +130,5 @@ class SettingsHelper
         } catch (QueryException $e) {
             \Log::error('QueryException: ' . $e->getMessage());
         }
-    }
-
-    /**
-     * @return SettingsHelper
-     */
-    public static function getInstance(): SettingsHelper
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new SettingsHelper();
-        }
-
-        return self::$instance;
     }
 }

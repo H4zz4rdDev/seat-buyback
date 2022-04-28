@@ -22,12 +22,16 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback\Http\Controllers;
 
+use H4zz4rdDev\Seat\SeatBuyback\Models\BuyBackPriceProvider;
+use H4zz4rdDev\Seat\SeatBuyback\Provider\EveMarketerPriceProvider;
+use H4zz4rdDev\Seat\SeatBuyback\Provider\EvePraisalPriceProvider;
+use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Seat\Eveapi\Models\Sde\InvType;
 use Seat\Web\Http\Controllers\Controller;
 use H4zz4rdDev\Seat\SeatBuyback\Helpers;
-use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsException;
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
 use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackMarketConfig;
 
 /**
@@ -38,20 +42,27 @@ use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackMarketConfig;
 class BuybackAdminController extends Controller
 {
     /**
+     * @var SettingsService
+     */
+    public $settingsService;
+
+    /**
+     * @param SettingsService $settingsService
+     */
+    public function __construct(SettingsService $settingsService)
+    {
+        $this->settingsService = $settingsService;
+    }
+
+    /**
      * @return mixed
      */
     public function getHome()
     {
-        try {
-            $settings = Helpers\SettingsHelper::getInstance()->getAllSettings();
-        } catch (SettingsException $e) {
-            return redirect('home')->withErrors(['errors' => $e->getMessage()]);
-        }
-
         return view('buyback::buyback_admin', [
-            'settings' => $settings,
-            'marketConfigs' => BuybackMarketConfig::orderBy('typeName', 'asc')->get()
-
+            'settings' => $this->settingsService->getAll(),
+            'marketConfigs' => BuybackMarketConfig::orderBy('typeName', 'asc')->get(),
+            'priceProvider' => BuyBackPriceProvider::orderBy('name', 'asc')->get(),
         ]);
     }
 
@@ -59,7 +70,8 @@ class BuybackAdminController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function updateSettings(Request $request) {
+    public function updateSettings(Request $request)
+    {
 
         $request->validate([
             'admin_price_cache_time' => 'required|numeric|between:300,3600',
@@ -68,11 +80,12 @@ class BuybackAdminController extends Controller
             'admin_contract_expiration' => 'required|max:32'
         ]);
 
-        if($request->all() == null) {
+        if ($request->all() == null) {
             return redirect()->back()
                 ->with(['error' => trans('buyback::global.error')]);
         }
-        Helpers\SettingsHelper::getInstance()->setAllSettings($request->all());
+
+        $this->settingsService->setAll($request->all());
 
         return redirect()->back()
             ->with('success', trans('buyback::global.admin_success_config'));
@@ -82,7 +95,8 @@ class BuybackAdminController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function addMarketConfig(Request $request) {
+    public function addMarketConfig(Request $request)
+    {
 
         $request->validate([
             'admin-market-typeId' => 'required|max:255',
@@ -92,7 +106,7 @@ class BuybackAdminController extends Controller
 
         $item = BuybackMarketConfig::where('typeId', $request->get('admin-market-typeId'))->first();
 
-        if($item != null) {
+        if ($item != null) {
             return redirect()->route('buyback.admin')
                 ->with(['error' => trans('buyback::global.admin_error_config') . $item->typeId]);
         }
@@ -108,7 +122,7 @@ class BuybackAdminController extends Controller
             'percentage' => $request->get('admin-market-percentage')
         ]);
 
-        return  redirect()->route('buyback.admin')
+        return redirect()->route('buyback.admin')
             ->with('success', trans('buyback::global.admin_success_market_add'));
     }
 
@@ -117,10 +131,10 @@ class BuybackAdminController extends Controller
      * @param int $typeId
      * @return mixed
      */
-    public function removeMarketConfig(Request $request, int $typeId) {
+    public function removeMarketConfig(Request $request, int $typeId)
+    {
 
-        if(!$request->isMethod('get') || empty($typeId) || !is_numeric($typeId))
-        {
+        if (!$request->isMethod('get') || empty($typeId) || !is_numeric($typeId)) {
             return redirect()->back()
                 ->with(['error' => trans('buyback::global.error')]);
         }
