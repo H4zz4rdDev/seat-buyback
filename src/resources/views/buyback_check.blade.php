@@ -75,7 +75,7 @@
                         </tr>
                         <tr>
                             <td>{{ trans('buyback::global.step_three_contract_to') }}*</td>
-                            <td><b onClick="SelfCopy(this)" data-container="body" data-toggle="popover" data-placement="top" data-content="Copied!">{{ H4zz4rdDev\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_contract_to') }}</b></td>
+                            <td><b onClick="SelfCopy(this)" data-container="body" data-toggle="popover" data-placement="top" data-content="Copied!">{{ $contractTo }}</b></td>
                         </tr>
                         <tr>
                             <td>{{ trans('buyback::global.step_three_contract_receive') }}*</td>
@@ -83,7 +83,7 @@
                         </tr>
                         <tr>
                             <td>{{ trans('buyback::global.step_three_contract_expiration') }}</td>
-                            <td><b>{{ H4zz4rdDev\Seat\SeatBuyback\Helpers\SettingsHelper::getInstance()->getSetting('admin_contract_expiration') }}</b></td>
+                            <td><b>{{ $contractExpiration }}</b></td>
                         </tr>
                         <tr>
                             <td>{{ trans('buyback::global.step_three_contract_description') }}*</td>

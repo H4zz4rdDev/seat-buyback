@@ -80,6 +80,9 @@ class EveMarketerPriceProvider implements IPriceProvider
      */
     public function getItemPrice(int $itemTypeId) {
 
+        //Todo Repair EVEMarketer
+        return null;
+
         if(Cache::has($itemTypeId)) {
             return Cache::get($itemTypeId);
         }

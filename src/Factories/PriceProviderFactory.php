@@ -52,12 +52,14 @@ class PriceProviderFactory
      */
     public function getPriceProvider(): ?IPriceProvider
     {
+        $priceProvider = null;
+
         try {
-            switch ($this->settingsService->get('admin_price_provider')) {
+            switch ((int)$this->settingsService->get('admin_price_provider')) {
                 case 1:
                     $priceProvider = new EveMarketerPriceProvider($this->settingsService);
                     break;
-                default:
+                case 2:
                     $priceProvider = new EvePraisalPriceProvider($this->settingsService);
                     break;
             }

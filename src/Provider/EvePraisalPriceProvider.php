@@ -22,7 +22,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback\Provider;
 
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
+use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackPriceData;
 use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Class EvePraisalPriceProvider
@@ -34,7 +37,6 @@ class EvePraisalPriceProvider implements IPriceProvider
      */
     private $settingsService;
 
-
     /**
      * @param SettingsService $settingsService
      */
@@ -44,10 +46,50 @@ class EvePraisalPriceProvider implements IPriceProvider
     }
 
     /**
+     * @param string $itemTypeId
+     * @return mixed|null
+     */
+    public function doCall(string $itemTypeId) {
+
+        $url = sprintf(config('buyback.priceProvider.evePraisal.apiUrl')."/item/%d.json", $itemTypeId);
+        $data = @file_get_contents($url);
+
+        if($data === false) {
+            return null;
+        }
+
+        return json_decode($data, true);
+
+    }
+
+    /**
      * @param int $itemTypeId
      * @return mixed|void
+     * @throws SettingsServiceException
      */
-    public function getItemPrice(int $itemTypeId) {
-        return null;
+    public function getItemPrice(int $itemTypeId) : ?BuybackPriceData {
+
+        if($itemTypeId == null) {
+            return null;
+        }
+
+        if(Cache::has($itemTypeId)) {
+            $prices = Cache::get($itemTypeId);
+        } else {
+            $prices = $this->doCall($itemTypeId);
+
+            if($prices == null) {
+                return null;
+            }
+            Cache::put(
+                (int)$this->settingsService->get("admin_price_provider").$itemTypeId,
+                $prices,
+                (int)$this->settingsService->get("admin_price_cache_time"));
+        }
+
+        return new BuybackPriceData(
+            $itemTypeId,
+            $prices["summaries"][0]["prices"]["buy"]["percentile"]
+        );
     }
 }

@@ -110,6 +110,8 @@ class BuybackController extends Controller
             'eve_item_data' => $parsedItems,
             'maxAllowedItems' => $this->_maxAllowedItems,
             'finalPrice' => $finalPrice,
+            'contractTo' => $this->settingsService->get("admin_contract_contract_to"),
+            'contractExpiration' => $this->settingsService->get("admin_contract_expiration"),
             'contractId' => Helpers\MiscHelper::generateRandomString(self::MaxContractIdLength)
         ]);
     }

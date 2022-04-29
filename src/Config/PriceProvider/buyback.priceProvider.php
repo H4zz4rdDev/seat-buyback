@@ -2,9 +2,11 @@
 
 return [
     'eveMarketer' => [
+        'name' => 'EVEMarketer',
         'apiUrl' => 'https://api.evemarketer.com/ec/marketstat/json'
     ],
     'evePraisal' => [
-        'apiUrl' => ''
+        'name' => 'EVEPraisal',
+        'apiUrl' => 'https://evepraisal.com'
     ]
 ];

@@ -22,6 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback\Helpers;
 
+use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackPriceData;
 use Illuminate\Support\Facades\DB;
 use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackMarketConfig;
 
@@ -35,10 +36,10 @@ class PriceCalculationHelper {
     /**
      * @param int $typeId
      * @param int $quantity
-     * @param array $priceData
+     * @param BuybackPriceData $buybackPriceData
      * @return float|int|null
      */
-    public static function calculateItemPrice(int $typeId, int $quantity, array $priceData) : ?float {
+    public static function calculateItemPrice(int $typeId, int $quantity, BuybackPriceData $buybackPriceData) : ?float {
 
         $marketConfig = BuybackMarketConfig::where('typeId', $typeId)->first();
 
@@ -46,7 +47,7 @@ class PriceCalculationHelper {
             return null;
         }
 
-        $priceSum = $quantity * $priceData[0]["buy"]["fivePercent"];
+        $priceSum = $quantity * $buybackPriceData->getItemPrice();
 
         $pricePercentage = $priceSum * $marketConfig->percentage / 100;
 

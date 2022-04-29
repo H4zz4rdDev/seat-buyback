@@ -25,6 +25,7 @@ namespace H4zz4rdDev\Seat\SeatBuyback\Services;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
 use H4zz4rdDev\Seat\SeatBuyback\Factories\PriceProviderFactory;
 use H4zz4rdDev\Seat\SeatBuyback\Helpers\PriceCalculationHelper;
+use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackPriceData;
 use H4zz4rdDev\Seat\SeatBuyback\Provider\IPriceProvider;
 use Illuminate\Support\Facades\DB;
 use Seat\Eveapi\Models\Sde\InvType;
@@ -67,7 +68,7 @@ class ItemService
                 return null;
             }
 
-            $parsedRawData[$key]["price"] = $priceData[0]["buy"]["fivePercent"];
+            $parsedRawData[$key]["price"] = $priceData->getItemPrice();
             $parsedRawData[$key]["sum"] = PriceCalculationHelper::calculateItemPrice($item["typeID"],
                 $parsedRawData[$key]["quantity"], $priceData);
         }
