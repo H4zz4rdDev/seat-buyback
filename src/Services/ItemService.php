@@ -158,7 +158,7 @@ class ItemService
 
             foreach ($item_data_details as $item_data_detail) {
                 if (is_numeric(trim($item_data_detail))) {
-                    $item_quantity = $item_data_detail;
+                    $item_quantity = (int)str_replace('.', '', $item_data_detail);
                 }
             }
 
