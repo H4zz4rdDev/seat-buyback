@@ -30,9 +30,7 @@ User:
 1. Copy & Paste your items you want to sell into the form under request.
 2. If everything is fine create the contract in EVE with the details shown on the right
 3. Click on Confirm. Done. You will be redirected to the "My Buyback" showing you created buyback.
-
-Buyback-Manager:
-4. Under "Contracts" you can see all created contracts and are able to delete or finish them after you have compared them with the ingame contract of the corp mate.The random generated ID will help you to find contracts faster.
+4. Contract-Manager: Under "Contracts" you can see all created contracts and are able to delete or finish them after you have compared them with the ingame contract of the corp mate.The random generated ID will help you to find contracts faster.
 
 > :warning: The buyback will only be saved with the click on "Confirm". Created contracts in EVE can not be seen by the plugin.
 
@@ -43,7 +41,6 @@ I can also recommend reading through the [official seat documentation](https://e
 ### Install
 Switch to your seat installation directory ( default : /var/www/seat)
 
-Put your SeAT installation into maintenance mode
 ```shell
 sudo -H -u www-data bash -c 'php artisan down'
 sudo -H -u www-data bash -c 'composer require h4zz4rddev/seat-buyback'
