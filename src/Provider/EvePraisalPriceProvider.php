@@ -73,8 +73,10 @@ class EvePraisalPriceProvider implements IPriceProvider
             return null;
         }
 
-        if(Cache::has($itemTypeId)) {
-            $prices = Cache::get($itemTypeId);
+        $cacheId = (int)$this->settingsService->get("admin_price_provider") . ":" . $itemTypeId;
+
+        if(Cache::has($cacheId)) {
+            $prices = Cache::get($cacheId);
         } else {
             $prices = $this->doCall($itemTypeId);
 
@@ -82,7 +84,7 @@ class EvePraisalPriceProvider implements IPriceProvider
                 return null;
             }
             Cache::put(
-                (int)$this->settingsService->get("admin_price_provider").$itemTypeId,
+                $cacheId,
                 $prices,
                 (int)$this->settingsService->get("admin_price_cache_time"));
         }

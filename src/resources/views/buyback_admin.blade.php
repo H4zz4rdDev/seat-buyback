@@ -27,15 +27,6 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-4 col-form-label" for="admin-market-percentage">{{ trans('buyback::global.admin_item_percentage_label') }}</label>
-                    <div class="col-md-6">
-                        <input name="admin-market-percentage" id="admin-market-percentage" type="text" class="form-control w-25" min="1" max="100" placeholder="%" maxlength="2">
-                        <p class="form-text text-muted mb-0">
-                            {{ trans('buyback::global.admin_item_percentage_description') }}
-                        </p>
-                    </div>
-                </div>
-                <div class="form-group row">
                     <label class="col-md-4 col-form-label" for="admin-market-operation"><i class="fas fa-arrow-down"></i>/<i class="fas fa-arrow-up"></i>{{ trans('buyback::global.admin_item_jita_label') }}</label>
                     <div class="col-md-6">
                         <div class="form-group mt-2">
@@ -50,6 +41,15 @@
                         </div>
                         <p class="form-text text-muted mb-0">
                             {{ trans('buyback::global.admin_item_jita_description') }}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="admin-market-percentage">{{ trans('buyback::global.admin_item_percentage_label') }}</label>
+                    <div class="col-md-6">
+                        <input name="admin-market-percentage" id="admin-market-percentage" type="text" class="form-control w-25" min="1" max="100" placeholder="%" maxlength="2">
+                        <p class="form-text text-muted mb-0">
+                            {{ trans('buyback::global.admin_item_percentage_description') }}
                         </p>
                     </div>
                 </div>

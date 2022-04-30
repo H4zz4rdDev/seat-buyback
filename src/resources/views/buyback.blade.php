@@ -10,7 +10,7 @@
 @section('left')
     <div class="card">
         <div class="card-body">
-            <div id="overlay" onclick="off()">
+            <div id="overlay" style="border-radius: 5px">
                 <div class="w-100 d-flex justify-content-center align-items-center">
                     <div class="spinner"></div>
                 </div>
