@@ -196,4 +196,14 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
     {
         return 'H4zz4rdDev';
     }
+
+    /**
+     * Return the plugin installed version.
+     *
+     * @return string
+     */
+    public function getVersion(): string
+    {
+        return config('buyback.config.version');
+    }
 }

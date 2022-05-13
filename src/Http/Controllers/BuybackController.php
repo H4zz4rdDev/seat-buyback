@@ -22,6 +22,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback\Http\Controllers;
 
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\NoMarketDataFoundException;
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException as SettingsServiceExceptionAlias;
 use H4zz4rdDev\Seat\SeatBuyback\Services\ItemService;
 use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
 use Illuminate\Http\Request;
@@ -78,41 +80,49 @@ class BuybackController extends Controller
     }
 
     /**
-     * @return View
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws SettingsServiceExceptionAlias
      */
-    public function checkItems(Request $request)
+    public function checkItems(Request $request): RedirectResponse
     {
         $request->validate([
             'items' => 'required',
         ]);
 
-        $parsedItems= $this->itemService->parseEveItemData($request->get('items'));
+        try {
+            $parsedItems = $this->itemService->parseEveItemData($request->get('items'));
 
-        if($parsedItems == null) {
+            if($parsedItems == null) {
+                return redirect('buyback')->withErrors(
+                    ['errors' => trans('buyback::global.error_price_provider_down')]);
+            }
+
+            if(!array_key_exists("parsed", $parsedItems)) {
+                return redirect('buyback')->withErrors(['errors' => trans('buyback::global.error_empty_item_field')]);
+            }
+
+            $maxAllowedItems = $this->settingsService->getMaxAllowedItems();
+
+            if (count($parsedItems["parsed"]) > $maxAllowedItems) {
+                return redirect('buyback')->withErrors(
+                    ['errors' => trans('buyback::global.error_too_much_items', ['count' => $maxAllowedItems])]);
+            }
+
+            $finalPrice = Helpers\PriceCalculationHelper::calculateFinalPrice($parsedItems["parsed"]);
+
+            return view('buyback::buyback_check', [
+                'eve_item_data' => $parsedItems,
+                'maxAllowedItems' => $this->_maxAllowedItems,
+                'finalPrice' => $finalPrice,
+                'contractTo' => $this->settingsService->get("admin_contract_contract_to"),
+                'contractExpiration' => $this->settingsService->get("admin_contract_expiration"),
+                'contractId' => Helpers\MiscHelper::generateRandomString(self::MaxContractIdLength)
+            ]);
+
+        } catch (NoMarketDataFoundException $noMarketDataFoundException) {
             return redirect('buyback')->withErrors(
                 ['errors' => trans('buyback::global.error_price_provider_down')]);
         }
-
-        if(!array_key_exists("parsed", $parsedItems)) {
-            return redirect('buyback')->withErrors(['errors' => trans('buyback::global.error_empty_item_field')]);
-        }
-
-        $maxAllowedItems = $this->settingsService->getMaxAllowedItems();
-
-        if (count($parsedItems["parsed"]) > $maxAllowedItems) {
-            return redirect('buyback')->withErrors(
-                ['errors' => trans('buyback::global.error_too_much_items', ['count' => $maxAllowedItems])]);
-        }
-
-        $finalPrice = Helpers\PriceCalculationHelper::calculateFinalPrice($parsedItems["parsed"]);
-
-        return view('buyback::buyback_check', [
-            'eve_item_data' => $parsedItems,
-            'maxAllowedItems' => $this->_maxAllowedItems,
-            'finalPrice' => $finalPrice,
-            'contractTo' => $this->settingsService->get("admin_contract_contract_to"),
-            'contractExpiration' => $this->settingsService->get("admin_contract_expiration"),
-            'contractId' => Helpers\MiscHelper::generateRandomString(self::MaxContractIdLength)
-        ]);
     }
 }

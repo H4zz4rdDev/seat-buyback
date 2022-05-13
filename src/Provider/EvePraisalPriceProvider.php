@@ -22,6 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback\Provider;
 
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\NoMarketDataFoundException;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
 use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackPriceData;
 use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
@@ -66,6 +67,7 @@ class EvePraisalPriceProvider implements IPriceProvider
      * @param int $itemTypeId
      * @return mixed|void
      * @throws SettingsServiceException
+     * @throws NoMarketDataFoundException
      */
     public function getItemPrice(int $itemTypeId) : ?BuybackPriceData {
 
@@ -81,7 +83,7 @@ class EvePraisalPriceProvider implements IPriceProvider
             $prices = $this->doCall($itemTypeId);
 
             if($prices == null) {
-                return null;
+                throw new NoMarketDataFoundException();
             }
             Cache::put(
                 $cacheId,
