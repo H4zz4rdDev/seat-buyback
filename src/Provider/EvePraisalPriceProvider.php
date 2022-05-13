@@ -26,24 +26,35 @@ use H4zz4rdDev\Seat\SeatBuyback\Exceptions\NoMarketDataFoundException;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
 use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackPriceData;
 use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * Class EvePraisalPriceProvider
  */
-class EvePraisalPriceProvider implements IPriceProvider
+class EvePraisalPriceProvider extends AbstractEvePriceProvider implements IPriceProvider
 {
-    /**
-     * @var SettingsService
-     */
-    private $settingsService;
-
     /**
      * @param SettingsService $settingsService
      */
     public function __construct(SettingsService $settingsService)
     {
-        $this->settingsService = $settingsService;
+        parent::__construct($settingsService);
+
+        $this->name = "evePraisal";
+    }
+
+    /**
+     * @param int $itemTypeId
+     * @return BuybackPriceData|null
+     * @throws NoMarketDataFoundException|SettingsServiceException
+     */
+    public function getItemPrice(int $itemTypeId) : ?BuybackPriceData {
+
+        $prices = $this->getPriceData($itemTypeId);
+
+        return new BuybackPriceData(
+            $itemTypeId,
+            $prices["summaries"][0]["prices"]["buy"]["percentile"]
+        );
     }
 
     /**
@@ -52,7 +63,7 @@ class EvePraisalPriceProvider implements IPriceProvider
      */
     public function doCall(string $itemTypeId) {
 
-        $url = sprintf(config('buyback.priceProvider.evePraisal.apiUrl')."/item/%d.json", $itemTypeId);
+        $url = sprintf(config('buyback.priceProvider.'. $this->name .'.apiUrl')."/item/%d.json", $itemTypeId);
         $data = @file_get_contents($url);
 
         if($data === false) {
@@ -61,39 +72,5 @@ class EvePraisalPriceProvider implements IPriceProvider
 
         return json_decode($data, true);
 
-    }
-
-    /**
-     * @param int $itemTypeId
-     * @return mixed|void
-     * @throws SettingsServiceException
-     * @throws NoMarketDataFoundException
-     */
-    public function getItemPrice(int $itemTypeId) : ?BuybackPriceData {
-
-        if($itemTypeId == null) {
-            return null;
-        }
-
-        $cacheId = (int)$this->settingsService->get("admin_price_provider") . ":" . $itemTypeId;
-
-        if(Cache::has($cacheId)) {
-            $prices = Cache::get($cacheId);
-        } else {
-            $prices = $this->doCall($itemTypeId);
-
-            if($prices == null) {
-                throw new NoMarketDataFoundException();
-            }
-            Cache::put(
-                $cacheId,
-                $prices,
-                (int)$this->settingsService->get("admin_price_cache_time"));
-        }
-
-        return new BuybackPriceData(
-            $itemTypeId,
-            $prices["summaries"][0]["prices"]["buy"]["percentile"]
-        );
     }
 }

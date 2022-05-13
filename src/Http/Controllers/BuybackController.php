@@ -81,10 +81,9 @@ class BuybackController extends Controller
 
     /**
      * @param Request $request
-     * @return RedirectResponse
      * @throws SettingsServiceExceptionAlias
      */
-    public function checkItems(Request $request): RedirectResponse
+    public function checkItems(Request $request)
     {
         $request->validate([
             'items' => 'required',

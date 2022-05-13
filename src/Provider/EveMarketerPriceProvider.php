@@ -22,40 +22,39 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback\Provider;
 
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\NoMarketDataFoundException;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
+use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackPriceData;
 use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
-use Illuminate\Foundation\Bootstrap\HandleExceptions;
-use Illuminate\Support\Facades\Cache;
-
 
 /**
  * Class EveMarketPriceProvider
  */
-class EveMarketerPriceProvider implements IPriceProvider
+class EveMarketerPriceProvider extends AbstractEvePriceProvider implements IPriceProvider
 {
     /**
-     * @var string
-     */
-    public $price_cache_time;
-
-    /**
-     * @var SettingsService
-     */
-    public $settingsService;
-
-    /**
-     * Constructor
-     *
      * @param SettingsService $settingsService
      */
-    public function __construct(SettingsService $settingsService)
+    function __construct(SettingsService $settingsService)
     {
-        $this->settingsService = $settingsService;
-        try {
-            $this->price_cache_time = $settingsService->get("admin_price_cache_time");
-        } catch (SettingsServiceException $e) {
-            \Log::error('SettingsServiceException: ' . $e->getMessage());
-        }
+        parent::__construct($settingsService);
+
+        $this->name = "eveMarketer";
+    }
+
+    /**
+     * @param int $itemTypeId
+     * @return BuybackPriceData|null
+     * @throws NoMarketDataFoundException|SettingsServiceException
+     */
+    public function getItemPrice(int $itemTypeId): ?BuybackPriceData
+    {
+        $prices = $this->getPriceData($itemTypeId);
+
+        return new BuybackPriceData(
+            $itemTypeId,
+            $prices[0]["buy"]["fivePercent"]
+        );
     }
 
     /**
@@ -64,7 +63,7 @@ class EveMarketerPriceProvider implements IPriceProvider
      */
     public function doCall(string $itemTypeId) {
 
-        $url = config('buyback.priceProvider.eveMarketer.apiUrl')."?typeid=" . $itemTypeId;
+        $url = config('buyback.priceProvider.'. $this->name .'.apiUrl')."?typeid=" . $itemTypeId;
         $data = @file_get_contents($url);
 
         if($data === false) {
@@ -72,29 +71,5 @@ class EveMarketerPriceProvider implements IPriceProvider
         }
 
         return json_decode($data, true);
-    }
-
-    /**
-     * @param int $itemTypeId
-     * @return mixed
-     */
-    public function getItemPrice(int $itemTypeId) {
-
-        //Todo Repair EVEMarketer
-        return null;
-
-        if(Cache::has($itemTypeId)) {
-            return Cache::get($itemTypeId);
-        }
-
-        $priceData = $this->doCall($itemTypeId);
-
-        if($priceData == null) {
-            return null;
-        }
-
-        Cache::put($itemTypeId, $priceData, (int)$this->price_cache_time);
-
-        return $priceData;
     }
 }
