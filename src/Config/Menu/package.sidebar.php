@@ -50,6 +50,13 @@ return [
                 'permission' => 'buyback.contract'
             ],
             [
+                'name' => 'buyback-item-sub-menu',
+                'label' => 'buyback::menu.sub-item-level',
+                'icon' => 'fas fa-cogs',
+                'route' => 'buyback.item',
+                'permission' => 'buyback.admin'
+            ],
+            [
                 'name' => 'buyback-admin-sub-menu',
                 'label' => 'buyback::menu.sub-admin-level',
                 'icon' => 'fas fa-cogs',

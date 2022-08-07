@@ -25,7 +25,6 @@ namespace H4zz4rdDev\Seat\SeatBuyback\Services;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
 use H4zz4rdDev\Seat\SeatBuyback\Factories\PriceProviderFactory;
 use H4zz4rdDev\Seat\SeatBuyback\Helpers\PriceCalculationHelper;
-use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackPriceData;
 use H4zz4rdDev\Seat\SeatBuyback\Provider\IPriceProvider;
 use Illuminate\Support\Facades\DB;
 use Seat\Eveapi\Models\Sde\InvType;

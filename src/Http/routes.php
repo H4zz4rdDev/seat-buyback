@@ -42,6 +42,7 @@ Route::group([
                 ->name('buyback.character.contracts')
                 ->uses('BuybackContractController@getCharacterContracts');
 
+            // Show characters contracts
             Route::prefix('/contracts')
                 ->group(function () {
 
@@ -65,6 +66,11 @@ Route::group([
                     ->name('buyback.contracts.succeed')
                     ->uses('BuybackContractController@succeedContract');
                 });
+
+            // Show items page
+            Route::get('/items')
+                ->name('buyback.item')
+                ->uses('BuybackItemController@getHome');
 
             Route::prefix('/admin')
                 ->group(function () {

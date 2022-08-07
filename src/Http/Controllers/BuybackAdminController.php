@@ -23,15 +23,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 namespace H4zz4rdDev\Seat\SeatBuyback\Http\Controllers;
 
 use H4zz4rdDev\Seat\SeatBuyback\Models\BuyBackPriceProvider;
-use H4zz4rdDev\Seat\SeatBuyback\Provider\EveMarketerPriceProvider;
-use H4zz4rdDev\Seat\SeatBuyback\Provider\EvePraisalPriceProvider;
 use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Seat\Eveapi\Models\Sde\InvType;
 use Seat\Web\Http\Controllers\Controller;
-use H4zz4rdDev\Seat\SeatBuyback\Helpers;
-use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
 use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackMarketConfig;
 
 /**
@@ -63,6 +59,7 @@ class BuybackAdminController extends Controller
             'settings' => $this->settingsService->getAll(),
             'marketConfigs' => BuybackMarketConfig::orderBy('typeName', 'asc')->get(),
             'priceProvider' => BuyBackPriceProvider::orderBy('name', 'asc')->get(),
+            ''
         ]);
     }
 

@@ -89,6 +89,7 @@ abstract class AbstractEvePriceProvider {
             throw new NoMarketDataFoundException();
         }
 
+        // Todo Wrong place
         Cache::put(
             $cacheId,
             $prices,
