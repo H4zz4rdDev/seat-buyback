@@ -66,6 +66,7 @@ class PriceProviderFactory
         } catch (SettingsServiceException $e) {
             throw new SettingsServiceException(trans('buyback::global.error'));
         }
+
         return $priceProvider;
     }
 }

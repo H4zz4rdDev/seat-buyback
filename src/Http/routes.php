@@ -67,10 +67,24 @@ Route::group([
                     ->uses('BuybackContractController@succeedContract');
                 });
 
-            // Show items page
-            Route::get('/items')
-                ->name('buyback.item')
-                ->uses('BuybackItemController@getHome');
+
+            Route::prefix('items')
+                ->group(function () {
+                    // Show items page
+                    Route::get('/')
+                        ->name('buyback.item')
+                        ->uses('BuybackItemController@getHome');
+
+                    // Add market config
+                    Route::post('/addMarketConfig')
+                        ->name('buyback.item.market.add')
+                        ->uses('BuybackItemController@addMarketConfig');
+
+                    // Remove market config
+                    Route::get('/removeMarketConfig/{typeId}')
+                        ->name('buyback.item.market.remove')
+                        ->uses('BuybackItemController@removeMarketConfig');
+                });
 
             Route::prefix('/admin')
                 ->group(function () {
@@ -84,16 +98,6 @@ Route::group([
                     Route::post('/')
                         ->name('buyback.admin.update')
                         ->uses('BuybackAdminController@updateSettings');
-
-                    // Add market config
-                    Route::post('/addMarketConfig')
-                        ->name('buyback.admin.market.add')
-                        ->uses('BuybackAdminController@addMarketConfig');
-
-                    // Remove market config
-                    Route::get('/removeMarketConfig/{typeId}')
-                        ->name('buyback.admin.market.remove')
-                        ->uses('BuybackAdminController@removeMarketConfig');
                 });
         });
 

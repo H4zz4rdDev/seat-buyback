@@ -23,8 +23,8 @@
 return [
     'main_level' => 'Buyback',
     'sub-home-level' => 'Request',
-    'sub-item-level' => 'Items',
-    'sub-admin-level' => 'Admin',
+    'sub-item-level' => 'Manage Items',
+    'sub-admin-level' => 'Settings',
     'sub-contract-level' => 'Contracts',
     'sub-character-contracts-level' => 'My Buybacks'
 ];
