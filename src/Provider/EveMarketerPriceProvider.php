@@ -49,7 +49,7 @@ class EveMarketerPriceProvider extends AbstractEvePriceProvider implements IPric
      */
     public function getItemPrice(int $itemTypeId): ?BuybackPriceData
     {
-        $prices = $this->getPriceData($itemTypeId);
+        $prices = $this->getPriceData($itemTypeId, $this->name);
 
         return new BuybackPriceData(
             $itemTypeId,

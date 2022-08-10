@@ -72,12 +72,12 @@ abstract class AbstractEvePriceProvider {
      * @throws NoMarketDataFoundException
      * @throws SettingsServiceException
      */
-    public function getPriceData (int $itemTypeId) : ?array {
+    public function getPriceData (int $itemTypeId, string $priceProviderName) : ?array {
         if($itemTypeId == null) {
             return null;
         }
 
-        $cacheId = (int)$this->settingsService->get("admin_price_provider") . ":" . $itemTypeId;
+        $cacheId = $priceProviderName . ":" . $itemTypeId;
 
         if(Cache::has($cacheId)) {
             $prices = Cache::get($cacheId);
