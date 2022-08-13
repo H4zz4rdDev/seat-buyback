@@ -55,27 +55,29 @@ class BuybackItemController extends Controller {
     {
 
         $request->validate([
-            'admin-market-typeId' => 'required|max:255',
-            'admin-market-operation' => 'required',
-            'admin-market-percentage' => 'required|numeric|between:0,99.99'
+            'admin-market-typeId'       => 'required|max:255',
+            'admin-market-operation'    => 'required',
+            'admin-market-percentage'   => 'required|numeric|between:0,99.99',
+            'admin-market-price'        => 'required|numeric'
         ]);
 
-        $item = BuybackMarketConfig::where('typeId', $request->get('admin-market-typeId'))->first();
+        $item = BuybackMarketConfig::where('typeId', (int)$request->get('admin-market-typeId'))->first();
 
         if ($item != null) {
             return redirect()->route('buyback.item')
                 ->with(['error' => trans('buyback::global.admin_error_config') . $item->typeId]);
         }
 
-        $invType = InvType::where('typeID', $request->get('admin-market-typeId'))->first();
+        $invType = InvType::where('typeID', (int)$request->get('admin-market-typeId'))->first();
 
         BuybackMarketConfig::insert([
-            'typeId' => $request->get('admin-market-typeId'),
-            'typeName' => $invType->typeName,
-            'marketOperationType' => $request->get('admin-market-operation'),
-            'groupId' => $invType->groupID,
-            'groupName' => $invType->group->groupName,
-            'percentage' => $request->get('admin-market-percentage')
+            'typeId' => (int)$request->get('admin-market-typeId'),
+            'typeName' => (string)$invType->typeName,
+            'marketOperationType' => (int)$request->get('admin-market-operation'),
+            'groupId' => (int)$invType->groupID,
+            'groupName' => (string)$invType->group->groupName,
+            'percentage' => (int)$request->get('admin-market-percentage'),
+            'price' => (int)$request->get("admin-market-price")
         ]);
 
         return redirect()->route('buyback.item')

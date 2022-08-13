@@ -47,6 +47,10 @@ class PriceCalculationHelper {
             return null;
         }
 
+        if($marketConfig->price > 0) {
+            return $quantity * $marketConfig->price;
+        }
+
         $priceSum = $quantity * $buybackPriceData->getItemPrice();
 
         $pricePercentage = $priceSum * $marketConfig->percentage / 100;

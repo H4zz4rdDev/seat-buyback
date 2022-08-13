@@ -57,10 +57,12 @@ class BuybackContractController extends Controller {
         //Todo Refactor contractIssuer to userID
         $openContracts = BuybackContract::where('contractStatus', '=', 0)
             ->where('contractIssuer', '=', Auth::user()->name)
+            ->orderBy('created_at', 'DESC')
             ->get();
 
         $closedContracts = BuybackContract::where('contractStatus', '=', 1)
             ->where('contractIssuer', '=', Auth::user()->name)
+            ->orderBy('created_at', 'DESC')
             ->get();
 
         return view('buyback::buyback_my_contracts',  [
