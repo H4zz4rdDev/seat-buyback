@@ -22,6 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback\Http\Controllers;
 
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\ItemParserBadFormatException;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\NoMarketDataFoundException;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException as SettingsServiceExceptionAlias;
 use H4zz4rdDev\Seat\SeatBuyback\Services\ItemService;
@@ -122,6 +123,9 @@ class BuybackController extends Controller
         } catch (NoMarketDataFoundException $noMarketDataFoundException) {
             return redirect('buyback')->withErrors(
                 ['errors' => trans('buyback::global.error_price_provider_down')]);
+        } catch (ItemParserBadFormatException $e) {
+            return redirect('buyback')->withErrors(
+                ['errors' => trans('buyback::global.error_item_parser_format')]);
         }
     }
 }

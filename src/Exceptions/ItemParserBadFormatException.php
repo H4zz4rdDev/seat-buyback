@@ -1,4 +1,5 @@
 <?php
+
 /*
 This file is part of SeAT
 
@@ -19,6 +20,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-return [
-    'version' => '1.2.1'
-];
+namespace H4zz4rdDev\Seat\SeatBuyback\Exceptions;
+
+use Exception;
+
+class ItemParserBadFormatException extends Exception {}

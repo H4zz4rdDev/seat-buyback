@@ -22,6 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback\Services;
 
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\ItemParserBadFormatException;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
 use H4zz4rdDev\Seat\SeatBuyback\Factories\PriceProviderFactory;
 use H4zz4rdDev\Seat\SeatBuyback\Helpers\PriceCalculationHelper;
@@ -51,6 +52,7 @@ class ItemService
     /**
      * @param string $item_string
      * @return array|null
+     * @throws ItemParserBadFormatException
      */
     public function parseEveItemData(string $item_string): ?array
     {
@@ -132,6 +134,7 @@ class ItemService
     /**
      * @param string $item_string
      * @return array|null
+     * @throws ItemParserBadFormatException
      */
     private function parseRawData(string $item_string): ?array
     {
@@ -141,7 +144,7 @@ class ItemService
         foreach (preg_split('/\r\n|\r|\n/', $item_string) as $item) {
 
             if (strlen($item) < 2) {
-                continue;
+                throw new ItemParserBadFormatException();
             }
 
             if(stripos($item, "    ")) {
@@ -149,7 +152,7 @@ class ItemService
             } elseif (stripos($item, "\t") ) {
                 $item_data_details = explode("\t", $item);
             } else {
-                continue;
+                throw new ItemParserBadFormatException();
             }
 
             $item_name = $item_data_details[0];
@@ -162,7 +165,7 @@ class ItemService
             }
 
             if ($item_quantity == null) {
-                continue;
+                throw new ItemParserBadFormatException();
             }
 
             $inv_type = InvType::where('typeName', '=', $item_name)->first();
