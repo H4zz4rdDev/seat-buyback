@@ -1,4 +1,5 @@
 <?php
+
 /*
 This file is part of SeAT
 
@@ -19,6 +20,34 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-return [
-    'version' => '1.3.0'
-];
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class AddingDiscordConfigDefaultValues extends Migration {
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        DB::table('buyback_admin_config')->insert([
+            'name' => 'admin_discord_webhook_url',
+            'value' => 'http://'
+        ]);
+
+        DB::table('buyback_admin_config')->insert([
+            'name' => 'admin_discord_status',
+            'value' => 0
+        ]);
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down() {}
+}
