@@ -98,6 +98,11 @@ Route::group([
                     Route::post('/')
                         ->name('buyback.admin.update')
                         ->uses('BuybackAdminController@updateSettings');
+
+                    // Update discord settings
+                    Route::post('/updateDiscord')
+                        ->name('buyback.admin.update_discord')
+                        ->uses('BuybackAdminController@updateDiscordSettings');
                 });
         });
 

@@ -58,8 +58,7 @@ class BuybackAdminController extends Controller
         return view('buyback::buyback_admin', [
             'settings' => $this->settingsService->getAll(),
             'marketConfigs' => BuybackMarketConfig::orderBy('typeName', 'asc')->get(),
-            'priceProvider' => BuyBackPriceProvider::orderBy('name', 'asc')->get(),
-            ''
+            'priceProvider' => BuyBackPriceProvider::orderBy('name', 'asc')->get()
         ]);
     }
 
@@ -75,6 +74,24 @@ class BuybackAdminController extends Controller
             'admin_max_allowed_items' => 'required|numeric|between:1,50',
             'admin_contract_contract_to' => 'required|max:128',
             'admin_contract_expiration' => 'required|max:32'
+        ]);
+
+        if ($request->all() == null) {
+            return redirect()->back()
+                ->with(['error' => trans('buyback::global.error')]);
+        }
+
+        $this->settingsService->setAll($request->all());
+
+        return redirect()->back()
+            ->with('success', trans('buyback::global.admin_success_config'));
+    }
+
+    public function updateDiscordSettings(Request $request)
+    {
+        $request->validate([
+           'admin_discord_status'=> 'required|numeric|between:0,1',
+           'admin_discord_webhook_url' => 'required|max:128'
         ]);
 
         if ($request->all() == null) {

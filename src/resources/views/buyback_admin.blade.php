@@ -90,18 +90,18 @@
         <div class="card-header">
             <h3 class="card-title">{{ trans('buyback::global.admin_discord_title') }}</h3>
         </div>
-        <form action="{{ route('buyback.admin.update') }}" method="post" id="admin-update" name="admin-update">
+        <form action="{{ route('buyback.admin.update_discord') }}" method="post" id="admin-update" name="admin-update">
             <div class="card-body">
                 {{ csrf_field() }}
                 <div class="box-body">
                     <legend>{{ trans('buyback::global.admin_discord_first_title') }}</legend>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-4 col-form-label" for="admin_price_cache_time">{{ trans('buyback::global.admin_discord_webhook_status_label') }}</label>
+                    <label class="col-md-4 col-form-label" for="admin_discord_status">{{ trans('buyback::global.admin_discord_webhook_status_label') }}</label>
                     <div class="col-md-6">
-                        <select id="admin_price_provider" name="admin_price_provider" class="form-control w-100">
-                            <option value="0">Disabled</option>
-                            <option value="1">Enabled</option>
+                        <select id="admin_discord_status" name="admin_discord_status" class="form-control w-100">
+                            <option value="0" {{ ((int)$settings["admin_discord_status"] == 0) ? "selected" : '' }}>Disabled</option>
+                            <option value="1" {{ ((int)$settings["admin_discord_status"] >= 1) ? "selected" : '' }}>Enabled</option>
                         </select>
                         <p class="form-text text-muted mb-0">
                             {{ trans('buyback::global.admin_discord_webhook_status_description') }}
@@ -109,9 +109,9 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-4 col-form-label" for="admin_price_cache_time">{{ trans('buyback::global.admin_discord_webhook_url_label') }}</label>
+                    <label class="col-md-4 col-form-label" for="admin_discord_webhook_url">{{ trans('buyback::global.admin_discord_webhook_url_label') }}</label>
                     <div class="col-md-6">
-                        <input id="admin_price_cache_time" name="admin_price_cache_time" type="text" class="form-control input-md" placeholder="In seconds" value="{{ $settings["admin_price_cache_time"] }}">
+                        <input id="admin_discord_webhook_url" name="admin_discord_webhook_url" type="text" class="form-control input-md" placeholder="In seconds" value="{{ $settings["admin_discord_webhook_url"] }}">
                         <p class="form-text text-muted mb-0">
                             {{ trans('buyback::global.admin_discord_webhook_url_description') }}
                         </p>
