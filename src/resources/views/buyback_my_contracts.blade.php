@@ -19,6 +19,10 @@
     @endif
     <div id="accordion-open">
         @foreach($openContracts as $contract)
+            @php
+                $contractFinalPrice = number_format(H4zz4rdDev\Seat\SeatBuyback\Helpers\PriceCalculationHelper::calculateFinalPrice(
+                    json_decode($contract->contractData, true)["parsed"]),0,',', '.')
+            @endphp
             <div class="card">
                 <div class="card-header border-secondary" data-toggle="collapse" data-target="#collapse_{{ $contract->contractId }}"
                      aria-expanded="true" aria-controls="collapse_{{ $contract->contractId }} id="heading_{{ $contract->contractId }}">
@@ -28,8 +32,10 @@
                                 <i class="nav-icon fas fa-eye align-middle"></i>
                                 <button class="btn">
                                     <h3 class="card-title"><b>{{ $contract->contractId }}</b>
+                                        ( {{ count(json_decode($contract->contractData, true)["parsed"]) }} Items )
                                         | {{ date("d.m.Y", $contract->created_at->timestamp) }}
-                                        ( {{ count(json_decode($contract->contractData, true)["parsed"]) }} Items )</h3>
+                                        | <b><span class="isk-info">+{{ $contractFinalPrice }}</span> ISK</b>
+                                    </h3>
                                 </button>
                             </div>
                             <div class="ml-auto align-centered">
@@ -55,9 +61,7 @@
                             @endforeach
                             <tr>
                                 <td class="align-centered"><b>Summary</b></td>
-                                <td class="align-centered isk-td"><b><span class="isk-info">+
-                                            {{ number_format(H4zz4rdDev\Seat\SeatBuyback\Helpers\PriceCalculationHelper::calculateFinalPrice(
-                                                json_decode($contract->contractData, true)["parsed"]),0,',', '.') }}</span> ISK</b></td>
+                                <td class="align-centered isk-td"><b><span class="isk-info">+{{ $contractFinalPrice }}</span> ISK</b></td>
                             </tr>
                             </tbody>
                         </table>

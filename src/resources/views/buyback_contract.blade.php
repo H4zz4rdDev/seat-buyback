@@ -18,6 +18,10 @@
     @else
     <div id="accordion">
         @foreach($contracts as $contract)
+            @php
+                $contractFinalPrice = number_format(H4zz4rdDev\Seat\SeatBuyback\Helpers\PriceCalculationHelper::calculateFinalPrice(
+                    json_decode($contract->contractData, true)["parsed"]),0,',', '.')
+            @endphp
         <div class="card">
             <div class="card-header border-secondary" data-toggle="collapse" data-target="#collapse_{{ $contract->contractId }}"
                  aria-expanded="true" aria-controls="collapse_{{ $contract->contractId }} id="heading_{{ $contract->contractId }}">
@@ -27,9 +31,10 @@
                         <div class="col-md-8 align-left">
                             <button class="btn">
                                 <h3 class="card-title"><b>{{ $contract->contractId }}</b>
+                                    ( {{ count(json_decode($contract->contractData, true)["parsed"]) }} Items )
                                     | {{ date("d.m.Y", $contract->created_at->timestamp) }}
-                                    | <b>{{ $contract->contractIssuer }}</b>
-                                    ( {{ count(json_decode($contract->contractData, true)["parsed"]) }} Items )</h3>
+                                    | <b><span class="isk-info">+{{ $contractFinalPrice }}</span> ISK</b>
+                                </h3>
                             </button>
                         </div>
                         <div class="ml-auto mr-2 align-right text-center align-centered">
