@@ -144,7 +144,6 @@
         $(document).ready( function () {
             $('#items').DataTable({
                 columnDefs: [
-                    { "orderable": false, "targets": 4 },
                     { "width": 160, "targets": 4 }
                 ],
                 fixedColumn: true
