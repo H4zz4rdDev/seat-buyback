@@ -22,6 +22,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback\Http\Controllers;
 
+use Cassandra\Set;
+use H4zz4rdDev\Seat\SeatBuyback\Services\DiscordService;
+use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +37,26 @@ use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackContract;
  * @package H4zz4rdDev\Seat\SeatBuyback\Http\Controllers
  */
 class BuybackContractController extends Controller {
+
+    /**
+     * @var DiscordService
+     */
+    private $discordService;
+
+    /**
+     * @var SettingsService
+     */
+    private $settingsService;
+
+    public function __construct
+    (
+        DiscordService $discordService,
+        SettingsService $settingsService
+    )
+    {
+        $this->discordService = $discordService;
+        $this->settingsService = $settingsService;
+    }
 
     /**
      * @return \Illuminate\View\View
@@ -87,6 +110,10 @@ class BuybackContractController extends Controller {
         $contract->contractIssuer = Auth::user()->name;
         $contract->contractData = $request->get('contractData');
         $contract->save();
+
+        if((bool)$this->settingsService->get("admin_discord_status")) {
+            $this->discordService->sendMessage(Auth::user()->name, Auth::user()->main_character_id);
+        }
 
         return redirect()->route('buyback.character.contracts')
             ->with('success', trans('buyback::global.contract_success_submit', ['id' => $request->get('contractId')]));
