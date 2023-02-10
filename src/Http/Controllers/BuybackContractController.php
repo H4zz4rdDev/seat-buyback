@@ -119,7 +119,8 @@ class BuybackContractController extends Controller {
                 Auth::user()->name,
                 Auth::user()->main_character_id,
                 $contractFinalPrice,
-                count(json_decode($contract->contractData, true)['parsed'])
+                count(json_decode($contract->contractData, true)['parsed']),
+                $contract->contractId
             );
         }
 

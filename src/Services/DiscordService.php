@@ -70,18 +70,18 @@ class DiscordService {
         }
     }
 
-    public function sendMessage(string $username, int $userId, int $finalPrice = 0, int $itemCount = 0) : void {
+    public function sendMessage(string $username, int $userId, int $finalPrice = 0, int $itemCount = 0, $contractId) : void {
         $timestamp = date("c", strtotime("now"));
 
         $msg = json_encode([
-            "username" => "SeAT-BuyBack",
+            "username" => "SeAT BuyBack Notification",
             "avatar_url" => "https://avatars.githubusercontent.com/u/13915359?s=200&v=4",
             "tts" => false,
             "embeds" => [
                 [
                     "title" => "New BuyBack: " . $username,
                     "type" => "rich",
-                    "description" => "Nice value is shown here and item count!",
+                    "description" => "Contract Details:",
                     "timestamp" => $timestamp,
                     "color" => hexdec( "3366ff" ),
                     "thumbnail" => [
@@ -97,7 +97,13 @@ class DiscordService {
                             "name" => "Item Count",
                             "value" => $itemCount . " Items",
                             "inline" => false
+                        ],
+                        [
+                            "name" => "Contract ID",
+                            "value" => $contractId,
+                            "inline" => false
                         ]
+
                     ]
                 ]
             ]
