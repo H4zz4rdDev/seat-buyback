@@ -70,7 +70,7 @@ class DiscordService {
         }
     }
 
-    public function sendMessage($username, $userId) : void {
+    public function sendMessage(string $username, int $userId, int $finalPrice = 0, int $itemCount = 0) : void {
         $timestamp = date("c", strtotime("now"));
 
         $msg = json_encode([
@@ -90,13 +90,13 @@ class DiscordService {
                     "fields" => [
                         [
                             "name" => "ISK Value",
-                            "value" => "99.999.999 ISK",
+                            "value" => number_format($finalPrice,0,',', '.') . " ISK",
                             "inline" => false
                         ],
                         [
                             "name" => "Item Count",
-                            "value" => "99 Items",
-                            "inline" => true
+                            "value" => $itemCount . " Items",
+                            "inline" => false
                         ]
                     ]
                 ]

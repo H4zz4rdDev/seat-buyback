@@ -91,6 +91,8 @@
                             <input type="hidden" value="{{ $contractId }}" name="contractId" id="contractId">
                         </tr>
                         <input type="hidden" value="{{ json_encode($eve_item_data) }}" name="contractData" id="contractId">
+                        <input type="hidden" value="99" name="contractItemCount" id="contractItemCount">
+                        <input type="hidden" value="{{ $finalPrice }}" name="contractFinalPrice" id="contractFinalPrice">
                         </tbody>
                     </table>
                     <div>

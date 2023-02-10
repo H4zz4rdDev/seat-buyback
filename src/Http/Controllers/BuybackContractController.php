@@ -102,17 +102,25 @@ class BuybackContractController extends Controller {
 
         $request->validate([
             'contractId' => 'required',
-            'contractData' => 'required'
+            'contractData' => 'required',
+            'contractFinalPrice' => 'required'
         ]);
 
         $contract = new BuybackContract();
         $contract->contractId = $request->get('contractId');
         $contract->contractIssuer = Auth::user()->name;
         $contract->contractData = $request->get('contractData');
+        $contractFinalPrice = (int)$request->get('contractFinalPrice');
         $contract->save();
 
         if((bool)$this->settingsService->get("admin_discord_status")) {
-            $this->discordService->sendMessage(Auth::user()->name, Auth::user()->main_character_id);
+            $this->discordService->sendMessage
+            (
+                Auth::user()->name,
+                Auth::user()->main_character_id,
+                $contractFinalPrice,
+                count(json_decode($contract->contractData, true)['parsed'])
+            );
         }
 
         return redirect()->route('buyback.character.contracts')
