@@ -111,7 +111,7 @@
                 <div class="form-group row">
                     <label class="col-md-4 col-form-label" for="admin_discord_webhook_url">{{ trans('buyback::global.admin_discord_webhook_url_label') }}</label>
                     <div class="col-md-6">
-                        <input id="admin_discord_webhook_url" name="admin_discord_webhook_url" type="text" class="form-control input-md" placeholder="In seconds" value="{{ $settings["admin_discord_webhook_url"] }}">
+                        <input id="admin_discord_webhook_url" name="admin_discord_webhook_url" type="password" class="form-control input-md" placeholder="In seconds" value="{{ $settings["admin_discord_webhook_url"] }}">
                         <p class="form-text text-muted mb-0">
                             {{ trans('buyback::global.admin_discord_webhook_url_description') }}
                         </p>
