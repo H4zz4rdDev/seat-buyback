@@ -89,19 +89,33 @@ class BuybackAdminController extends Controller
 
     public function updateDiscordSettings(Request $request)
     {
-        $request->validate([
-           'admin_discord_status'=> 'required|numeric|between:0,1',
-           'admin_discord_webhook_url' => 'required|max:128'
-        ]);
-
         if ($request->all() == null) {
             return redirect()->back()
                 ->with(['error' => trans('buyback::global.error')]);
+        }
+
+        $request->validate([
+            'admin_discord_status'=> 'required|numeric|between:0,1',
+            'admin_discord_webhook_url' => 'required|url'
+        ]);
+
+        if($this->getDomainName($request->get('admin_discord_webhook_url')) != 'discord.com') {
+            return redirect()->back()
+                ->with(['error' => trans('buyback::global.admin_discord_error_url')]);
         }
 
         $this->settingsService->setAll($request->all());
 
         return redirect()->back()
             ->with('success', trans('buyback::global.admin_success_config'));
+    }
+
+    function getDomainName($url){
+        $pieces = parse_url($url);
+        $domain = $pieces['host'] ?? '';
+        if(preg_match('/(?P<domain>[a-z0-9][a-z0-9\-]{1,63}\.[a-z\.]{2,6})$/i', $domain, $regs)){
+            return $regs['domain'];
+        }
+        return FALSE;
     }
 }

@@ -73,6 +73,7 @@ return [
     'admin_discord_webhook_status_label' => 'Status ',
     'admin_discord_webhook_status_description' => 'Enable or Disabled Discord notifications',
     'admin_discord_button' => 'Update',
+    'admin_discord_error_url' => 'This is not a Discord webhook url',
     'admin_setting_title' => 'Buyback Plugin Settings',
     'admin_setting_first_title' => 'General',
     'admin_setting_cache_label' => 'Price Cache Time',

@@ -75,7 +75,7 @@ class DiscordService {
 
         $msg = json_encode([
             "username" => "SeAT BuyBack Notification",
-            "avatar_url" => "https://avatars.githubusercontent.com/u/13915359?s=200&v=4",
+            "avatar_url" => config('buyback.discord.webhook.logoUrl'),
             "tts" => false,
             "embeds" => [
                 [
