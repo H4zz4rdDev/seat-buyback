@@ -88,6 +88,7 @@
                                     <h3 class="card-title"><del><b>{{ $contract->contractId }}</b>
                                         | {{ date("d.m.Y", $contract->created_at->timestamp) }}
                                             ( {{ count(json_decode($contract->contractData, true)["parsed"]) }} Items )</del>
+                                        | <b>{{ $contract->contractIssuer }}</b>
                                         - <b> Finished: {{ date("d.m.Y", $contract->updated_at->timestamp) }}</b></h3>
                                 </button>
                             </div>
