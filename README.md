@@ -39,6 +39,9 @@ User:
 ## Discord Notifications
 You are able to receive on every new buyback request discord notification over a discord webhook url directly into a discord channel. By default, the discord notification are turned off. You have to provide a valid discord webhook url over the admin settings page first.
 
+How can I get my channel webhook url?
+[Webhook Url Guide](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)
+
 Example:
 
 ![discordexample](https://i.imgur.com/Y3BExAi.png)
