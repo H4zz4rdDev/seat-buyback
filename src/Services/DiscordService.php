@@ -92,9 +92,9 @@ class DiscordService {
                     "type" => "rich",
                     "description" => "Contract Details:",
                     "timestamp" => $timestamp,
-                    "color" => hexdec( "3366ff" ),
+                    "color" => hexdec(substr($this->settingsService->get('admin_discord_webhook_color'),1,7)),
                     "thumbnail" => [
-                        "url" => "https://images.evetech.net/characters/".$userId."/portrait"
+                        "url" => config('buyback.discord.eve.imageServerUrl').$userId."/portrait"
                     ],
                     "fields" => [
                         [

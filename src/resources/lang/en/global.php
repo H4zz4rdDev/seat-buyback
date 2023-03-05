@@ -72,6 +72,8 @@ return [
     'admin_discord_webhook_url_description' => 'Set a Discord channel webhook url where the notifications will be send to',
     'admin_discord_webhook_status_label' => 'Status ',
     'admin_discord_webhook_status_description' => 'Enable or Disabled Discord notifications',
+    'admin_discord_webhook_color_label' => 'Border Color',
+    'admin_discord_webhook_color_description' => 'Select a border color for your discord notification',
     'admin_discord_button' => 'Update',
     'admin_discord_error_url' => 'This is not a Discord webhook url',
     'admin_discord_error_curl' => 'It was not possible to send the discord notification. Please check your discord settings!',

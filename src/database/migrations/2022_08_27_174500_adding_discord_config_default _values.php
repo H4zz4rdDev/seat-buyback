@@ -42,6 +42,11 @@ class AddingDiscordConfigDefaultValues extends Migration {
             'name' => 'admin_discord_status',
             'value' => 0
         ]);
+
+        DB::table('buyback_admin_config')->insert([
+            'name' => ' admin_discord_webhook_color',
+            'value' => '#ffffff'
+        ]);
     }
 
     /**
