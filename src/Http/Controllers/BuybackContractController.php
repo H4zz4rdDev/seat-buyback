@@ -23,6 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 namespace H4zz4rdDev\Seat\SeatBuyback\Http\Controllers;
 
 use Cassandra\Set;
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\DiscordServiceCurlException;
 use H4zz4rdDev\Seat\SeatBuyback\Services\DiscordService;
 use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
 use Illuminate\Http\RedirectResponse;
@@ -114,14 +115,19 @@ class BuybackContractController extends Controller {
         $contract->save();
 
         if((bool)$this->settingsService->get("admin_discord_status")) {
-            $this->discordService->sendMessage
-            (
-                Auth::user()->name,
-                Auth::user()->main_character_id,
-                $contractFinalPrice,
-                count(json_decode($contract->contractData, true)['parsed']),
-                $contract->contractId
-            );
+            try {
+                $this->discordService->sendMessage
+                (
+                    Auth::user()->name,
+                    Auth::user()->main_character_id,
+                    $contractFinalPrice,
+                    count(json_decode($contract->contractData, true)['parsed']),
+                    $contract->contractId
+                );
+            } catch (DiscordServiceCurlException $discordServiceCurlException) {
+                return redirect()->back()
+                    ->with(['error' => trans('buyback::global.admin_discord_error_curl')]);
+            }
         }
 
         return redirect()->route('buyback.character.contracts')

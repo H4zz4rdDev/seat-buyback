@@ -22,6 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace H4zz4rdDev\Seat\SeatBuyback\Services;
 
+use H4zz4rdDev\Seat\SeatBuyback\Exceptions\DiscordServiceCurlException;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\DiscordServiceWebhookUrlNotFoundException;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
 
@@ -48,6 +49,7 @@ class DiscordService {
      * @return void
      * @throws DiscordServiceWebhookUrlNotFoundException
      * @throws SettingsServiceException
+     * @throws DiscordServiceCurlException
      */
     private function send($msg) {
         $webhookUrl = $this->settingsService->get('admin_discord_webhook_url');
@@ -61,7 +63,9 @@ class DiscordService {
             curl_setopt($ch,CURLOPT_HEADER, 0);
             curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
 
-            curl_exec($ch);
+            if(curl_exec($ch) === false) {
+                throw new DiscordServiceCurlException();
+            }
             curl_close($ch);
         } else {
             throw new DiscordServiceWebhookUrlNotFoundException(
@@ -70,6 +74,11 @@ class DiscordService {
         }
     }
 
+    /**
+     * @throws SettingsServiceException
+     * @throws DiscordServiceCurlException
+     * @throws DiscordServiceWebhookUrlNotFoundException
+     */
     public function sendMessage(string $username, int $userId, int $finalPrice = 0, int $itemCount = 0, $contractId) : void {
         $timestamp = date("c", strtotime("now"));
 
