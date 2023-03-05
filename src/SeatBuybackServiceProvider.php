@@ -60,6 +60,9 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
         // Merge PriceProvider config
         $this->mergeConfigFrom(__DIR__ . '/Config/PriceProvider/buyback.priceProvider.php', 'buyback.priceProvider');
 
+        // Merge Discord config
+        $this->mergeConfigFrom(__DIR__ . '/Config/Discord/buyback.discord.php', 'buyback.discord');
+
         // Register generic permissions
         $this->registerPermissions(__DIR__ . '/Config/Permissions/buyback.php', 'buyback');
     }
