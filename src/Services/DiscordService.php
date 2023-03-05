@@ -83,7 +83,7 @@ class DiscordService {
         $timestamp = date("c", strtotime("now"));
 
         $msg = json_encode([
-            "username" => "SeAT BuyBack Notification",
+            "username" => $this->settingsService->get('admin_discord_webhook_bot_name'),
             "avatar_url" => config('buyback.discord.webhook.logoUrl'),
             "tts" => false,
             "embeds" => [

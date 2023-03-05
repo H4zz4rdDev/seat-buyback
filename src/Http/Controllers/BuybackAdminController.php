@@ -97,6 +97,7 @@ class BuybackAdminController extends Controller
         $request->validate([
             'admin_discord_status'=> 'required|numeric|between:0,1',
             'admin_discord_webhook_url' => 'required|url',
+            'admin_discord_webhook_bot_name' => 'required|max:32|min:3',
             'admin_discord_webhook_color' => [
                 'required',
                 'regex:/^#([a-f0-9]{6}|[a-f0-9]{3})$/i'

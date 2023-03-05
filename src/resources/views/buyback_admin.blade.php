@@ -118,6 +118,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="admin_discord_webhook_bot_name">{{ trans('buyback::global.admin_setting_bot_name_label') }}</label>
+                    <div class="col-md-6">
+                        <input id="admin_discord_webhook_bot_name" name="admin_discord_webhook_bot_name" type="text" class="form-control input-md" value="{{ $settings["admin_discord_webhook_bot_name"] }}">
+                        <p class="form-text text-muted mb-0">
+                            {{ trans('buyback::global.admin_setting_bot_name_description') }}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-md-4 col-form-label" for="admin_discord_webhook_url">{{ trans('buyback::global.admin_discord_webhook_color_label') }}</label>
                     <div class="col-md-6">
                         <input id="admin_discord_webhook_color" name="admin_discord_webhook_color" type="color" class="form-control input-md" placeholder="#ffffff" value="{{ $settings["admin_discord_webhook_color"] }}">

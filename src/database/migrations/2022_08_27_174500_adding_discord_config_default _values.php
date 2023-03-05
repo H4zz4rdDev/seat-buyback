@@ -44,8 +44,13 @@ class AddingDiscordConfigDefaultValues extends Migration {
         ]);
 
         DB::table('buyback_admin_config')->insert([
-            'name' => ' admin_discord_webhook_color',
+            'name' => 'admin_discord_webhook_color',
             'value' => '#1928f5'
+        ]);
+
+        DB::table('buyback_admin_config')->insert([
+            'name' => 'admin_discord_webhook_bot_name',
+            'value' => 'SeAT BuyBack Notification'
         ]);
     }
 
