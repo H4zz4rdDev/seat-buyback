@@ -33,6 +33,7 @@
                                 <h3 class="card-title"><b>{{ $contract->contractId }}</b>
                                     ( {{ count(json_decode($contract->contractData, true)["parsed"]) }} Items )
                                     | {{ date("d.m.Y", $contract->created_at->timestamp) }}
+                                    | <b>{{ $contract->contractIssuer }}</b>
                                     | <b><span class="isk-info">+{{ $contractFinalPrice }}</span> ISK</b>
                                 </h3>
                             </button>
