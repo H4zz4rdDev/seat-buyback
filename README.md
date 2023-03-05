@@ -34,7 +34,14 @@ User:
 
 > :warning: The buyback will only be saved with the click on "Confirm". Created contracts in EVE can not be seen by the plugin.
 
-> :warning: Each item price is cached and only refreshed by default every hour. You can change the cache time over the admin section. Please **do not** set this value too low because this would spam the chosen price provider api and your server could get banned for a while. 
+> :warning: Each item price is cached and only refreshed by default every hour. You can change the cache time over the admin section. Please **do not** set this value too low because this would spam the chosen price provider api and your server could get banned for a while.
+
+## Discord Notifications
+You are able to receive on every new buyback request discord notification over a discord webhook url directly into a discord channel. By default, the discord notification are turned off. You have to provide a valid discord webhook url over the admin settings page first.
+
+Example:
+
+![discordexample](https://i.imgur.com/Y3BExAi.png)
 
 ## Quick Installation Guide:
 I can also recommend reading through the [official seat documentation](https://eveseat.github.io/docs/community_packages/).
