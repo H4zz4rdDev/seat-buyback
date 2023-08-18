@@ -1,37 +1,37 @@
 {
-    "name": "h4zz4rddev/seat-buyback",
-    "description": "Buyback plugin for SeAT",
-    "license": "GPL-3.0",
-    "authors": [
-        {
-            "name": "H4zz4rd",
-            "email": "h4zz4rd@c64gamer.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "H4zz4rdDev\\Seat\\SeatBuyback\\": "src/"
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require": {
-        "php": "^7.3",
-        "laravel/framework": "^6.2",
-        "eveseat/web": "^4.0",
-        "eveseat/eveapi": "^4.0",
-        "ext-json": "*",
-        "ext-curl": "*"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^4.0",
-        "orchestra/database": "^4.0"
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "H4zz4rdDev\\Seat\\SeatBuyback\\SeatBuybackServiceProvider"
-            ]
-        }
+  "name": "vapor-lock/seat-buyback",
+  "description": "Buyback plugin for SeAT",
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "H4zz4rd",
+      "email": "h4zz4rd@c64gamer.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "H4zz4rdDev\\Seat\\SeatBuyback\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^7.3",
+    "laravel/framework": "^6.2",
+    "eveseat/web": "^4.0",
+    "eveseat/eveapi": "^4.0",
+    "ext-json": "*",
+    "ext-curl": "*"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^4.0",
+    "orchestra/database": "^4.0"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "H4zz4rdDev\\Seat\\SeatBuyback\\SeatBuybackServiceProvider"
+      ]
+    }
+  }
 }
