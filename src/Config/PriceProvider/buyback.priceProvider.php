@@ -6,7 +6,7 @@ return [
         'apiUrl' => 'https://api.evemarketer.com/ec/marketstat/json'
     ],
     'evePraisal' => [
-        'name' => 'EVEPraisal-TurboFeed',
-        'apiUrl' => 'https://evepraisal.turbofeedorglory.com'
+        'name' => 'EVEPraisal',
+        'apiUrl' => 'https://evepraisal.vaporlock.space'
     ]
 ];
