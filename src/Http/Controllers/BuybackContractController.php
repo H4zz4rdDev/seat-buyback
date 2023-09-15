@@ -39,24 +39,8 @@ use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackContract;
  */
 class BuybackContractController extends Controller {
 
-    /**
-     * @var DiscordService
-     */
-    private $discordService;
-
-    /**
-     * @var SettingsService
-     */
-    private $settingsService;
-
-    public function __construct
-    (
-        DiscordService $discordService,
-        SettingsService $settingsService
-    )
+    public function __construct(private readonly DiscordService $discordService, private readonly SettingsService $settingsService)
     {
-        $this->discordService = $discordService;
-        $this->settingsService = $settingsService;
     }
 
     /**
@@ -96,7 +80,6 @@ class BuybackContractController extends Controller {
     }
 
     /**
-     * @param Request $request
      * @return mixed
      */
     public function insertContract(Request $request) {
@@ -120,11 +103,11 @@ class BuybackContractController extends Controller {
                 (
                     Auth::user()->name,
                     Auth::user()->main_character_id,
+                    $contract->contractId,
                     $contractFinalPrice,
-                    count(json_decode($contract->contractData, true)['parsed']),
-                    $contract->contractId
+                    is_countable(json_decode((string) $contract->contractData, true, 512, JSON_THROW_ON_ERROR)['parsed']) ? count(json_decode((string) $contract->contractData, true, 512, JSON_THROW_ON_ERROR)['parsed']) : 0
                 );
-            } catch (DiscordServiceCurlException $discordServiceCurlException) {
+            } catch (DiscordServiceCurlException) {
                 return redirect()->back()
                     ->with(['error' => trans('buyback::global.admin_discord_error_curl')]);
             }
@@ -135,13 +118,11 @@ class BuybackContractController extends Controller {
     }
 
     /**
-     * @param Request $request
-     * @param string $contractId
      * @return mixed
      */
     public function deleteContract (Request $request, string $contractId)
     {
-        if(!$request->isMethod('get') || empty($contractId))
+        if(!$request->isMethod('get') || $contractId === '')
         {
             return redirect()->back()
                 ->with(['error' => trans('buyback::global.error')]);
@@ -154,13 +135,11 @@ class BuybackContractController extends Controller {
     }
 
     /**
-     * @param Request $request
-     * @param string $contractId
      * @return mixed
      */
     public function succeedContract (Request $request, string $contractId)
     {
-        if(!$request->isMethod('get') || empty($contractId))
+        if(!$request->isMethod('get') || $contractId === '')
         {
             return redirect()->back()
                 ->with(['error' => trans('buyback::global.error')]);

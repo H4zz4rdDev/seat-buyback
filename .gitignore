@@ -73,3 +73,6 @@ fabric.properties
 
 .idea
 
+composer.lock
+vendor/
+

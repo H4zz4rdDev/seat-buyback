@@ -22,10 +22,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 Route::group([
     'namespace' => 'H4zz4rdDev\Seat\SeatBuyback\Http\Controllers',
     'middleware' => ['web', 'auth', 'locale'],
-], function () {
+], function (): void {
 
     Route::prefix('/buyback')
-        ->group(function () {
+        ->group(function (): void {
 
             //Show buyback request form
             Route::get('/')
@@ -44,7 +44,7 @@ Route::group([
 
             // Show characters contracts
             Route::prefix('/contracts')
-                ->group(function () {
+                ->group(function (): void {
 
                 // Show all open contracts
                 Route::get('/')
@@ -69,7 +69,7 @@ Route::group([
 
 
             Route::prefix('items')
-                ->group(function () {
+                ->group(function (): void {
                     // Show items page
                     Route::get('/')
                         ->name('buyback.item')
@@ -87,7 +87,7 @@ Route::group([
                 });
 
             Route::prefix('/admin')
-                ->group(function () {
+                ->group(function (): void {
 
                     // Show admin view
                     Route::get('/')

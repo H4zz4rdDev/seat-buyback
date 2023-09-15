@@ -31,7 +31,7 @@ class AddingDiscordConfigDefaultValues extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         DB::table('buyback_admin_config')->insert([
             'name' => 'admin_discord_webhook_url',
@@ -59,5 +59,5 @@ class AddingDiscordConfigDefaultValues extends Migration {
      *
      * @return void
      */
-    public function down() {}
+    public function down(): void {}
 }

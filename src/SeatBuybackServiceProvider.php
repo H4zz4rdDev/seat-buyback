@@ -34,7 +34,7 @@ use Seat\Services\AbstractSeatPlugin;
  */
 class SeatBuybackServiceProvider extends AbstractSeatPlugin
 {
-    public function boot()
+    public function boot(): void
     {
         $this->add_routes();
 
@@ -49,7 +49,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
         $this->registerDependencyInjectionClasses();
     }
 
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/Config/buyback.config.php', 'buyback.config');
         $this->mergeConfigFrom(__DIR__ . '/Config/buyback.locale.php', 'buyback.locale');
@@ -70,33 +70,25 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
     /**
      * Register dependency injection classes
      */
-    private function registerDependencyInjectionClasses()
+    private function registerDependencyInjectionClasses(): void
     {
         // Settings Service
-        $this->app->singleton(SettingsService::class, function () {
-            return new SettingsService();
-        });
+        $this->app->singleton(SettingsService::class, fn(): \H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService => new SettingsService());
 
         // Price Provider Factory
-        $this->app->singleton(PriceProviderFactory::class, function ($app) {
-            return new PriceProviderFactory($app->make(SettingsService::class));
-        });
+        $this->app->singleton(PriceProviderFactory::class, fn($app): \H4zz4rdDev\Seat\SeatBuyback\Factories\PriceProviderFactory => new PriceProviderFactory($app->make(SettingsService::class)));
 
         // Settings Service
-        $this->app->singleton(ItemService::class, function ($app) {
-            return new ItemService($app->make(PriceProviderFactory::class));
-        });
+        $this->app->singleton(ItemService::class, fn($app): \H4zz4rdDev\Seat\SeatBuyback\Services\ItemService => new ItemService($app->make(PriceProviderFactory::class)));
 
         // Discord Service
-        $this->app->singleton(DiscordService::class, function ($app) {
-           return new DiscordService($app->make(SettingsService::class));
-        });
+        $this->app->singleton(DiscordService::class, fn($app): \H4zz4rdDev\Seat\SeatBuyback\Services\DiscordService => new DiscordService($app->make(SettingsService::class)));
     }
 
     /**
      * Include routes.
      */
-    private function add_routes()
+    private function add_routes(): void
     {
         $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
     }
@@ -104,7 +96,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
     /**
      * Import API annotations used to generate Swagger documentation (using Open Api Specifications syntax).
      */
-    private function add_api_endpoints()
+    private function add_api_endpoints(): void
     {
         $this->registerApiAnnotationsPath([
             __DIR__ . '/Http/Resources',
@@ -115,7 +107,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
     /**
      * Add content which must be published (generally, configuration files or static ones).
      */
-    private function add_publications()
+    private function add_publications(): void
     {
         $this->publishes([
             __DIR__ . '/resources/css' => public_path('web/css'),
@@ -127,7 +119,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
     /**
      * Import translations.
      */
-    private function add_translations()
+    private function add_translations(): void
     {
         $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'buyback');
     }
@@ -135,7 +127,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
     /**
      * Import views.
      */
-    private function add_views()
+    private function add_views(): void
     {
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'buyback');
     }
@@ -143,7 +135,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
     /**
      * Add SDE tables to be imported.
      */
-    private function add_sde_tables()
+    private function add_sde_tables(): void
     {
         $this->registerSdeTables([
             'mapJumps',
@@ -153,7 +145,7 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
     /**
      * Import database migrations.
      */
-    private function add_migrations()
+    private function add_migrations(): void
     {
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations/');
     }

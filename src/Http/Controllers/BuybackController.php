@@ -53,15 +53,10 @@ class BuybackController extends Controller
      */
     public $settingsService;
 
-    /**
-     * @var int
-     */
-    private $_maxAllowedItems;
+    private readonly int $_maxAllowedItems;
 
     /**
      * Constructor
-     *
-     * @param ItemService $itemService
      */
     public function __construct(ItemService $itemService, SettingsService $settingsService)
     {
@@ -81,7 +76,6 @@ class BuybackController extends Controller
     }
 
     /**
-     * @param Request $request
      * @throws SettingsServiceExceptionAlias
      */
     public function checkItems(Request $request)
@@ -104,7 +98,7 @@ class BuybackController extends Controller
 
             $maxAllowedItems = $this->settingsService->getMaxAllowedItems();
 
-            if (count($parsedItems["parsed"]) > $maxAllowedItems) {
+            if ((is_countable($parsedItems["parsed"]) ? count($parsedItems["parsed"]) : 0) > $maxAllowedItems) {
                 return redirect('buyback')->withErrors(
                     ['errors' => trans('buyback::global.error_too_much_items', ['count' => $maxAllowedItems])]);
             }
@@ -120,10 +114,10 @@ class BuybackController extends Controller
                 'contractId' => Helpers\MiscHelper::generateRandomString(self::MaxContractIdLength)
             ]);
 
-        } catch (NoMarketDataFoundException $noMarketDataFoundException) {
+        } catch (NoMarketDataFoundException) {
             return redirect('buyback')->withErrors(
                 ['errors' => trans('buyback::global.error_price_provider_down')]);
-        } catch (ItemParserBadFormatException $e) {
+        } catch (ItemParserBadFormatException) {
             return redirect('buyback')->withErrors(
                 ['errors' => trans('buyback::global.error_item_parser_format')]);
         }

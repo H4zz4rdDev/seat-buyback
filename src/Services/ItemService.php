@@ -35,13 +35,9 @@ use Seat\Eveapi\Models\Sde\InvType;
  */
 class ItemService
 {
-    /**
-     * @var IPriceProvider
-     */
-    private $priceProvider;
+    private ?\H4zz4rdDev\Seat\SeatBuyback\Provider\IPriceProvider $priceProvider = null;
 
     /**
-     * @param PriceProviderFactory $priceProviderFactory
      * @throws SettingsServiceException
      */
     public function __construct(PriceProviderFactory $priceProviderFactory)
@@ -50,13 +46,12 @@ class ItemService
     }
 
     /**
-     * @param string $item_string
      * @return array|null
      * @throws ItemParserBadFormatException
      */
     public function parseEveItemData(string $item_string): ?array
     {
-        if (empty($item_string)) {
+        if ($item_string === '') {
             return null;
         }
 
@@ -78,7 +73,6 @@ class ItemService
     }
 
     /**
-     * @param array $itemData
      * @return array|null
      */
     private function categorizeItems(array $itemData): ?array
@@ -132,7 +126,6 @@ class ItemService
     }
 
     /**
-     * @param string $item_string
      * @return array|null
      * @throws ItemParserBadFormatException
      */

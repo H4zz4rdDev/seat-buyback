@@ -43,22 +43,12 @@ abstract class AbstractEvePriceProvider {
     public $price_cache_time;
 
     /**
-     * @var SettingsService
-     */
-    private $settingsService;
-
-    /**
-     * @param string $itemTypeId
      * @return mixed
      */
     abstract protected function doCall(string $itemTypeId);
 
-    /**
-     * @param SettingsService $settingsService
-     */
-    public function __construct(SettingsService $settingsService)
+    public function __construct(private readonly SettingsService $settingsService)
     {
-        $this->settingsService = $settingsService;
         try {
             $this->price_cache_time = $settingsService->get("admin_price_cache_time");
         } catch (SettingsServiceException $e) {
@@ -67,7 +57,6 @@ abstract class AbstractEvePriceProvider {
     }
 
     /**
-     * @param int $itemTypeId
      * @return array|null
      * @throws NoMarketDataFoundException
      * @throws SettingsServiceException

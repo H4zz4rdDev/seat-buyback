@@ -42,9 +42,6 @@ class BuybackAdminController extends Controller
      */
     public $settingsService;
 
-    /**
-     * @param SettingsService $settingsService
-     */
     public function __construct(SettingsService $settingsService)
     {
         $this->settingsService = $settingsService;
@@ -63,7 +60,6 @@ class BuybackAdminController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return mixed
      */
     public function updateSettings(Request $request)
@@ -116,7 +112,7 @@ class BuybackAdminController extends Controller
     }
 
     function getDomainName($url){
-        $pieces = parse_url($url);
+        $pieces = parse_url((string) $url);
         $domain = $pieces['host'] ?? '';
         if(preg_match('/(?P<domain>[a-z0-9][a-z0-9\-]{1,63}\.[a-z\.]{2,6})$/i', $domain, $regs)){
             return $regs['domain'];

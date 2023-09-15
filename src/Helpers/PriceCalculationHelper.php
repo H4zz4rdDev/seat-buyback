@@ -34,9 +34,6 @@ use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackMarketConfig;
 class PriceCalculationHelper {
 
     /**
-     * @param int $typeId
-     * @param int $quantity
-     * @param BuybackPriceData $buybackPriceData
      * @return float|int|null
      */
     public static function calculateItemPrice(int $typeId, int $quantity, BuybackPriceData $buybackPriceData) : ?float {
@@ -55,17 +52,10 @@ class PriceCalculationHelper {
 
         $pricePercentage = $priceSum * $marketConfig->percentage / 100;
 
-        if(!$marketConfig->marketOperationType) {
-            $price = $priceSum - $pricePercentage;
-        } else {
-            $price = $priceSum + $pricePercentage;
-        }
-
-        return $price;
+        return $marketConfig->marketOperationType ? $priceSum + $pricePercentage : $priceSum - $pricePercentage;
     }
 
     /**
-     * @param array $itemData
      * @return float|null
      */
     public static function calculateFinalPrice(array $itemData) : ?float {

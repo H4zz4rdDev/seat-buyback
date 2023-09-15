@@ -27,17 +27,8 @@ namespace H4zz4rdDev\Seat\SeatBuyback\Models;
  */
 class BuybackPriceData {
 
-    private $itemTypeId;
-    private $itemPrice;
-
-    /**
-     * @param int $itemTypeId
-     * @param string $itemPrice
-     */
-    public function __construct(int $itemTypeId, string $itemPrice)
+    public function __construct(private readonly int $itemTypeId, private readonly string $itemPrice)
     {
-        $this->itemTypeId = $itemTypeId;
-        $this->itemPrice = $itemPrice;
     }
 
     /**
