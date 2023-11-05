@@ -48,7 +48,6 @@ class BuybackItemController extends Controller {
     }
 
     /**
-     * @param Request $request
      * @return mixed
      */
     public function addMarketConfig(Request $request)
@@ -85,14 +84,12 @@ class BuybackItemController extends Controller {
     }
 
     /**
-     * @param Request $request
-     * @param int $typeId
      * @return mixed
      */
     public function removeMarketConfig(Request $request, int $typeId)
     {
 
-        if (!$request->isMethod('get') || empty($typeId) || !is_numeric($typeId)) {
+        if (!$request->isMethod('get') || $typeId === 0 || !is_numeric($typeId)) {
             return redirect()->back()
                 ->with(['error' => trans('buyback::global.error')]);
         }

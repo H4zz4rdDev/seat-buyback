@@ -31,9 +31,9 @@ class CreateSeatBuybackContractTable extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('buyback_contracts', function (Blueprint $table) {
+        Schema::create('buyback_contracts', function (Blueprint $table): void {
             $table->string('contractId')->primary();
             $table->string('contractIssuer');
             $table->text('contractData');
@@ -49,7 +49,7 @@ class CreateSeatBuybackContractTable extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('buyback_contracts');
     }

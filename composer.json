@@ -16,16 +16,12 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^7.3",
-        "laravel/framework": "^6.2",
-        "eveseat/web": "^4.0",
-        "eveseat/eveapi": "^4.0",
+        "php": "^8.2",
+        "laravel/framework": "^10.0",
+        "eveseat/web": "^5.0",
+        "eveseat/eveapi": "^5.0",
         "ext-json": "*",
         "ext-curl": "*"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^4.0",
-        "orchestra/database": "^4.0"
     },
     "extra": {
         "laravel": {
@@ -33,5 +29,9 @@
                 "H4zz4rdDev\\Seat\\SeatBuyback\\SeatBuybackServiceProvider"
             ]
         }
+    },
+    "require-dev": {
+        "rector/rector": "^0.18.3",
+        "driftingly/rector-laravel": "^0.24.1"
     }
 }

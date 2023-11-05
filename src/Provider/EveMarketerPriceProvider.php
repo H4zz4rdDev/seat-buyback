@@ -70,6 +70,6 @@ class EveMarketerPriceProvider extends AbstractEvePriceProvider implements IPric
             return null;
         }
 
-        return json_decode($data, true);
+        return json_decode($data, true, 512, JSON_THROW_ON_ERROR);
     }
 }

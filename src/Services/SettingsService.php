@@ -30,10 +30,7 @@ use Illuminate\Support\Facades\DB;
  */
 class SettingsService {
 
-    /**
-     * @var array
-     */
-    private $_settings;
+    private ?array $_settings = null;
 
     public function __construct()
     {
@@ -41,7 +38,6 @@ class SettingsService {
     }
 
     /**
-     * @param string $setting
      * @return string
      * @throws SettingsServiceException
      */
@@ -54,8 +50,6 @@ class SettingsService {
     }
 
     /**
-     * @param string $key
-     * @param string $value
      * @return void
      * @throws SettingsServiceException
      */
@@ -75,7 +69,6 @@ class SettingsService {
     }
 
     /**
-     * @param array $newSettings
      * @return void
      */
     public function setAll(array $newSettings): void

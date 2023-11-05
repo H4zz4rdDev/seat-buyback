@@ -31,9 +31,9 @@ class CreateSeatBuybackAdminConfigTable extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('buyback_admin_config', function (Blueprint $table) {
+        Schema::create('buyback_admin_config', function (Blueprint $table): void {
             $table->increments('id');
             $table->string('name');
             $table->string('value');
@@ -75,7 +75,7 @@ class CreateSeatBuybackAdminConfigTable extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('buyback_admin_config');
     }

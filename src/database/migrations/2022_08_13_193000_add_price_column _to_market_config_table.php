@@ -31,9 +31,9 @@ class AddPriceColumnToMarketConfigTable extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('buyback_market_config', function($table) {
+        Schema::table('buyback_market_config', function($table): void {
             $table->bigInteger('price')->after('percentage')->nullable()->default(null);
         });
     }
@@ -43,9 +43,9 @@ class AddPriceColumnToMarketConfigTable extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('buyback_market_config', function($table) {
+        Schema::table('buyback_market_config', function($table): void {
             $table->dropColumn('price');
         });
     }

@@ -31,17 +31,8 @@ use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
  */
 class DiscordService {
 
-    /**
-     * @var SettingsService
-     */
-    private $settingsService;
-
-    /**
-     * @param SettingsService $settingsService
-     */
-    public function __construct(SettingsService $settingsService)
+    public function __construct(private readonly SettingsService $settingsService)
     {
-        $this->settingsService = $settingsService;
     }
 
     /**
@@ -51,12 +42,12 @@ class DiscordService {
      * @throws SettingsServiceException
      * @throws DiscordServiceCurlException
      */
-    private function send($msg) {
+    private function send($msg): void {
         $webhookUrl = $this->settingsService->get('admin_discord_webhook_url');
 
         if(filter_var($webhookUrl, FILTER_VALIDATE_URL) && !empty($webhookUrl)) {
             $ch = curl_init($webhookUrl);
-            curl_setopt($ch,CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+            curl_setopt($ch,CURLOPT_HTTPHEADER, ['Content-type: application/json']);
             curl_setopt($ch,CURLOPT_POST, 1);
             curl_setopt($ch,CURLOPT_POSTFIELDS, $msg);
             curl_setopt($ch,CURLOPT_FOLLOWLOCATION, 1);
@@ -79,7 +70,7 @@ class DiscordService {
      * @throws DiscordServiceCurlException
      * @throws DiscordServiceWebhookUrlNotFoundException
      */
-    public function sendMessage(string $username, int $userId, int $finalPrice = 0, int $itemCount = 0, $contractId) : void {
+    public function sendMessage(string $username, int $userId, $contractId, int $finalPrice = 0, int $itemCount = 0) : void {
         $timestamp = date("c", strtotime("now"));
 
         $msg = json_encode([
