@@ -72,7 +72,7 @@ class EvePraisalPriceProvider extends AbstractEvePriceProvider implements IPrice
         $url = $this->settingsService->get('admin_price_provider_url');
 
         if(str_ends_with($url, '/')) {
-            $evePraisalUrl = substr($url, -1);
+            $evePraisalUrl = substr($url, 0, strlen($url) - 1);
         } else {
             $evePraisalUrl = $url;
         }
