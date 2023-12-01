@@ -53,7 +53,7 @@ class BuybackController extends Controller
      */
     public $settingsService;
 
-    private readonly int $_maxAllowedItems;
+    public int $maxAllowedItems;
 
     /**
      * Constructor
@@ -62,7 +62,7 @@ class BuybackController extends Controller
     {
         $this->itemService = $itemService;
         $this->settingsService = $settingsService;
-        $this->_maxAllowedItems = $settingsService->getMaxAllowedItems();
+        $this->maxAllowedItems = $settingsService->getMaxAllowedItems();
     }
 
     /**
@@ -71,7 +71,7 @@ class BuybackController extends Controller
     public function getHome() : View
     {
         return view('buyback::buyback', [
-            'maxAllowedItems' => $this->_maxAllowedItems
+            'maxAllowedItems' => $this->maxAllowedItems
         ]);
     }
 
@@ -107,19 +107,21 @@ class BuybackController extends Controller
 
             return view('buyback::buyback_check', [
                 'eve_item_data' => $parsedItems,
-                'maxAllowedItems' => $this->_maxAllowedItems,
+                'maxAllowedItems' => $this->maxAllowedItems,
                 'finalPrice' => $finalPrice,
                 'contractTo' => $this->settingsService->get("admin_contract_contract_to"),
                 'contractExpiration' => $this->settingsService->get("admin_contract_expiration"),
                 'contractId' => Helpers\MiscHelper::generateRandomString(self::MaxContractIdLength)
             ]);
 
-        } catch (NoMarketDataFoundException) {
+        } catch (NoMarketDataFoundException $e) {
             return redirect('buyback')->withErrors(
-                ['errors' => trans('buyback::global.error_price_provider_down')]);
-        } catch (ItemParserBadFormatException) {
+                ['errors' => trans('buyback::global.error_price_provider_down')]
+            );
+        } catch (ItemParserBadFormatException $e) {
             return redirect('buyback')->withErrors(
-                ['errors' => trans('buyback::global.error_item_parser_format')]);
+                ['errors' => trans('buyback::global.error_item_parser_format')]
+            );
         }
     }
 }

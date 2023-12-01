@@ -39,8 +39,14 @@ use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackContract;
  */
 class BuybackContractController extends Controller {
 
-    public function __construct(private readonly DiscordService $discordService, private readonly SettingsService $settingsService)
+    private SettingsService $settingsService;
+
+    private DiscordService $discordService;
+
+    public function __construct(DiscordService $discordService, SettingsService $settingsService)
     {
+        $this->settingsService = $settingsService;
+        $this->discordService = $discordService;
     }
 
     /**
@@ -107,7 +113,7 @@ class BuybackContractController extends Controller {
                     $contractFinalPrice,
                     is_countable(json_decode((string) $contract->contractData, true, 512, JSON_THROW_ON_ERROR)['parsed']) ? count(json_decode((string) $contract->contractData, true, 512, JSON_THROW_ON_ERROR)['parsed']) : 0
                 );
-            } catch (DiscordServiceCurlException) {
+            } catch (DiscordServiceCurlException $e) {
                 return redirect()->back()
                     ->with(['error' => trans('buyback::global.admin_discord_error_curl')]);
             }

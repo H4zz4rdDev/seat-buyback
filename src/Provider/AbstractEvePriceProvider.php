@@ -42,13 +42,17 @@ abstract class AbstractEvePriceProvider {
      */
     public $price_cache_time;
 
+    private SettingsService $settingsService;
+
     /**
      * @return mixed
      */
     abstract protected function doCall(string $itemTypeId);
 
-    public function __construct(private readonly SettingsService $settingsService)
+    public function __construct(SettingsService $settingsService)
     {
+        $this->settingsService = $settingsService;
+
         try {
             $this->price_cache_time = $settingsService->get("admin_price_cache_time");
         } catch (SettingsServiceException $e) {

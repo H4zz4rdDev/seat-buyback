@@ -32,12 +32,16 @@ use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
  */
 class EvePraisalPriceProvider extends AbstractEvePriceProvider implements IPriceProvider
 {
+    private SettingsService $settingsService;
+
     /**
      * @param SettingsService $settingsService
      */
     public function __construct(SettingsService $settingsService)
     {
         parent::__construct($settingsService);
+
+        $this->settingsService = $settingsService;
 
         $this->name = "evePraisal";
     }
@@ -63,7 +67,7 @@ class EvePraisalPriceProvider extends AbstractEvePriceProvider implements IPrice
      */
     public function doCall(string $itemTypeId) {
 
-        $url = sprintf(config('buyback.priceProvider.'. $this->name .'.apiUrl')."/item/%d.json", $itemTypeId);
+        $url = sprintf($this->settingsService->get('admin_price_provider_url')."/item/%d.json", $itemTypeId);
         $data = @file_get_contents($url);
 
         if($data === false) {

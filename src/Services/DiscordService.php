@@ -31,8 +31,11 @@ use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
  */
 class DiscordService {
 
-    public function __construct(private readonly SettingsService $settingsService)
+    private SettingsService $settingsService;
+
+    public function __construct(SettingsService $settingsService)
     {
+        $this->settingsService  = $settingsService;
     }
 
     /**

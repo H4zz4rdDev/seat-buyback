@@ -33,8 +33,11 @@ use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
  */
 class PriceProviderFactory
 {
-    public function __construct(private readonly SettingsService $settingsService)
+    private SettingsService $settingsService;
+
+    public function __construct(SettingsService $settingsService)
     {
+        $this->settingsService = $settingsService;
     }
 
     /**
@@ -54,7 +57,7 @@ class PriceProviderFactory
                     $priceProvider = new EvePraisalPriceProvider($this->settingsService);
                     break;
             }
-        } catch (SettingsServiceException) {
+        } catch (SettingsServiceException $e) {
             throw new SettingsServiceException(trans('buyback::global.error'));
         }
 

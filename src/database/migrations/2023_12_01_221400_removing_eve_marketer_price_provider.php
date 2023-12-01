@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 This file is part of SeAT
 
@@ -20,36 +21,28 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-namespace H4zz4rdDev\Seat\SeatBuyback\Models;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-/**
- * Class BuybackPriceData
- */
-class BuybackPriceData {
+class RemovingEveMarketerPriceProvider extends Migration {
 
-    private int $itemTypeId;
-
-    private string $itemPrice;
-
-    public function __construct(int $itemTypeId, string $itemPrice)
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up(): void
     {
-        $this->itemTypeId = $itemTypeId;
-        $this->itemPrice = $itemPrice;
+        DB::table('buyback_price_provider')
+            ->where('name', 'EveMarketer')
+            ->delete();
     }
 
     /**
-     * @return string
+     * Reverse the migrations.
+     *
+     * @return void
      */
-    public function getItemPrice(): string
-    {
-        return $this->itemPrice;
-    }
-
-    /**
-     * @return int
-     */
-    public function getItemTypeId(): int
-    {
-        return $this->itemTypeId;
-    }
+    public function down(): void {}
 }
