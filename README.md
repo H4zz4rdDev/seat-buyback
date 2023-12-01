@@ -84,9 +84,5 @@ sudo -H -u www-data bash -c 'composer update h4zz4rddev/seat-buyback'
 Donations are always welcome, although not required. If you end up using this module a lot, I'd appreciate a donation.
 You can give ISK or contract PLEX and Ships to `H4zz4rd`.
 
-## Sponsors
-
-![phpstorm](https://i.imgur.com/M6yP6R7.png) Integrated Development Environment proudly sponsored by Jetbrains.
-
 
 
