@@ -26,6 +26,7 @@ use H4zz4rdDev\Seat\SeatBuyback\Exceptions\NoMarketDataFoundException;
 use H4zz4rdDev\Seat\SeatBuyback\Exceptions\SettingsServiceException;
 use H4zz4rdDev\Seat\SeatBuyback\Models\BuybackPriceData;
 use H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService;
+use JsonException;
 
 /**
  * Class EvePraisalPriceProvider
@@ -64,10 +65,19 @@ class EvePraisalPriceProvider extends AbstractEvePriceProvider implements IPrice
     /**
      * @param string $itemTypeId
      * @return mixed|null
+     * @throws SettingsServiceException|JsonException
      */
     public function doCall(string $itemTypeId) {
 
-        $url = sprintf($this->settingsService->get('admin_price_provider_url')."/item/%d.json", $itemTypeId);
+        $url = $this->settingsService->get('admin_price_provider_url');
+
+        if(str_ends_with($url, '/')) {
+            $evePraisalUrl = substr($url, -1);
+        } else {
+            $evePraisalUrl = $url;
+        }
+
+        $url = sprintf($evePraisalUrl."/item/%d.json", $itemTypeId);
         $data = @file_get_contents($url);
 
         if($data === false) {
