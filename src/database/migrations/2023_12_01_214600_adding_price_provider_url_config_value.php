@@ -1,4 +1,5 @@
 <?php
+
 /*
 This file is part of SeAT
 
@@ -19,6 +20,29 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-return [
-    'version' => '1.3.2'
-];
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class AddingPriceProviderUrlConfigValue extends Migration {
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up(): void
+    {
+        DB::table('buyback_admin_config')->insert([
+            'name' => 'admin_price_provider_url',
+            'value' => 'http://'
+        ]);
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down(): void {}
+}

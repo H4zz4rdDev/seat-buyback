@@ -68,6 +68,7 @@ class BuybackAdminController extends Controller
         $request->validate([
             'admin_price_cache_time' => 'required|numeric|between:300,3600',
             'admin_max_allowed_items' => 'required|numeric|between:1,50',
+            'admin_price_provider_url' => 'required|url',
             'admin_contract_contract_to' => 'required|max:128',
             'admin_contract_expiration' => 'required|max:32'
         ]);

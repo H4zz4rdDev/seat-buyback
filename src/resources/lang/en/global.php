@@ -87,6 +87,8 @@ return [
     'admin_setting_allowed_items_description' => ' Please enter the maximum number of items that are allowed per buyback request',
     'admin_setting_price_provider_label' => 'Price Provider',
     'admin_setting_price_provider_description' => ' Select the price provider you want to fetch the item prices from',
+    'admin_setting_price_provider_url_label' => 'EvePraisal Mirror Url',
+    'admin_setting_price_provider_url_description' => 'Set the url to your evepraisal price provider instance',
     'admin_setting_second_title' => 'Contract',
     'admin_setting_contract_to_label' => 'Contract to',
     'admin_setting_contract_to_description' => 'Enter the name of the character that should be in the "Contract to" field',

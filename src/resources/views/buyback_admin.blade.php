@@ -49,6 +49,15 @@
                         </p>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="admin_price_provider_url">{{ trans('buyback::global.admin_setting_price_provider_url_label') }}</label>
+                    <div class="col-md-6">
+                        <input id="admin_price_provider_url" name="admin_price_provider_url" type="text" class="form-control input-md" placeholder="http:\\" value="{{ $settings["admin_price_provider_url"] }}">
+                        <p class="form-text text-muted mb-0">
+                            {{ trans('buyback::global.admin_setting_price_provider_url_description') }}
+                        </p>
+                    </div>
+                </div>
                 <div class="box-body">
                     <legend>{{ trans('buyback::global.admin_setting_second_title') }}</legend>
                 </div>
@@ -111,7 +120,7 @@
                 <div class="form-group row">
                     <label class="col-md-4 col-form-label" for="admin_discord_webhook_url">{{ trans('buyback::global.admin_discord_webhook_url_label') }}</label>
                     <div class="col-md-6">
-                        <input id="admin_discord_webhook_url" name="admin_discord_webhook_url" type="password" class="form-control input-md" placeholder="In seconds" value="{{ $settings["admin_discord_webhook_url"] }}">
+                        <input id="admin_discord_webhook_url" name="admin_discord_webhook_url" type="password" class="form-control input-md" placeholder="http:\\" value="{{ $settings["admin_discord_webhook_url"] }}">
                         <p class="form-text text-muted mb-0">
                             {{ trans('buyback::global.admin_discord_webhook_url_description') }}
                         </p>
