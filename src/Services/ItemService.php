@@ -35,7 +35,7 @@ use Seat\Eveapi\Models\Sde\InvType;
  */
 class ItemService
 {
-    private ?\H4zz4rdDev\Seat\SeatBuyback\Provider\IPriceProvider $priceProvider = null;
+    private $priceProvider;
 
     /**
      * @throws SettingsServiceException
@@ -51,7 +51,7 @@ class ItemService
      */
     public function parseEveItemData(string $item_string): ?array
     {
-        if ($item_string === '') {
+        if (empty($item_string)) {
             return null;
         }
 

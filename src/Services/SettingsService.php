@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\DB;
  */
 class SettingsService {
 
-    private ?array $_settings = null;
+    private $_settings;
 
     public function __construct()
     {

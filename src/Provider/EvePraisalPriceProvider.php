@@ -71,7 +71,7 @@ class EvePraisalPriceProvider extends AbstractEvePriceProvider implements IPrice
 
         $url = $this->settingsService->get('admin_price_provider_url');
 
-        if(str_ends_with($url, '/')) {
+        if($this->endsWith($url, '/')) {
             $evePraisalUrl = substr($url, 0, strlen($url) - 1);
         } else {
             $evePraisalUrl = $url;
@@ -86,5 +86,13 @@ class EvePraisalPriceProvider extends AbstractEvePriceProvider implements IPrice
 
         return json_decode($data, true, 512, JSON_THROW_ON_ERROR);
 
+    }
+
+    private function endsWith( $haystack, $needle ) {
+        $length = strlen( $needle );
+        if( !$length ) {
+            return true;
+        }
+        return substr( $haystack, -$length ) === $needle;
     }
 }

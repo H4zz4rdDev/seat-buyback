@@ -89,7 +89,7 @@ class BuybackItemController extends Controller {
     public function removeMarketConfig(Request $request, int $typeId)
     {
 
-        if (!$request->isMethod('get') || $typeId === 0 || !is_numeric($typeId)) {
+        if (!$request->isMethod('get') || empty($typeId) || !is_numeric($typeId)) {
             return redirect()->back()
                 ->with(['error' => trans('buyback::global.error')]);
         }
