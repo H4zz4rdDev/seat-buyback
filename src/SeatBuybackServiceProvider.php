@@ -73,16 +73,24 @@ class SeatBuybackServiceProvider extends AbstractSeatPlugin
     private function registerDependencyInjectionClasses(): void
     {
         // Settings Service
-        $this->app->singleton(SettingsService::class, fn(): \H4zz4rdDev\Seat\SeatBuyback\Services\SettingsService => new SettingsService());
+        $this->app->singleton(SettingsService::class, function () {
+            return new SettingsService();
+        });
 
         // Price Provider Factory
-        $this->app->singleton(PriceProviderFactory::class, fn($app): \H4zz4rdDev\Seat\SeatBuyback\Factories\PriceProviderFactory => new PriceProviderFactory($app->make(SettingsService::class)));
+        $this->app->singleton(PriceProviderFactory::class, function ($app) {
+            return new PriceProviderFactory($app->make(SettingsService::class));
+        });
 
         // Settings Service
-        $this->app->singleton(ItemService::class, fn($app): \H4zz4rdDev\Seat\SeatBuyback\Services\ItemService => new ItemService($app->make(PriceProviderFactory::class)));
+        $this->app->singleton(ItemService::class, function ($app) {
+            return new ItemService($app->make(PriceProviderFactory::class));
+        });
 
         // Discord Service
-        $this->app->singleton(DiscordService::class, fn($app): \H4zz4rdDev\Seat\SeatBuyback\Services\DiscordService => new DiscordService($app->make(SettingsService::class)));
+        $this->app->singleton(DiscordService::class, function ($app) {
+            return new DiscordService($app->make(SettingsService::class));
+        });
     }
 
     /**
