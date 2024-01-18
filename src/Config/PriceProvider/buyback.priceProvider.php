@@ -3,6 +3,6 @@
 return [
     'evePraisal' => [
         'name' => 'EVEPraisal',
-        'apiUrl' => 'https://evepraisal.com'
+        'apiUrl' => 'https://evepraisal.turbofeedorglory.com'
     ]
 ];
